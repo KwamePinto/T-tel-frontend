@@ -1,0 +1,85 @@
+.hero {
+  position: relative;
+  margin-top: calc(-1 * (var(--header-h) + 5px));
+  padding: calc(var(--header-h) + 90px) 0 78px;
+  min-height: 420px;
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--green-deep);
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(12, 20, 14, 0.86) 0%,
+    rgba(12, 20, 14, 0.66) 42%,
+    rgba(12, 20, 14, 0.32) 100%
+  );
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: min(var(--maxw), 100%);
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.crumbs a { transition: color 0.25s var(--ease); }
+.crumbs a:hover { color: var(--green); }
+.crumbs span { color: #fff; font-weight: 600; }
+.crumbs svg { opacity: 0.55; }
+
+.hero h1 {
+  color: #fff;
+  margin: 0;
+  max-width: 17ch;
+}
+
+.subtitle {
+  margin: 20px 0 0;
+  max-width: 56ch;
+  font-size: clamp(16px, 1.2vw, 19px);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* signature tricolour strip */
+.tricolour {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  height: 10px;
+}
+
+.tricolour span { flex: 1; }
+.tricolour span:nth-child(1) { background: var(--green); flex: 0 0 34%; }
+.tricolour span:nth-child(2) { background: var(--gold); flex: 0 0 34%; transform: skewX(-18deg) translateX(-6px); }
+.tricolour span:nth-child(3) { background: var(--blue); }
+
+.band {
+  padding: 22px 0;
+  color: #fff;
+}
+
+.band span {
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}

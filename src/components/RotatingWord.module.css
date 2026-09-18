@@ -1,0 +1,41 @@
+.rotator {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  /* clips the incoming word while it travels down into place */
+  overflow: hidden;
+  /* room for descenders so nothing is shaved off */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+
+/* invisible widest word — holds the line width steady */
+.sizer {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+.word {
+  display: inline-block;
+  animation: dropIn 0.72s var(--ease-out) both;
+}
+
+@keyframes dropIn {
+  0% {
+    transform: translateY(-112%);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word { animation: none; }
+}

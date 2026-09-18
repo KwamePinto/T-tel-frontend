@@ -1,0 +1,170 @@
+/* ---- vision / mission full-bleed split ---- */
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: clamp(56px, 7vw, 96px);
+}
+
+.vision { background: #1f5044; color: #fff; }
+.mission { background: #eef6f0; }
+
+.splitInner {
+  padding: clamp(48px, 5.5vw, 86px) var(--gutter);
+  max-width: 640px;
+  margin-left: auto;
+  width: 100%;
+}
+
+.mission .splitInner { margin: 0 auto 0 0; }
+
+.eyebrowLight,
+.eyebrowDark {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.eyebrowLight { color: rgba(255, 255, 255, 0.75); }
+.eyebrowDark { color: var(--text-soft); }
+
+.visionText {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 36px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+  margin: 0;
+}
+
+.missionText {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 40px);
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--ink);
+  margin: 0;
+}
+
+.missionRule {
+  border: 0;
+  border-top: 1px solid rgba(20, 60, 40, 0.22);
+  margin: 34px 0 28px;
+}
+
+.steps li {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.3vw, 19px);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.steps span {
+  color: var(--green-dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ---- operating principles ---- */
+.plainEyebrow {
+  display: block;
+  font-size: 16px;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+
+.principlesTitle { font-size: clamp(30px, 3.6vw, 52px); margin-bottom: 0; }
+
+.principlesRule {
+  border: 0;
+  border-top: 2px solid var(--ink);
+  margin: 26px 0 0;
+}
+
+.principles {
+  display: grid;
+  gap: clamp(40px, 5vw, 72px);
+  padding-top: clamp(40px, 5vw, 70px);
+}
+
+.principle { display: flex; gap: 22px; align-items: flex-start; }
+
+.principleNum {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 3.4vw, 50px);
+  font-weight: 700;
+  line-height: 1;
+  color: #d9ebdf;
+  flex-shrink: 0;
+}
+
+.principle h3 { font-size: 23px; margin-bottom: 8px; }
+.principle p { color: var(--text-soft); margin: 0; font-size: 16px; }
+
+/* ---- values band ---- */
+.values { background: var(--green-deep); color: #fff; }
+.values h2, .values h3 { color: #fff; }
+
+.valueList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 30px;
+  margin-top: 6px;
+}
+
+.valueList li {
+  position: relative;
+  padding-left: 18px;
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.3vw, 19px);
+  font-weight: 600;
+}
+
+.valueList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.objects { margin-top: clamp(44px, 5vw, 70px); }
+.objects h3 { font-size: 22px; margin-bottom: 22px; }
+
+.objects ul {
+  display: grid;
+  gap: 16px 40px;
+}
+
+.objects li {
+  position: relative;
+  padding-left: 26px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.objects li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 10px;
+  height: 2px;
+  background: var(--green);
+}
+
+@media (min-width: 900px) {
+  .split { grid-template-columns: 1fr 1fr; }
+  .principles { grid-template-columns: repeat(2, 1fr); }
+  .objects ul { grid-template-columns: repeat(2, 1fr); }
+}

@@ -1,0 +1,952 @@
+/* ================= HERO ================= */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  margin-top: calc(-1 * (var(--header-h) + 5px));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg,
+      rgba(10, 16, 12, 0.88) 0%,
+      rgba(10, 16, 12, 0.62) 46%,
+      rgba(10, 16, 12, 0.25) 100%),
+    linear-gradient(180deg, rgba(10, 16, 12, 0.5) 0%, transparent 28%, rgba(10, 16, 12, 0.55) 100%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  padding-top: var(--header-h);
+  animation: heroIn 1.1s var(--ease-out) both;
+}
+
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.heroTitle {
+  color: #fff;
+  font-size: clamp(42px, 6vw, 82px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  margin: 0 0 24px;
+}
+
+.heroAccent {
+  color: var(--accent);
+}
+
+.heroLede {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(17px, 1.35vw, 21px);
+  max-width: 48ch;
+  margin-bottom: 34px;
+}
+
+.scrollHint {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  z-index: 2;
+}
+
+.scrollHint span {
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 3px;
+  height: 7px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: #fff;
+  animation: wheel 1.9s var(--ease) infinite;
+}
+
+@keyframes wheel {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* ================= PILLAR PANELS ================= */
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* narrow break under the hero video, and between the three panels */
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.pillar {
+  position: relative;
+  padding: 44px 34px 34px;
+  color: #fff;
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: filter 0.4s var(--ease);
+}
+
+.pillar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.pillar:hover::after {
+  opacity: 1;
+}
+
+.mission {
+  background: var(--blue);
+}
+
+.vision {
+  background: var(--green-dark);
+}
+
+.who {
+  background: var(--gold);
+}
+
+.pillar h2 {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-size: clamp(24px, 2vw, 30px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  max-width: 7ch;
+  margin: 16px 0 0;
+}
+
+.pillar>svg {
+  position: relative;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+.pillarFoot {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pillarFoot span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.pillarFoot i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.pillar:hover .pillarFoot i {
+  background: #fff;
+  color: var(--ink);
+  transform: translateX(4px);
+}
+
+/* ================= ABOUT ================= */
+.about {
+  position: relative;
+  background-color: var(--bg-cool);
+  /* campus illustration sits on the baseline of the section at its natural
+     proportions — width-scaled only, never distorted */
+  background-image: url("/images/about-teaser-bg.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% auto;
+  overflow: hidden;
+}
+
+:root[data-theme="dark"] .about {
+  background-blend-mode: luminosity;
+}
+
+.aboutGrid {
+  position: relative;
+  display: grid;
+  gap: 54px;
+  align-items: center;
+}
+
+/* --- arch composition (a gateway motif rather than circles) --- */
+.aboutMedia {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1.06;
+  padding-bottom: 8px;
+}
+
+.archMain,
+.archSmall {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.archMain {
+  inset: 0 0 9% 22%;
+  /* tall arch: fully rounded top, squared foot */
+  border-radius: 50% 50% 14px 14px / 42% 42% 14px 14px;
+  box-shadow: 0 34px 72px rgba(18, 48, 34, 0.2);
+}
+
+.archSmall {
+  left: 0;
+  bottom: 0;
+  width: 44%;
+  aspect-ratio: 1 / 1.22;
+  border-radius: 50% 50% 14px 14px / 34% 34% 14px 14px;
+  border: 7px solid var(--bg-cool);
+  box-shadow: 0 20px 44px rgba(18, 48, 34, 0.22);
+}
+
+.archMain img,
+.archSmall img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* thin outlined arch, offset behind the photographs */
+.archOutline {
+  position: absolute;
+  /* purely decorative — must never swallow hover/clicks on the photo */
+  pointer-events: none;
+  right: 8%;
+  top: -4%;
+  width: 62%;
+  aspect-ratio: 1 / 1.34;
+  border: 1.5px solid var(--accent);
+  border-radius: 50% 50% 14px 14px / 42% 42% 14px 14px;
+  opacity: 0.35;
+}
+
+.statChip {
+  position: absolute;
+  right: 0;
+  bottom: 12%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 22px;
+  background: var(--green-deep);
+  color: #fff;
+  border-radius: 14px 4px 4px 14px;
+  box-shadow: 0 18px 38px rgba(18, 48, 34, 0.28);
+}
+
+.statChip strong {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.statChip span {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.82;
+  margin-top: 5px;
+}
+
+.aboutLead {
+  font-size: clamp(18px, 1.35vw, 21px);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.aboutCopy p:not(.aboutLead) {
+  color: var(--text-soft);
+}
+
+.aboutActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 26px;
+  margin-top: 30px;
+}
+
+/* ================= MISSION / VISION ================= */
+.mv {
+  background: linear-gradient(180deg, #eef7f0 0%, #e7f3ea 100%);
+  padding: clamp(64px, 8vw, 110px) 0;
+}
+
+.mvGrid {
+  display: grid;
+  gap: 44px;
+  align-items: center;
+}
+
+.mvGrid+.mvGrid {
+  margin-top: clamp(56px, 7vw, 100px);
+}
+
+.mvCopy p {
+  color: var(--text-soft);
+  max-width: 52ch;
+}
+
+.mvMedia img,
+.mvStack img {
+  border-radius: 14px;
+  box-shadow: 0 24px 54px rgba(20, 40, 28, 0.16);
+  width: 100%;
+  object-fit: cover;
+}
+
+.mvMedia img {
+  aspect-ratio: 16 / 11;
+}
+
+.mvStack {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mvStack img {
+  aspect-ratio: 3 / 4;
+}
+
+.mvStack img:first-child {
+  margin-top: 34px;
+}
+
+.mvRule {
+  border: 0;
+  border-top: 1.5px solid rgba(20, 60, 40, 0.25);
+  margin: 26px 0 18px;
+}
+
+.mvValuesLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin-bottom: 8px;
+}
+
+.mvValues {
+  font-weight: 600;
+  color: var(--ink) !important;
+  margin-bottom: 26px;
+}
+
+/* ================= STRATEGIC FRAMEWORK ================= */
+.framework {
+  position: relative;
+  overflow: hidden;
+}
+
+.frameworkWatermark {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-30%);
+  font-family: var(--font-display);
+  font-size: clamp(180px, 22vw, 330px);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--line-soft);
+  pointer-events: none;
+  user-select: none;
+}
+
+.frameworkGrid {
+  position: relative;
+  display: grid;
+  gap: 44px;
+  align-items: start;
+}
+
+/* Four quadrants that behave like the Microsoft mark: hovering one fills it
+   with its own colour and pops it forward while its siblings ease back. */
+.frameworkCards {
+  display: grid;
+  border: 1px solid var(--line);
+}
+
+.fwCard {
+  position: relative;
+  isolation: isolate;
+  background: var(--bg);
+  padding: 38px 34px 34px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  cursor: default;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+
+/* the colour wash that sweeps up on hover */
+.fwFill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.55s var(--ease-out);
+}
+
+.fwBody {
+  position: relative;
+  display: block;
+}
+
+/* quadrant 1 ships green; hovering inverts it to white */
+.q1 {
+  background: var(--green-dark);
+}
+
+.q1 .fwFill {
+  background: var(--bg);
+}
+
+.fwCard.q1 h3,
+.q1 .fwNum {
+  color: #fff;
+}
+
+.fwCard.q1 p {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.q1 .fwRule {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.q2 .fwFill {
+  background: var(--gold);
+}
+
+.q3 .fwFill {
+  background: var(--blue);
+}
+
+.q4 .fwFill {
+  background: var(--accent);
+}
+
+.fwCard:hover .fwFill,
+.fwCard:focus-visible .fwFill {
+  transform: scaleY(1);
+}
+
+/* pop the hovered quadrant forward, ease the rest back */
+.frameworkCards:hover .fwCard,
+.frameworkCards:focus-within .fwCard {
+  transform: scale(0.955);
+}
+
+.frameworkCards .fwCard:hover,
+.frameworkCards .fwCard:focus-visible {
+  transform: scale(1.055);
+  z-index: 3;
+  box-shadow: 0 30px 62px rgba(20, 18, 16, 0.22);
+}
+
+/* hovering 2–4 lays white type over the colour; hovering 1 goes back to ink */
+.fwCard.q2:hover h3,
+.q2:hover .fwNum,
+.fwCard.q3:hover h3,
+.q3:hover .fwNum,
+.fwCard.q4:hover h3,
+.q4:hover .fwNum {
+  color: #fff;
+}
+
+.fwCard.q2:hover p,
+.fwCard.q3:hover p,
+.fwCard.q4:hover p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.q2:hover .fwRule,
+.q3:hover .fwRule,
+.q4:hover .fwRule {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.fwCard.q1:hover h3 {
+  color: var(--ink);
+}
+
+.q1:hover .fwNum {
+  color: var(--green-dark);
+}
+
+.fwCard.q1:hover p {
+  color: var(--text-soft);
+}
+
+.q1:hover .fwRule {
+  background: var(--line);
+}
+
+.fwNum {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin-bottom: 14px;
+  transition: color 0.45s var(--ease);
+}
+
+.fwCard h3 {
+  font-size: 23px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  transition: color 0.45s var(--ease);
+}
+
+.fwCard p {
+  font-size: 15.5px;
+  color: var(--text-soft);
+  margin: 0 0 26px;
+  transition: color 0.45s var(--ease);
+}
+
+.fwRule {
+  display: block;
+  width: 34px;
+  height: 2px;
+  background: var(--line);
+  transition: background 0.45s var(--ease);
+}
+
+/* ================= FOCUS AREAS ================= */
+.focus {
+  background: linear-gradient(170deg, var(--green-deep) 0%, #175c34 62%, #1a6b3c 100%);
+  color: #fff;
+  padding: clamp(64px, 8vw, 110px) 0 clamp(56px, 7vw, 90px);
+}
+
+.focusHead {
+  display: grid;
+  gap: 28px;
+  margin-bottom: 52px;
+}
+
+.focusHead h2 {
+  color: #fff;
+  font-size: clamp(34px, 4vw, 56px);
+  margin: 0;
+}
+
+.focusIntro p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(17px, 1.3vw, 20px);
+}
+
+.focusCarousel {
+  margin-top: 10px;
+}
+
+/* ================= PROGRAMMES ================= */
+.programmes {
+  background: transparent;
+}
+
+.sectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 46px;
+}
+
+.sectionHead h2 {
+  margin: 0;
+}
+
+.progGrid {
+  display: grid;
+  gap: 26px;
+}
+
+.progCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease),
+    border-color 0.45s var(--ease);
+}
+
+.progCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 54px rgba(20, 18, 16, 0.12);
+  border-color: transparent;
+}
+
+.progCard img,
+.progPlaceholder {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.progPlaceholder {
+  background: linear-gradient(135deg, var(--green-deep), var(--blue-dark));
+}
+
+.progBody {
+  padding: 26px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.progPartner {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  margin-bottom: 12px;
+}
+
+.progBody h3 {
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.progBody p {
+  font-size: 15.5px;
+  color: var(--text-soft);
+  margin-bottom: 22px;
+}
+
+.progBody .link-arrow,
+.progBody span:last-child {
+  margin-top: auto;
+}
+
+/* ================= PARTNERS MARQUEE ================= */
+.partners {
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+
+.partnersHead {
+  text-align: center;
+  margin-bottom: 46px;
+}
+
+.partnersHead h2 {
+  margin: 0;
+}
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: marquee 46s linear infinite;
+}
+
+.marquee:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.logoChip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 26px;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.logoChip img {
+  height: 30px;
+  width: auto;
+  max-width: 76px;
+  object-fit: contain;
+}
+
+.logoChip span {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+/* ================= NEWS ================= */
+.news {
+  background: var(--green-deep);
+  color: #fff;
+}
+
+.news h2 {
+  color: #fff;
+}
+
+.newsLede {
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  max-width: 48ch;
+}
+
+.newsGrid {
+  display: grid;
+  gap: 20px;
+}
+
+.newsCard {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 380px;
+  display: flex;
+}
+
+.newsCard img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s var(--ease-out);
+}
+
+.newsCard:hover img {
+  transform: scale(1.07);
+}
+
+.newsOverlay {
+  position: relative;
+  margin-top: auto;
+  width: 100%;
+  padding: 26px 24px 26px;
+  background: linear-gradient(180deg, transparent, rgba(8, 24, 14, 0.92) 46%);
+}
+
+.newsDate {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.newsOverlay h3 {
+  color: #fff;
+  font-size: 19px;
+  margin: 10px 0 8px;
+}
+
+.newsOverlay p {
+  margin: 0;
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.78);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (min-width: 700px) {
+  .pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .newsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .frameworkCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* drop the outer edges so only the internal cross-hairs show */
+  .fwCard:nth-child(2n) {
+    border-right: none;
+  }
+
+  .fwCard:nth-child(n + 3) {
+    border-bottom: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  .aboutGrid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 72px;
+  }
+
+  .mvGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+
+  .mvFlip .mvStack {
+    order: -1;
+  }
+
+  .focusHead {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 48px;
+  }
+
+  .progGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .newsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* quadrants lead on the left, the sticky heading sits to their right */
+  .frameworkGrid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 64px;
+  }
+
+  .frameworkIntro {
+    order: 2;
+    position: sticky;
+    top: calc(var(--header-h) + 50px);
+  }
+
+  .frameworkCards {
+    order: 1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .progGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---- image hover system ----
+   Photos held inside a clipping frame ease in; free-standing rounded
+   photos lift instead, so nothing ever breaks out of its corners. */
+.archMain img,
+.archSmall img,
+.progCard img {
+  transition: transform 0.9s var(--ease-out);
+}
+
+.archMain:hover img,
+.archSmall:hover img,
+.progCard:hover img {
+  transform: scale(1.055);
+}
+
+.mvMedia img,
+.mvStack img {
+  transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+}
+
+.mvMedia img:hover,
+.mvStack img:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 34px 70px rgba(20, 40, 28, 0.26);
+}
+
+.logoChip {
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+
+.logoChip:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(20, 18, 16, 0.1);
+}

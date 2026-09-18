@@ -1,0 +1,110 @@
+.band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ---- diagonal backdrop ---- */
+.panes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.paneAccent,
+.paneLine {
+  position: absolute;
+  inset: 0;
+}
+
+/* accent wedge sits on the right and leans left as it descends */
+.paneAccent {
+  background: var(--accent);
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 38% 100%);
+}
+
+/* same wedge, nudged out to read as a crisp dividing line */
+.paneLine {
+  background: var(--ink);
+  clip-path: polygon(calc(50% - 4px) 0, 100% 0, 100% 100%, calc(38% - 4px) 100%);
+}
+
+/* ---- content ---- */
+.inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0;
+  align-items: center;
+}
+
+.art {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}
+
+.art img {
+  width: 100%;
+  max-width: 330px;
+  height: auto;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.art:hover img {
+  transform: translateY(-10px) scale(1.03);
+}
+
+.copy {
+  color: #fff;
+  padding: 56px 0;
+}
+
+.copy h2 {
+  color: #fff;
+  margin-bottom: 14px;
+  max-width: 16ch;
+}
+
+.copy p {
+  margin: 0 0 28px;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 44ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ---- stacked layout: straight split, no diagonal ---- */
+@media (max-width: 899px) {
+  .paneAccent {
+    clip-path: none;
+    top: auto;
+    height: 58%;
+  }
+
+  .paneLine { display: none; }
+
+  .art { padding: 40px 0 28px; }
+  .art img { max-width: 240px; }
+  .copy { padding: 8px 0 52px; }
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    min-height: 460px;
+    gap: 40px;
+  }
+
+  .art { padding: 56px 40px 56px 0; }
+  .art img { max-width: 360px; }
+
+  /* clear the diagonal so the copy never crosses the divider */
+  .copy { padding: 56px 0 56px 42px; }
+}
