@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Icon from "../components/Icon";
 import FocusCarousel from "../components/FocusCarousel";
@@ -65,20 +66,52 @@ const FRAMEWORK = [
 const ALL_PARTNERS = [...GOVERNMENT_PARTNERS, ...UNIVERSITY_PARTNERS, ...FUNDING_PARTNERS];
 
 export default function Home() {
+  const videoRef = useRef(null);
+
+  // The poster paints immediately; the video file is only fetched once the
+  // rest of the page has loaded, so it never competes for initial bandwidth.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    const start = () => {
+      if (el.dataset.loaded) return;
+      el.dataset.loaded = "true";
+      for (const source of el.querySelectorAll("source[data-src]")) {
+        source.src = source.dataset.src;
+      }
+      el.load();
+      el.play().catch(() => {
+        /* autoplay can be refused; the poster remains as the fallback */
+      });
+    };
+
+    if (document.readyState === "complete") {
+      start();
+      return;
+    }
+    window.addEventListener("load", start, { once: true });
+    return () => window.removeEventListener("load", start);
+  }, []);
+
   return (
     <>
       {/* ---------------- HERO ---------------- */}
       <section className={styles.hero}>
         <video
+          ref={videoRef}
           className={styles.heroVideo}
-          src="/video/hero.mp4"
           autoPlay
           muted
           loop
           playsInline
+          preload="none"
           poster="/images/hero/home.jpg"
           aria-hidden="true"
-        />
+        >
+          {/* add a hero.webm alongside the mp4 and it will be preferred */}
+          <source data-src="/video/hero.mp4" type="video/mp4" />
+        </video>
         <div className={styles.heroScrim} />
 
         <div className={`container ${styles.heroInner}`}>

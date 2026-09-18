@@ -32,12 +32,12 @@ export const FUNDING_PARTNERS = [
       "Mastercard Foundation funds the Secondary Education Reform (Leaders in Teaching / T-SHEL) project under its Young Africa Works in Ghana strategy.",
   },
   {
-    logo: "/images/logos/jacobs.png",
+    logo: "/images/logos/jacobs.jpg",
     name: "Jacobs Foundation",
     description: "Jacobs Foundation funds the Ghana District Change Project.",
   },
   {
-    logo: "/images/logos/edtechhub.png",
+    logo: "/images/logos/edtechhub.jpg",
     name: "EdTechHub",
     description:
       "EdTechHub provided a research grant for the COVID-19 Impact Assessment Study.",
