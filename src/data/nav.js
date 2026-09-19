@@ -51,6 +51,7 @@ export const NAV_ITEMS = [
     to: "/programmes",
     children: [
       { label: "Secondary Education Reform (Leaders in Teaching)", to: "/programmes/t-shel" },
+      { label: "Gates Foundation", to: "/programmes/gates-foundation" },
       { label: "Ghana District Change Project", to: "/programmes/gdcp" },
       { label: "DeliverEd", to: "/programmes/delivered" },
       { label: "EdTech Hub", to: "/programmes/edtech-hub" },
