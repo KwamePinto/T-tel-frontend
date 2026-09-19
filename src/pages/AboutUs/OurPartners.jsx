@@ -5,90 +5,86 @@ import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import styles from "./OurPartners.module.css";
 
+/**
+ * The reference site's three groups, in its own order. No subtitle text and
+ * no "Principal Partner" spotlight — the reference page has neither, so this
+ * is a straight replica rather than a fusion of the two.
+ */
 const GROUPS = [
-  { key: "government", title: "Government Partners", subtitle: "The ministries and agencies we work alongside to deliver national reform." },
-  { key: "university", title: "Universities", subtitle: "The universities that support Ghana's Colleges of Education." },
-  { key: "funder", title: "Funding & Research Partners", subtitle: "Organisations funding and collaborating on specific programmes and research." },
-  { key: "implementing", title: "Implementing Partners", subtitle: "Organisations leading delivery of specific technical assistance workstreams." },
+  { key: "government", title: "Government Partners" },
+  { key: "university", title: "Universities" },
+  { key: "funder", title: "Funding & Project Partners" },
 ];
 
-function PartnerCard({ partner }) {
+function PartnerRow({ partner }) {
   return (
-    <article className={`${styles.card} reveal`}>
-      <div className={styles.logo}>
-        {partner.logo?.url && <img src={mediaUrl(partner.logo)} alt={partner.name} loading="lazy" />}
+    <div className={`${styles.row} reveal`}>
+      <figure className={styles.rowMedia}>
+        {partner.logo?.url && (
+          <img
+            src={mediaUrl(partner.logo)}
+            alt={partner.name}
+            loading="lazy"
+            decoding="async"
+            width={partner.logo.width || undefined}
+            height={partner.logo.height || undefined}
+          />
+        )}
+      </figure>
+      <div className={styles.rowCopy}>
+        <h3>{partner.name}</h3>
+        {partner.description && <p>{partner.description}</p>}
       </div>
-      <h3>{partner.name}</h3>
-      {partner.description && <p>{partner.description}</p>}
-    </article>
+    </div>
   );
 }
 
 export default function OurPartners() {
-  const { data, loading, error, reload } = useCms(() => cms.partners(), []);
-  const all = data?.items ?? [];
-  const principal = all.find((p) => p.isPrincipal);
+  const page = useCms(() => cms.page("about-us/our-partners"), []);
+  const partners = useCms(() => cms.partners(), []);
+  const all = partners.data?.items ?? [];
+
+  const loading = page.loading || partners.loading;
+  const error = page.error || partners.error;
 
   return (
     <>
-      <Seo title="Our Partners" description="The funders, government agencies, universities and research institutions T-TEL works alongside." />
-      <PageHero title="Our Partners" crumb="Our Partners" image="/images/focus/leadership-conference.jpg" />
+      <Seo
+        title="Our Partners"
+        description="The government agencies, universities and funding partners T-TEL works alongside."
+        image={page.data?.heroImage}
+      />
+      <PageHero
+        title="Our Partners"
+        crumb="Our Partners"
+        image={mediaUrl(page.data?.heroImage) || "/images/photos/team-group.jpg"}
+      />
 
-      <section className={`section ${styles.intro}`}>
-        <div className="container reveal">
-          <span className="eyebrow">Working Together</span>
-          <p className="lede">
-            T-TEL works with the Government of Ghana through the Ministry of Education and its
-            agencies, with academic institutions, and with a wide range of funding, implementing and
-            research partners.
-          </p>
-        </div>
-
-        {loading && (
-          <div className="container"><CardsLoading count={3} /></div>
-        )}
-        {error && (
-          <div className="container"><ErrorState error={error} onRetry={reload} label="partners" /></div>
-        )}
-
-        {principal && (
-          <div className="container">
-            <div className={`${styles.principal} reveal`}>
-              <div className={styles.principalLeft}>
-                <span className={styles.badge}>Principal Partner</span>
-                {principal.logo?.url && (
-                  <div className={styles.principalLogo}>
-                    <img src={mediaUrl(principal.logo)} alt={principal.name} />
-                  </div>
-                )}
-                <h3>{principal.name}</h3>
-              </div>
-              <div className={styles.principalRight}>
-                <p>{principal.description}</p>
-              </div>
-            </div>
-          </div>
-        )}
-      </section>
-
-      {!loading && !error && !all.length && (
+      {loading && (
+        <section className="section"><div className="container"><CardsLoading count={3} /></div></section>
+      )}
+      {error && (
         <section className="section">
-          <div className="container"><EmptyState>No partners listed yet.</EmptyState></div>
+          <div className="container">
+            <ErrorState error={error} onRetry={() => { page.reload(); partners.reload(); }} label="partners" />
+          </div>
         </section>
       )}
+      {!loading && !error && !all.length && (
+        <section className="section"><div className="container"><EmptyState>No partners listed yet.</EmptyState></div></section>
+      )}
 
-      {GROUPS.map(({ key, title, subtitle }) => {
-        const items = all.filter((p) => p.group === key && !p.isPrincipal);
+      {GROUPS.map(({ key, title }) => {
+        const items = all.filter((p) => p.group === key);
         if (!items.length) return null;
         return (
-          <section key={key} className={`section ${styles.group}`}>
+          <section key={key} className={styles.group}>
+            <div className={styles.headingWrap}>
+              <h2 className="reveal">{title}</h2>
+            </div>
             <div className="container">
-              <header className={`${styles.groupHead} reveal`}>
-                <h2>{title}</h2>
-                <p>{subtitle}</p>
-              </header>
-              <div className={styles.grid}>
-                {items.map((p) => <PartnerCard key={p._id} partner={p} />)}
+              <div className={styles.rows}>
+                {items.map((p) => <PartnerRow key={p._id} partner={p} />)}
               </div>
             </div>
           </section>
