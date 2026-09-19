@@ -8,6 +8,10 @@
 
 .card {
   position: relative;
+  /* a column so the arrow can be pushed to the foot of every card, whatever
+     length the title and summary above it run to */
+  display: flex;
+  flex-direction: column;
   padding: 40px 30px 32px;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -54,8 +58,37 @@
   margin-bottom: 12px;
 }
 
-.card h3 { font-size: 24.6px; margin-bottom: 12px; }
-.card p { font-size: 17.4px; color: var(--text-soft); margin-bottom: 22px; }
+/* Two lines reserved for the title and three for the summary, both clamped
+   to the same, so every card's text occupies identical space and the rows
+   line up. Card heights already matched; what did not was where the text
+   inside them began and ended. */
+.card h3 {
+  font-size: 24.6px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  min-height: 2.4em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card p {
+  font-size: 17.4px;
+  line-height: 1.6;
+  color: var(--text-soft);
+  margin-bottom: 22px;
+  min-height: 4.8em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* the arrow sits at the foot of the card, level across the row */
+.card :global(.link-arrow) { margin-top: auto; }
 
 @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1040px) { .grid { grid-template-columns: repeat(3, 1fr); } }
