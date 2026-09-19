@@ -91,6 +91,17 @@
 
 .download { color: var(--green-dark) !important; }
 
+/* Reading is the primary action now, so it carries the accent and the
+   download sits beside it as the quieter of the two. */
+.read { color: var(--accent) !important; }
+.read::after {
+  content: "";
+  width: 1px;
+  height: 13px;
+  margin-left: 10px;
+  background: var(--line-soft);
+}
+
 .note { margin-top: 40px; font-size: 16.2px; color: var(--text-soft); }
 
 @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
