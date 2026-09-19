@@ -77,16 +77,15 @@ export default function TeamModal({ person, onClose }) {
         </div>
 
         <div className={styles.body}>
-          {/* The panel is a fixed height, so a short profile would otherwise sit
-              in the top corner against a tall portrait. The wrapper centres it
-              with auto margins, which — unlike justify-content — still lets a
-              long profile scroll from the top instead of clipping its head. */}
-          <div className={styles.inner}>
-          <span className={styles.rule} aria-hidden="true" />
-          <h3 className={styles.name}>{person.name}</h3>
-          {person.position && <p className={styles.position}>{person.position}</p>}
-          {person.group?.name && <span className={styles.group}>{person.group.name}</span>}
+          {/* Who this is stays put; only the biography scrolls under it. */}
+          <div className={styles.head}>
+            <span className={styles.rule} aria-hidden="true" />
+            <h3 className={styles.name}>{person.name}</h3>
+            {person.position && <p className={styles.position}>{person.position}</p>}
+            {person.group?.name && <span className={styles.group}>{person.group.name}</span>}
+          </div>
 
+          <div className={styles.scroll}>
           <Bio text={person.bio} />
 
           {(person.email || person.linkedin) && (
