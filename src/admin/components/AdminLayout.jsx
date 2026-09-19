@@ -110,6 +110,7 @@ function CommandPalette({ onClose }) {
           {results.map((item, i) => (
             <button
               key={item.to}
+              type="button"
               className={`${s.cmdItem} ${i === cursor ? s.cmdItemOn : ""}`}
               onMouseEnter={() => setCursor(i)}
               onClick={() => go(item)}
@@ -203,7 +204,7 @@ export default function AdminLayout() {
             <IconButton icon="menus" label="Menu" onClick={() => setNavOpen((o) => !o)} />
           </span>
 
-          <button className={s.cmdBtn} onClick={() => setPaletteOpen(true)}>
+          <button type="button" className={s.cmdBtn} onClick={() => setPaletteOpen(true)}>
             <AdminIcon name="search" size={16} />
             <span>Search…</span>
             <span className={s.kbd}>⌘K</span>
@@ -216,7 +217,7 @@ export default function AdminLayout() {
             </a>
 
             <div className={s.account} onClick={(e) => e.stopPropagation()}>
-              <button className={s.avatarBtn} onClick={() => setMenuOpen((o) => !o)}>
+              <button type="button" className={s.avatarBtn} onClick={() => setMenuOpen((o) => !o)}>
                 <span className={s.avatar}>{initials(user?.name)}</span>
                 <span>
                   <span className={s.avatarName}>{user?.name || "Account"}</span>
@@ -227,11 +228,12 @@ export default function AdminLayout() {
 
               {menuOpen && (
                 <div className={s.menu}>
-                  <button className={s.menuItem} onClick={() => navigate("/admin/profile")}>
+                  <button type="button" className={s.menuItem} onClick={() => navigate("/admin/profile")}>
                     <AdminIcon name="users" size={16} /> Edit profile
                   </button>
                   <div className={s.menuSep} />
                   <button
+                    type="button"
                     className={s.menuItem}
                     onClick={async () => {
                       await logout();
