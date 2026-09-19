@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# the dashboard is private and should never be indexed
+Disallow: /admin
+Disallow: /admin/
+
+Sitemap: https://t-tel.org/sitemap.xml

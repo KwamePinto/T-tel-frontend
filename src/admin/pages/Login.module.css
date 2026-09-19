@@ -1,0 +1,74 @@
+.screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #f6f7fb;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 38px;
+  box-shadow: 0 20px 60px rgba(20, 24, 40, 0.1);
+}
+
+.logo { height: 44px; width: auto; margin-bottom: 26px; }
+
+.card h1 { font-size: 26px; margin-bottom: 6px; color: #1f2421; }
+.sub { color: #6b7280; font-size: 15px; margin-bottom: 26px; }
+
+.card label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 7px;
+}
+
+.card input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border: 1px solid #d9dde5;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  background: #fff;
+  color: #111827;
+}
+
+.card input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.card button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.card button:hover:not(:disabled) { background: #4338ca; }
+.card button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.error {
+  margin: 0 0 16px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}

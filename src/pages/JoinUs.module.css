@@ -1,0 +1,161 @@
+/* value strip */
+.values {
+  display: grid;
+  border: 1px solid var(--line);
+}
+
+.value { padding: 40px 34px 34px; }
+.value + .value { border-top: 1px solid var(--line); }
+
+.valueNum {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 16.8px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.green .valueNum { color: var(--green-dark); }
+.blue .valueNum { color: var(--blue); }
+.gold .valueNum { color: #b8801f; }
+
+.value h3 { font-size: 26.9px; margin-bottom: 10px; }
+.value p { font-size: 17.4px; color: var(--text-soft); margin-bottom: 22px; }
+
+.valueRule { display: block; width: 26px; height: 2px; background: var(--line); }
+
+/* positions */
+.positions { background: var(--bg-alt); }
+
+.plainEyebrow {
+  display: block;
+  font-size: 17.9px;
+  color: var(--text-soft);
+  margin-bottom: 8px;
+}
+
+.group { margin-top: clamp(40px, 5vw, 60px); }
+
+.groupTitle {
+  display: inline-block;
+  font-size: 14.6px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 30px;
+}
+
+.roleGrid {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.role { background: var(--bg-alt); padding: 0 0 26px; }
+
+.roleTile {
+  position: relative;
+  aspect-ratio: 4 / 4.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.mint { background: #eaf5ed; color: #7bbd93; }
+.blue { background: #e9eef5; color: #8aa7c4; }
+.cream { background: #faf4e8; color: #d3b578; }
+.mintDeep { background: #e3f0e7; color: #6fae86; }
+
+.openBadge {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  padding: 6px 14px;
+  background: var(--green-dark);
+  color: #fff;
+  font-size: 11.8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.blue .openBadge { background: var(--blue); }
+.cream .openBadge { background: var(--gold); }
+.mintDeep .openBadge { background: var(--green-deep); }
+
+.role h4 {
+  font-size: 19.6px;
+  padding: 0 22px;
+  margin-bottom: 14px;
+  min-height: 2.6em;
+}
+
+.role a { padding: 0 22px; }
+
+.roleRule {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--line);
+  margin: 18px 22px 0;
+}
+
+.spec {
+  margin-top: clamp(44px, 5vw, 64px);
+  font-size: clamp(19px, 1.5vw, 21.3px);
+  color: var(--text-soft);
+}
+
+/* safeguarding */
+.safeguard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 30px;
+  padding: 44px 40px;
+  background: #141210;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.78);
+  overflow: hidden;
+}
+
+.safeEyebrow {
+  display: block;
+  font-size: 13.4px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+
+.safeguard h3 { color: #fff; font-size: clamp(29.1px, 2.9vw, 44.8px); margin-bottom: 14px; }
+.safeguard p { margin: 0; max-width: 62ch; font-size: 17.9px; }
+
+.shield {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  color: var(--green);
+  opacity: 0.55;
+  display: none;
+}
+
+.ctaRow { margin-top: 40px; }
+
+@media (min-width: 760px) {
+  .values { grid-template-columns: repeat(3, 1fr); }
+  .value + .value { border-top: none; border-left: 1px solid var(--line); }
+  .roleGrid { grid-template-columns: repeat(2, 1fr); }
+  .shield { display: block; }
+}
+
+@media (min-width: 1060px) {
+  .roleGrid { grid-template-columns: repeat(4, 1fr); }
+}
