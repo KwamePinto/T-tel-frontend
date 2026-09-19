@@ -48,15 +48,20 @@
 .socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .socials a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  /* Sized so six circles fit this column's width at the site's own max
+     content width (1280px, four columns: ~281px each) before wrapping —
+     40px circles with a 10px gap only had room for five. The icon glyph
+     inside stays at its own fixed 17px, so shrinking the circle just
+     tightens the ring around it rather than shrinking the icon itself. */
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: #2a2a28;
   color: #fff;
