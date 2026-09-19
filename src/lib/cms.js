@@ -34,6 +34,8 @@ export const cms = {
   documentCategories: () => get("/document-collections"),
   trackDownload: (id) =>
     fetch(new URL(`/api/documents/${id}/download`, BASE), { method: "POST" }).then((r) => r.json()),
+  /** Same file, asked for with a disposition the browser renders instead of saves. */
+  previewUrl: (id) => new URL(`/api/documents/${id}/file?inline=1`, BASE).toString(),
 
   events: (params) => get("/events", params),
   event: (slug) => get(`/events/${slug}`),

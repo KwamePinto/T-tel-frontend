@@ -191,6 +191,28 @@
 
 .meta { font-size: 14px; color: var(--text-soft); margin: 0; }
 
+/* Saving is now a separate action from reading, so it needs its own control.
+   margin-top:auto pins it to the bottom of the card however many lines the
+   title wrapped to, which keeps a row of buttons level across the grid. */
+.save {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 9px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green-dark);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.25s var(--ease);
+}
+
+.save:hover { color: var(--accent); }
+.save svg { flex-shrink: 0; }
+
 /* ---- pagination ---- */
 .pager {
   display: flex;

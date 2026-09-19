@@ -41,6 +41,10 @@
   padding: 13px 14px 13px 22px;
   background: var(--green-deep);
   color: #fff;
+  /* A grid item is min-width:auto by default, so this row sized itself to the
+     untruncated title and ran off the side of a phone, taking the buttons with
+     it. Zero lets it shrink to the column so the title can ellipsis instead. */
+  min-width: 0;
 }
 
 .heading { min-width: 0; flex: 1; }
