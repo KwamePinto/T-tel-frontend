@@ -24,7 +24,10 @@
   grid-template-columns: 1fr;
   width: 100%;
   max-width: 920px;
-  max-height: min(88vh, 760px);
+  /* A definite height, not just a cap. With only max-height the grid rows are
+     sized by their content, so a long biography grows the row and drags the
+     portrait taller with it. */
+  height: min(86vh, 720px);
   background: var(--bg);
   border-radius: 14px;
   overflow: hidden;
@@ -39,8 +42,10 @@
 .media {
   position: relative;
   background: var(--bg-alt);
-  min-height: 260px;
   overflow: hidden;
+  /* grid items default to min-height:auto, which stops both columns shrinking
+     to the row — without this the portrait tracks the text's length */
+  min-height: 0;
 }
 
 .media img {
@@ -68,7 +73,9 @@
 .body {
   padding: clamp(26px, 3.4vw, 46px);
   overflow-y: auto;
+  overscroll-behavior: contain;   /* reaching the end doesn't scroll the page */
   min-width: 0;
+  min-height: 0;                  /* the half that makes overflow-y actually scroll */
 }
 
 .rule {
@@ -169,10 +176,10 @@
 
 @media (min-width: 760px) {
   .modal { grid-template-columns: 340px minmax(0, 1fr); }
-  .media { min-height: 100%; }
 }
 
 @media (max-width: 759px) {
-  /* stacked: cap the portrait so the name is visible without scrolling */
-  .media { max-height: 300px; }
+  /* Stacked: the portrait takes a fixed slice off the top and the profile
+     scrolls beneath it, so the panel is the same height for everyone. */
+  .modal { grid-template-rows: 260px minmax(0, 1fr); height: min(88vh, 680px); }
 }
