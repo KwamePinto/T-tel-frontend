@@ -24,7 +24,7 @@
   max-width: 1180px;
   height: min(94vh, 1000px);
   background: var(--bg);
-  border-radius: 14px;
+  border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 32px 90px rgba(12, 18, 16, 0.46);
   animation: rise 0.3s var(--ease-out);
@@ -39,7 +39,7 @@
   align-items: center;
   gap: 16px;
   padding: 13px 14px 13px 22px;
-  background: var(--green-deep);
+  background: #578b82;
   color: #fff;
   /* A grid item is min-width:auto by default, so this row sized itself to the
      untruncated title and ran off the side of a phone, taking the buttons with
@@ -55,6 +55,10 @@
   font-weight: 600;
   line-height: 1.3;
   margin: 0;
+  /* the global h1–h5 rule paints headings --ink, and because it targets the
+     element it beats the colour inherited from the bar — which left the title
+     near-black on a dark bar. State it here or it comes back. */
+  color: #fff;
   /* long manual names would otherwise push the buttons off the bar */
   overflow: hidden;
   text-overflow: ellipsis;
@@ -63,7 +67,9 @@
 
 .meta {
   font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.68);
+  /* the bar is a mid tone now, so this needs more weight than it did against
+     the near-black it replaced */
+  color: rgba(255, 255, 255, 0.88);
   margin: 3px 0 0;
 }
 
@@ -81,15 +87,17 @@
   font-size: 14px;
   font-weight: 600;
   color: #fff;
-  background: rgba(255, 255, 255, 0.12);
+  /* a flat wash reads as barely-there on a mid tone; these two steps are what
+     the darker bar achieved with 0.12 and 0.22 */
+  background: rgba(255, 255, 255, 0.18);
   border: 0;
-  border-radius: 7px;
+  border-radius: 3px;
   padding: 9px 14px;
   cursor: pointer;
   transition: background 0.25s var(--ease);
 }
 
-.action:hover { background: rgba(255, 255, 255, 0.22); }
+.action:hover { background: rgba(255, 255, 255, 0.32); }
 .action svg { flex-shrink: 0; }
 
 .close {
@@ -99,8 +107,9 @@
   width: 38px;
   height: 38px;
   border: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  /* square like the rest: a circle beside 3px corners looks like an accident */
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.18);
   color: #fff;
   cursor: pointer;
   transition: background 0.25s var(--ease), transform 0.25s var(--ease);
