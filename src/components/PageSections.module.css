@@ -1,0 +1,102 @@
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(38px, 4.4vw, 68px);
+}
+
+/* ---- full-width figure ---- */
+.figure {
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+
+.figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---- image beside copy ----
+   One column until there is room for two. The reference site runs these at a
+   flat 50/50 with a 45px gutter, alternating which side the picture takes. */
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(22px, 2.6vw, 45px);
+  align-items: center;
+}
+
+.splitMedia {
+  margin: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-alt);
+  /* a grid item will not shrink below its content without this, which is what
+     pushes a wide picture past the edge of a phone */
+  min-width: 0;
+}
+
+.splitMedia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.splitCopy { min-width: 0; }
+
+/* ---- details panel beside the narrative ---- */
+.facts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(22px, 2.6vw, 45px);
+  align-items: start;
+}
+
+.factsPanel {
+  min-width: 0;
+  background: var(--bg-alt);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  padding: clamp(20px, 2.2vw, 28px);
+  font-size: 16px;
+  line-height: 1.66;
+  color: var(--text-soft);
+}
+
+.factsPanel p { margin: 0 0 14px; }
+.factsPanel p:last-child { margin-bottom: 0; }
+
+/* the labels the source marks up — Project Amount, Duration, Partners */
+.factsPanel strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin-bottom: 3px;
+}
+
+.factsPanel ul { margin: 0 0 14px; padding-left: 18px; list-style: disc; }
+.factsPanel li { margin-bottom: 5px; }
+
+@media (min-width: 860px) {
+  .split { grid-template-columns: 1fr 1fr; }
+
+  /* the picture moves to the second column; the copy takes the first */
+  .flip .splitMedia { order: 2; }
+  .flip .splitCopy { order: 1; }
+
+  .splitMedia { height: 100%; min-height: clamp(280px, 26vw, 380px); }
+
+  .facts { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .figure img, .splitMedia img { transition: transform 0.9s var(--ease-out); }
+  .figure:hover img, .splitMedia:hover img { transform: scale(1.03); }
+}

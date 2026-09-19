@@ -171,6 +171,19 @@
 @media (min-width: 1000px) {
   .layout { grid-template-columns: 1.9fr 0.85fr; gap: 64px; }
   .aside { position: sticky; top: calc(var(--header-h) + 40px); }
+
+  /* Pages built from sections alternate full-width rows of image and copy.
+     Squeezed into the narrow column beside the sidebar those rows lose about
+     a third of their width and the pictures get too small to read, so the
+     content takes the full container and the sidebar drops underneath. */
+  .wide { grid-template-columns: 1fr; gap: 52px; }
+  .wide .aside {
+    position: static;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 32px;
+    align-items: center;
+  }
   .othersGrid { grid-template-columns: repeat(3, 1fr); }
 }
 
