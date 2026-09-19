@@ -89,7 +89,31 @@
 .tricolour span:nth-child(3) { flex: 1; background: #e2574c; }
 
 /* ================= WHO WE ARE ================= */
-.who { background: #e9e9e7; }
+/* The hero still lives on here as the section's backdrop — it is no longer
+   needed as a video poster. The photograph sits behind a green wash, heavier
+   on the left where the copy is and lighter on the right so the picture still
+   reads. */
+.who {
+  position: relative;
+  background-color: var(--deep);
+  background-position: center 28%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.who::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(2, 62, 56, 0.95) 0%,
+    rgba(2, 62, 56, 0.9) 48%,
+    rgba(2, 62, 56, 0.66) 100%
+  );
+}
+
+.whoGrid { position: relative; z-index: 1; }
 
 .whoGrid {
   display: grid;
@@ -103,12 +127,12 @@
 .whoCopy h2 {
   font-size: 40.3px;
   font-weight: 100;
-  color: #1f2421;
+  color: #fff;
   margin-bottom: 20px;
 }
 
 .whoCopy p {
-  color: #5e6661;
+  color: rgba(255, 255, 255, 0.85);
   font-size: 19px;
   max-width: 52ch;
   margin-bottom: 28px;
