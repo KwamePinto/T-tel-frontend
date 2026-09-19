@@ -4,6 +4,7 @@ import Icon from "../../components/Icon";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
+import PageSections from "../../components/PageSections";
 import prose from "../ArticleDetail.module.css";
 import styles from "../FocusAreas/FocusAreaDetail.module.css";
 
@@ -46,9 +47,13 @@ export default function ProgrammeDetail() {
       />
 
       <section className="section">
-        <div className={`container ${styles.layout}`}>
+        <div className={`container ${styles.layout} ${post.sections?.length ? styles.wide : ""}`}>
           <article className={styles.body}>
-            <div className={prose.prose} dangerouslySetInnerHTML={{ __html: post.body }} />
+            {post.sections?.length ? (
+              <PageSections sections={post.sections} />
+            ) : (
+              <div className={prose.prose} dangerouslySetInnerHTML={{ __html: post.body }} />
+            )}
           </article>
 
           <aside className={styles.aside}>

@@ -5,7 +5,8 @@ import { useAsync } from "../hooks/useResource";
 import EditorShell, { Rail, RailSection, TitleField } from "../components/EditorShell";
 import RichText from "../components/RichText";
 import { MediaField } from "../components/MediaPicker";
-import { Button, Card, ErrorBox, Field, Input, Select, TableSkeleton, Textarea, useToast } from "../components/ui";
+import SectionsEditor from "../components/SectionsEditor";
+import { Button, Card, CardHead, ErrorBox, Field, Input, Select, TableSkeleton, Textarea, useToast } from "../components/ui";
 
 const EMPTY = {
   title: "",
@@ -17,6 +18,7 @@ const EMPTY = {
   contentType: "",
   tags: [],
   featuredImage: null,
+  sections: [],
 };
 
 /** <input type="datetime-local"> needs `YYYY-MM-DDTHH:mm` in local time. */
@@ -51,6 +53,7 @@ export default function PostEditor() {
       ...post,
       contentType: post.contentType?._id || post.contentType || "",
       featuredImage: post.featuredImage || null,
+      sections: post.sections || [],
       publishedAt: toLocalInput(post.publishedAt),
       tags: post.tags || [],
     });
@@ -82,6 +85,11 @@ export default function PostEditor() {
         publishedAt: form.publishedAt ? new Date(form.publishedAt).toISOString() : null,
         contentType: form.contentType || null,
         featuredImage: form.featuredImage?._id || form.featuredImage || null,
+        // the editor holds populated media objects; the API stores ids
+        sections: (form.sections || []).map((sec) => ({
+          ...sec,
+          image: sec.image?._id || sec.image || null,
+        })),
         tagNames: tagInput.split(",").map((t) => t.trim()).filter(Boolean),
       };
 
@@ -197,6 +205,12 @@ export default function PostEditor() {
       />
 
       <Card>
+        <CardHead title="Page blocks" />
+        <SectionsEditor value={form.sections} onChange={(sections) => set({ sections })} />
+      </Card>
+
+      <Card>
+        <CardHead title={form.sections?.length ? "Content — unused while blocks exist" : "Content"} />
         <RichText
           value={form.body}
           onChange={(body) => set({ body })}

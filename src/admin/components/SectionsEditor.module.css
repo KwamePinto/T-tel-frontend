@@ -1,0 +1,123 @@
+.wrap { display: flex; flex-direction: column; gap: 14px; }
+
+.empty {
+  margin: 0;
+  padding: 16px 18px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--a-muted);
+  background: var(--a-bg);
+  border: 1px dashed var(--a-line);
+  border-radius: 8px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  background: var(--a-surface);
+  overflow: hidden;
+}
+
+.itemOpen { border-color: var(--a-brand); box-shadow: 0 0 0 1px var(--a-brand); }
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+}
+
+.toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 8px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--a-text);
+}
+
+.kind { font-size: 13.5px; font-weight: 600; flex-shrink: 0; }
+
+.summary {
+  font-size: 12.5px;
+  color: var(--a-muted);
+  /* a long block summary must not push the row controls off the card */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.controls { display: flex; gap: 2px; flex-shrink: 0; }
+
+.controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--a-muted);
+  cursor: pointer;
+}
+
+.controls button:hover:not(:disabled) { background: var(--a-bg); color: var(--a-text); }
+.controls button:disabled { opacity: 0.32; cursor: default; }
+.remove:hover:not(:disabled) { color: var(--a-red); }
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-top: 1px solid var(--a-line);
+  /* grey against the white row above, so an open block reads as opened */
+  background: var(--a-bg);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: flex-end;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--a-text);
+  padding-bottom: 9px;
+  cursor: pointer;
+}
+
+.sub { display: flex; flex-direction: column; gap: 6px; }
+
+.subLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--a-muted);
+}
+
+.subHint { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--a-muted); }
+
+.add { display: flex; flex-wrap: wrap; gap: 8px; }
