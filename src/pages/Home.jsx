@@ -18,27 +18,27 @@ export default function Home() {
   const [funderPage, setFunderPage] = useState(0);
   const [artPage, setArtPage] = useState(0);
 
-  // poster paints first; the video only downloads once the page has loaded
+  // The video is the hero — it starts downloading with the page rather than
+  // waiting for window.load, and there is no poster, because a still frame
+  // painting first and then being replaced is exactly the flash we don't want.
+  // Until the first frame arrives the section shows its own dark green, which
+  // is what the video fades in over anyway.
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
 
-    const start = () => {
-      if (el.dataset.loaded) return;
-      el.dataset.loaded = "true";
-      for (const source of el.querySelectorAll("source[data-src]")) {
-        source.src = source.dataset.src;
-      }
-      el.load();
-      el.play().catch(() => setPlaying(false));
-    };
+    // autoplay is the primary path; this only keeps the button's label honest
+    const sync = () => setPlaying(!el.paused);
+    el.addEventListener("play", sync);
+    el.addEventListener("pause", sync);
 
-    if (document.readyState === "complete") {
-      start();
-      return;
-    }
-    window.addEventListener("load", start, { once: true });
-    return () => window.removeEventListener("load", start);
+    // Safari and Chrome both refuse autoplay in some power/data-saver modes
+    el.play().catch(() => setPlaying(false));
+
+    return () => {
+      el.removeEventListener("play", sync);
+      el.removeEventListener("pause", sync);
+    };
   }, []);
 
   function toggleVideo() {
@@ -94,11 +94,10 @@ export default function Home() {
           muted
           loop
           playsInline
-          preload="none"
-          poster={mediaUrl(settings.hero_image_url) || "/images/hero/home.jpg"}
+          preload="auto"
           aria-hidden="true"
         >
-          <source data-src={mediaUrl(settings.hero_video_url) || "/video/hero.mp4"} type="video/mp4" />
+          <source src={mediaUrl(settings.hero_video_url) || "/video/hero.mp4"} type="video/mp4" />
         </video>
 
         <button

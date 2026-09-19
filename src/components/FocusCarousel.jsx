@@ -39,7 +39,29 @@ export default function FocusCarousel() {
     el.scrollTo({ left: page * el.clientWidth, behavior: "smooth" });
   }, [page]);
 
+  // wraps, so the arrows never dead-end at either edge
   const go = useCallback((i) => setPage(((i % pages) + pages) % pages), [pages]);
+
+  // Someone who swipes or scrolls the track by hand moves past the page the
+  // dots and arrows think they are on, so read the position back once the
+  // scrolling settles — otherwise the next arrow press jumps somewhere odd.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return undefined;
+    let timer;
+    const onScroll = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const i = Math.round(el.scrollLeft / el.clientWidth);
+        setPage((p) => (i >= 0 && i < pages ? i : p));
+      }, 140);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      clearTimeout(timer);
+    };
+  }, [pages]);
 
   if (loading) {
     return (
@@ -90,6 +112,17 @@ export default function FocusCarousel() {
 
       <div className={styles.controls}>
         <SliderProgress count={pages} index={page} onSelect={go} paused={hovered} />
+
+        {pages > 1 && (
+          <div className={styles.nav}>
+            <button type="button" onClick={() => go(page - 1)} aria-label="Previous focus areas">
+              <Icon name="arrowRight" size={18} style={{ transform: "rotate(180deg)" }} />
+            </button>
+            <button type="button" onClick={() => go(page + 1)} aria-label="Next focus areas">
+              <Icon name="arrowRight" size={18} />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
