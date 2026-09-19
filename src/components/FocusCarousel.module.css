@@ -64,7 +64,19 @@
   color: #fff;
   font-size: 25.8px;
   font-weight: 700;
+  line-height: 1.2;
   margin: 0 0 10px;
+  /* Two lines are always reserved, whether the title needs them or not.
+     Without this a one-line title makes its panel shorter than a two-line
+     one beside it, and because the panel is bottom-anchored the coloured
+     blocks start at different heights across the row. Clamped to the same
+     two lines so a longer title cannot push it back out again. */
+  min-height: 2.4em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .panel p {
