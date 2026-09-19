@@ -225,4 +225,22 @@
 
 @media (min-width: 900px) {
   .identityGrid { grid-template-columns: 1.05fr 0.95fr; gap: clamp(48px, 5vw, 90px); }
+
+  /* The heading holds its place while the history scrolls past it, so the
+     left column is never a tall band of empty space beside the body copy.
+     It releases at the foot of the section — the sticky item stops at its
+     own container, so the page carries on normally after that.
+     align-items: start on the grid is what makes this work at all: a
+     stretched grid item fills the row and has nowhere left to travel. */
+  .identityIntro {
+    position: sticky;
+    top: calc(var(--header-h) + 48px);
+    align-self: start;
+  }
+}
+
+/* Someone who prefers less motion still gets a perfectly readable two-column
+   layout; they just don't get the travel. */
+@media (prefers-reduced-motion: reduce) {
+  .identityIntro { position: static; }
 }

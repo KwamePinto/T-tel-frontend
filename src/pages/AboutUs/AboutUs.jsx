@@ -25,7 +25,7 @@ function Identity({ data }) {
   return (
     <section className={styles.identity}>
       <div className={`container ${styles.identityGrid}`}>
-        <div className="reveal">
+        <div className={`${styles.identityIntro} reveal`}>
           {data.eyebrow && <span className="eyebrow">{data.eyebrow}</span>}
           <Heading text={data.heading} highlight={data.highlight} />
         </div>
