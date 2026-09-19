@@ -26,8 +26,10 @@
   max-width: 920px;
   /* A definite height, not just a cap. With only max-height the grid rows are
      sized by their content, so a long biography grows the row and drags the
-     portrait taller with it. */
-  height: min(86vh, 720px);
+     portrait taller with it. The value is sized to a typical profile — name,
+     role, group and a short paragraph — so the card is compact and identical
+     for everyone; anything longer scrolls in the right-hand column. */
+  height: min(86vh, 380px);
   background: var(--bg);
   border-radius: 14px;
   overflow: hidden;
