@@ -96,7 +96,7 @@ export default function Media() {
 
           <div className={s.grid}>
             {list.items.map((m) => (
-              <button key={m._id} className={s.tile} onClick={() => setDetail(m)}>
+              <button key={m._id} type="button" className={s.tile} onClick={() => setDetail(m)}>
                 {m.mime?.startsWith("image/") ? (
                   <img src={mediaUrl(m)} alt={m.alt || m.originalName} loading="lazy" />
                 ) : (

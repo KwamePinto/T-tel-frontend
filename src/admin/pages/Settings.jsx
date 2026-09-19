@@ -164,6 +164,7 @@ function SettingsScreen({ group, title, subtitle }) {
           {sections.map(([name, items]) => (
             <button
               key={name}
+              type="button"
               className={`${s.tab} ${name === activeTab ? s.tabOn : ""}`}
               onClick={() => setTab(name)}
             >

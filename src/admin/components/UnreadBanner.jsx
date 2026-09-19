@@ -79,7 +79,7 @@ export default function UnreadBanner() {
           </Link>
         )}
 
-        <button className={s.close} onClick={dismiss} aria-label="Dismiss">
+        <button type="button" className={s.close} onClick={dismiss} aria-label="Dismiss">
           <AdminIcon name="close" size={17} />
         </button>
       </div>

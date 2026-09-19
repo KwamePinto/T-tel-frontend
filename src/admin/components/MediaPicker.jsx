@@ -75,7 +75,7 @@ export function MediaPickerModal({ onSelect, onClose, accept = "image/*" }) {
 
       <div className={s.grid}>
         {items.map((m) => (
-          <button key={m._id} className={s.tile} onClick={() => { onSelect(m); onClose(); }}>
+          <button key={m._id} type="button" className={s.tile} onClick={() => { onSelect(m); onClose(); }}>
             {String(m.mime || "").startsWith("image/") ? (
               <img src={mediaUrl(m)} alt={m.alt || m.originalName} loading="lazy" />
             ) : (

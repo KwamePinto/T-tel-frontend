@@ -40,6 +40,7 @@ export default function Sliders() {
             {sliders.map((x) => (
               <button
                 key={x._id}
+                type="button"
                 className={`${s.listItem} ${x._id === active?._id ? s.listItemOn : ""}`}
                 onClick={() => setActiveId(x._id)}
               >

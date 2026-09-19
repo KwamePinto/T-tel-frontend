@@ -57,6 +57,7 @@ export default function Menus() {
             {menus.map((m) => (
               <button
                 key={m._id}
+                type="button"
                 className={`${s.menuItem} ${m._id === active?._id ? s.menuItemOn : ""}`}
                 onClick={() => setActiveId(m._id)}
               >
