@@ -95,25 +95,12 @@
    reads. */
 .who {
   position: relative;
-  background-color: var(--deep);
-  background-position: center 28%;
-  background-size: cover;
-  background-repeat: no-repeat;
+  /* plain, same light band the strategic-objectives section below uses —
+     no photograph behind it. There used to be one here doing double duty as
+     the hero's still frame, now that the hero is a video it no longer needs
+     a poster and the wash it required is gone with it. */
+  background-color: #e9e9e7;
 }
-
-.who::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    100deg,
-    rgba(2, 62, 56, 0.95) 0%,
-    rgba(2, 62, 56, 0.9) 48%,
-    rgba(2, 62, 56, 0.66) 100%
-  );
-}
-
-.whoGrid { position: relative; z-index: 1; }
 
 .whoGrid {
   display: grid;
@@ -127,16 +114,46 @@
 .whoCopy h2 {
   font-size: 40.3px;
   font-weight: 100;
-  color: #fff;
+  color: var(--ink);
   margin-bottom: 20px;
 }
 
 .whoCopy p {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--text-soft);
   font-size: 19px;
   max-width: 52ch;
   margin-bottom: 28px;
 }
+
+/* ---- carousel arrows ----
+   On a phone the section stacks copy above the photograph, and its overall
+   height varies a lot from one slide's word count to the next — vertically
+   centering on that variable height is exactly what previously landed the
+   arrows on top of the "Learn More" button on a short slide. So on narrow
+   screens this renders as its own row in the normal flow, between the copy
+   and the photograph, spaced by .whoGrid's own gap like any other row. Only
+   from 820px, where copy and photograph sit side by side at a much more
+   predictable height, do the buttons move out to the edges of the section. */
+.whoNavGroup {
+  display: flex;
+  gap: 14px;
+}
+
+.whoNav {
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--deep);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.whoNav:hover { background: var(--red); }
 
 .redBtn {
   display: inline-flex;
@@ -413,6 +430,21 @@
 /* ================= RESPONSIVE ================= */
 @media (min-width: 820px) {
   .whoGrid { grid-template-columns: 1.05fr 0.95fr; gap: 54px; }
+
+  /* Pulled out of the copy column entirely and pinned to the light band
+     itself, clear of both the text and the photograph. */
+  .whoNavGroup { display: contents; }
+
+  .whoNav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    transform: translateY(-50%);
+  }
+
+  .whoNavPrev { left: clamp(6px, 3vw, 40px); }
+  .whoNavNext { right: clamp(6px, 3vw, 40px); }
+
   .objGrid { grid-template-columns: 440fr 659fr; }
   /* card 01 spans both rows on the left, 02 and 03 stack on the right */
   .objGrid > :first-child { grid-row: span 2; }

@@ -12,6 +12,51 @@ import styles from "./Home.module.css";
 
 const PER_VIEW = 5;
 
+// The pages the "Who We Are" band pages through, after the settings-driven
+// intro slide. Each has its own summary and hero image already, elsewhere on
+// the site — these fallbacks only cover a page whose admin fields for that
+// (heroImage, meta.heroDescription) haven't been filled in yet.
+const ABOUT_SLUGS = [
+  "about-us/our-history",
+  "about-us/our-partners",
+  "about-us/our-people",
+  "about-us/our-policies",
+  "join-us",
+];
+
+const ABOUT_FALLBACKS = {
+  "about-us/our-history": {
+    title: "Our History",
+    body: "From a six-year, donor-funded teacher education programme to an independent Ghanaian institution — this is how T-TEL came to be.",
+    image: "/images/photos/team-group.jpg",
+    buttonLabel: "Read Our History",
+  },
+  "about-us/our-partners": {
+    title: "Our Partners",
+    body: "We work alongside the Ministry of Education and its agencies, academic institutions, and a wide range of funding, implementing and research partners.",
+    image: "/images/focus/leadership-conference.jpg",
+    buttonLabel: "Meet Our Partners",
+  },
+  "about-us/our-people": {
+    title: "Our People",
+    body: "From our founding Subscribers to the technical specialists working in colleges and districts across Ghana — meet the team making reform possible.",
+    image: "/images/photos/team-group.jpg",
+    buttonLabel: "Meet Our People",
+  },
+  "about-us/our-policies": {
+    title: "Our Policies",
+    body: "The protocols and standards that keep our work transparent, safe and accountable, covering safeguarding, conflict of interest and inclusion.",
+    image: "/images/focus/library-review.jpg",
+    buttonLabel: "View Our Policies",
+  },
+  "join-us": {
+    title: "Join Us",
+    body: "Build your career with a Ghanaian organisation transforming teaching, education and learning — see current opportunities with T-TEL.",
+    image: "/images/photos/team-group.jpg",
+    buttonLabel: "Join Our Team",
+  },
+};
+
 export default function Home() {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(true);
@@ -57,6 +102,16 @@ export default function Home() {
   const articles = useCms(() => cms.posts({ type: "blog", limit: 12 }), []);
   const funders = useCms(() => cms.partners({ home: true }), []);
 
+  // The other pages the "Who We Are" band cycles through. Fetched once, in
+  // parallel; a page missing its own hero image or summary falls back to the
+  // same copy that page itself uses, so a slide never comes up empty while
+  // an editor is filling in something more specific in the admin.
+  const aboutPages = useCms(
+    () => Promise.all(ABOUT_SLUGS.map((slug) => cms.page(slug).catch(() => null))),
+    [],
+  );
+  const [whoIndex, setWhoIndex] = useState(0);
+
   const posts = articles.data?.items ?? [];
   const funderList = funders.data?.items ?? [];
 
@@ -69,6 +124,36 @@ export default function Home() {
 
   const funderPages = Math.max(1, Math.ceil(funderList.length / PER_VIEW));
   const visibleFunders = funderList.slice(funderPage * PER_VIEW, funderPage * PER_VIEW + PER_VIEW);
+
+  // Slide 0 is the settings-driven "Who We Are" intro, exactly as it always
+  // was. The rest come from ABOUT_SLUGS, each falling back to its own page's
+  // existing copy until an editor sets something specific for this band.
+  const whoSlide = {
+    key: "who",
+    heading: settings.home_who_heading,
+    body: settings.home_who_body,
+    image: mediaUrl(settings.home_who_image),
+    imageAlt: settings.home_who_image_alt || "",
+    buttonLabel: settings.home_who_button_label || "Learn More",
+    buttonUrl: settings.home_who_button_url || "/about-us",
+  };
+
+  const aboutSlides = ABOUT_SLUGS.map((slug, i) => {
+    const page = aboutPages.data?.[i];
+    const fallback = ABOUT_FALLBACKS[slug];
+    return {
+      key: slug,
+      heading: page?.title || fallback.title,
+      body: page?.meta?.heroDescription || fallback.body,
+      image: mediaUrl(page?.heroImage) || fallback.image,
+      imageAlt: page?.heroImage?.alt || "",
+      buttonLabel: fallback.buttonLabel,
+      buttonUrl: `/${slug}`,
+    };
+  });
+
+  const whoSlides = [whoSlide, ...aboutSlides];
+  const activeWho = whoSlides[whoIndex % whoSlides.length];
 
   // Strategic objectives are three editable settings rather than a fixed list.
   const objectives = [
@@ -129,27 +214,56 @@ export default function Home() {
 
       {/* ---------------- WHO WE ARE ---------------- */}
       {flag("show_who") && (
-      <section
-        className={styles.who}
-        /* the hero still image, no longer needed as a video poster */
-        style={
-          mediaUrl(settings.hero_image_url)
-            ? { backgroundImage: `url(${mediaUrl(settings.hero_image_url)})` }
-            : undefined
-        }
-      >
+      <section className={styles.who}>
         <div className={`${styles.wrap} ${styles.whoGrid}`}>
-          <div className={`${styles.whoCopy} reveal`}>
-            <h2>{settings.home_who_heading}</h2>
-            <p>{settings.home_who_body}</p>
-            <Link to={settings.home_who_button_url || "/about-us"} className={styles.redBtn}>
-              {settings.home_who_button_label || "Learn More"}
+          {/* The two panels below keep the same "reveal" element across every
+              slide — only the text and image inside change — so the scroll
+              reveal, which marks an element as shown by adding a class to
+              that exact DOM node, is never asked to reveal it twice. */}
+          <div className={`${styles.whoCopy} reveal`} aria-live="polite">
+            <h2>{activeWho.heading}</h2>
+            <p>{activeWho.body}</p>
+            <Link to={activeWho.buttonUrl} className={styles.redBtn}>
+              {activeWho.buttonLabel}
             </Link>
           </div>
+
+          {/*
+            A sibling of .whoCopy and .whoMedia, not nested inside either —
+            deliberately. .reveal sets will-change: transform, and a
+            will-change hint establishes a containing block for absolutely
+            positioned descendants exactly as a live transform would, whether
+            or not the transform ends up applying. Nested here, the arrows
+            were positioning against .whoCopy's ~560px column instead of the
+            full section, which is why "next" landed barely past the middle
+            of the page instead of near the right edge.
+
+            On a phone this stacks between the copy and the photograph, in
+            normal flow. From 820px it renders nothing of its own (display:
+            contents) and its buttons are pulled out to the edges of the
+            section instead — see .whoNav.
+          */}
+          <div className={styles.whoNavGroup}>
+            <button
+              type="button"
+              className={`${styles.whoNav} ${styles.whoNavPrev}`}
+              onClick={() => setWhoIndex((i) => (i - 1 + whoSlides.length) % whoSlides.length)}
+              aria-label="Show the previous section"
+            >
+              <Icon name="arrowRight" size={18} style={{ transform: "rotate(180deg)" }} />
+            </button>
+            <button
+              type="button"
+              className={`${styles.whoNav} ${styles.whoNavNext}`}
+              onClick={() => setWhoIndex((i) => (i + 1) % whoSlides.length)}
+              aria-label="Show the next section"
+            >
+              <Icon name="arrowRight" size={18} />
+            </button>
+          </div>
+
           <div className={`${styles.whoMedia} reveal`} data-delay="1">
-            {mediaUrl(settings.home_who_image) && (
-              <img src={mediaUrl(settings.home_who_image)} alt={settings.home_who_image_alt || ""} />
-            )}
+            {activeWho.image && <img src={activeWho.image} alt={activeWho.imageAlt} />}
           </div>
         </div>
       </section>
