@@ -1,6 +1,6 @@
 import PageHero from "../../components/PageHero";
 import Seo from "../../components/Seo";
-import HistoryTimeline from "../../components/HistoryTimeline";
+import HistoryPhases from "../../components/HistoryPhases";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
@@ -25,8 +25,10 @@ export default function OurHistory() {
       <PageHero
         title={page?.meta?.heroTitle || page?.title || "Our History"}
         crumb="Our History"
+        /* ?? not ||: an editor who clears this field means "no subtitle",
+           and an empty string would otherwise fall back to the default. */
         subtitle={
-          page?.meta?.heroDescription ||
+          page?.meta?.heroDescription ??
           "From a decade-long bilateral aid programme to an independent Ghanaian institution."
         }
         image={mediaUrl(page?.heroImage) || "/images/photos/team-group.jpg"}
@@ -43,7 +45,7 @@ export default function OurHistory() {
         )}
 
         {milestones ? (
-          <HistoryTimeline data={milestones.data} />
+          <HistoryPhases data={milestones.data} />
         ) : (
           page && (
             <div className="container">
