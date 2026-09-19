@@ -71,8 +71,8 @@
 
 .heroCaption h1 {
   color: #fff;
-  font-size: 36.3px;
-  font-weight: 700;
+  font-size: 32px;
+  font-weight: 500;
   line-height: 1.35;
   letter-spacing: normal;
   max-width: 760px;
@@ -112,8 +112,8 @@
 .whoCopy { padding: 72px 0; }
 
 .whoCopy h2 {
-  font-size: 40.3px;
-  font-weight: 700;
+  font-size: 36px;
+  font-weight: 500;
   color: var(--ink);
   margin-bottom: 20px;
 }
@@ -204,8 +204,8 @@
 .objInner { position: relative; z-index: 1; padding: 129px 30px 72px; }
 
 .objInner h2 {
-  font-size: 40.3px;
-  font-weight: 700;
+  font-size: 36px;
+  font-weight: 500;
   color: #1f2421;
   margin-bottom: 30px;
 }
@@ -283,8 +283,8 @@
 
 .artHead h2 {
   color: #fff;
-  font-size: 40.3px;
-  font-weight: 700;
+  font-size: 36px;
+  font-weight: 500;
   margin: 0;
 }
 
@@ -359,8 +359,8 @@
 }
 
 .focusHead h2 {
-  font-size: 40.3px;
-  font-weight: 700;
+  font-size: 36px;
+  font-weight: 500;
   color: #1f2421;
   margin: 0;
 }
@@ -377,8 +377,8 @@
 
 .fundersTitle {
   text-align: center;
-  font-size: 40.3px;
-  font-weight: 700;
+  font-size: 36px;
+  font-weight: 500;
   color: #1f2421;
   margin-bottom: 36px;
 }
