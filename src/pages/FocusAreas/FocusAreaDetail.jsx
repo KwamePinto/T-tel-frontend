@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import PageHero from "../../components/PageHero";
+import PageSections from "../../components/PageSections";
 import Icon from "../../components/Icon";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
@@ -48,9 +49,13 @@ export default function FocusAreaDetail() {
       />
 
       <section className="section">
-        <div className={`container ${styles.layout}`}>
+        <div className={`container ${styles.layout} ${post.sections?.length ? styles.wide : ""}`}>
           <article className={styles.body}>
-            <div className={prose.prose} dangerouslySetInnerHTML={{ __html: post.body }} />
+            {post.sections?.length ? (
+              <PageSections sections={post.sections} />
+            ) : (
+              <div className={prose.prose} dangerouslySetInnerHTML={{ __html: post.body }} />
+            )}
           </article>
 
           <aside className={styles.aside}>
