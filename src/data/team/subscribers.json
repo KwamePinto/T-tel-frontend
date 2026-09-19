@@ -1,0 +1,84 @@
+{
+  "slug": "subscribers",
+  "label": "Subscribers",
+  "people": [
+    {
+      "name": "Professor Jophus Anamuah-Mensah",
+      "position": "Board Chair",
+      "bio": "Professor Jophus Anamuah-Mensah is the Board Chair of T-TEL. He is also the Key Adviser for Curriculum Reform, and the Executive Chair of the Teacher Education in Sub-Saharan Africa (TESSA), a programme that has produced free study units for improving classroom practice across thirteen different countries. Prof.  Anamuah-Mensah was the Director of School and Community Science and Technology Studies and now Director of the Institute for Educational Research and Innovation Studies at the University of Education, Winneba. He is the Chairman of Open Learning Exchange, an organisation dedicated to improving the quality of learning in Ghanaian schools through the use of technology and especially, the creation of an open digital education library accessible online and offline. He was also the Pro-Vice-Chancellor of the University of Cape Coast (UCC) and for nine years Prof. Anamuah-Mensah was the Principal and Vice-Chancellor of University of Education Winneba (UEW), the first university in Africa dedicated to teacher education.",
+      "photo": "/images/team/subscribers-professor-jophus-anamuah-mensah.png"
+    },
+    {
+      "name": "Felicia Boakye-Yiadom",
+      "position": "Subscriber",
+      "bio": "Felicia is the former Executive Secretary of the National Council for Curriculum and Assessment (NaCCA) where she was central to the development of Ghana’s new pre-tertiary curriculum.",
+      "photo": "/images/team/subscribers-felicia-boakye-yiadom.jpg"
+    },
+    {
+      "name": "Professor Rita Akosua Dickson",
+      "position": "Member",
+      "bio": "Professor Dickson is the Vice-Chancellor of Kwame Nkrumah University of Science and Technology (KNUST). She is a Phyto chemist and is a board member of the Pharmacy Council and Pharmaceutical Society of Ghana.",
+      "photo": "/images/team/subscribers-professor-rita-akosua-dickson.jpg"
+    },
+    {
+      "name": "Tony Dogbe",
+      "position": "Subscriber",
+      "bio": "Tony is the Executive Director of Sabre Education. He is an experienced social and community development worker, trainer, researcher, manager, consultant and workshop facilitator /moderator. He has worked with government, non-government and private sector institutions in various areas of human development endeavour. For nearly nine years he was the Executive Director of one of the leading Ghanaian NGOs, Centre for the Development of People (CEDEP) and thereafter served on its Board from 2000 to 2009. From 2000-2004, he was on VSO’s Board of Trustees in the U.K.",
+      "photo": "/images/team/subscribers-tony-dogbe.jpg"
+    },
+    {
+      "name": "Professor Kwame Akyeampong",
+      "position": "Member",
+      "bio": "Kwame is Professor of International Education and Development at the Open University. He has published widely in international journals on education and development. His research interests cover teacher education, evaluation of large-scale education programmes, policy and practice of education, and mathematics education.",
+      "photo": "/images/team/subscribers-professor-kwame-akyeampong.jpg"
+    },
+    {
+      "name": "Dinah Adiko",
+      "position": "Key Advisor, Gender Equality & Social Inclusion (GESI)",
+      "bio": "Dinah is a Gender Equality and Social Inclusion Consultant who has advised a variety of organisations including T-TEL where she is currently GESI Key Adviser. Dinah has particular expertise in issues of gender based violence and gender inclusion in education.",
+      "photo": "/images/team/subscribers-dinah-adiko.jpg"
+    },
+    {
+      "name": "Samuel Baba Adongo",
+      "position": "Subscriber",
+      "bio": "Baba is an enterprise development and finance specialist with experience in business strategy and financial engineering across a wide range of industries. He has worked on high level public and private sector consulting assignments across multi-disciplinary projects.",
+      "photo": "/images/team/subscribers-samuel-baba-adongo.jpg"
+    },
+    {
+      "name": "Professor Wisdom Akpalu",
+      "position": "Subscriber",
+      "bio": "Wisdom is currently the Dean of the School of Research and Graduate Studies at the Ghana Institute of Management and Public Administration (GIMPA). His research interests include Development Economics, Modelling microeconomic behaviour, empirical econometric analysis, optimal extraction of natural resources, and economics of climate change.",
+      "photo": "/images/team/subscribers-professor-wisdom-akpalu.jpg"
+    },
+    {
+      "name": "Alhaji Mohammed Haroon",
+      "position": "Subscriber & Northern Education Ambassador",
+      "bio": "Alhaji Mohammed Haroon is the former Regional Director of Education for the Northern Region. He is a recipient of several awards including Nnamdi Azikiwe Gold Award for Leadership in West Africa in 2017 and is heavily involved with the charity WhizzKids United.",
+      "photo": "/images/team/subscribers-alhaji-mohammed-haroon.jpg"
+    },
+    {
+      "name": "Sister Elizabeth Amoako-Arhen",
+      "position": "Vice Chair",
+      "bio": "Sister Elizabeth is the former Principal of Our Lady of Apostles (OLA) College of Education. She is a former President of the Conference of Principals of Colleges of Education (PRINCOF) where she played a leading role in implementing Ghana’s teacher education reforms. She is a Board member of the Ghana Tertiary Education Commission (GTEC) and a Council member of Ghana Education Service (GES).",
+      "photo": "/images/team/subscribers-sister-elizabeth-amoako-arhen.jpg"
+    },
+    {
+      "name": "Muniratu Issifu",
+      "position": "Subscriber",
+      "bio": "Muniratu is Director of Partnerships at Plan International Ghana and was previously Country Director of the Varkey Foundation. She has successfully designed and implemented development projects in diverse areas such as education, local governance, water and sanitation, mental health and social protection.",
+      "photo": "/images/team/subscribers-muniratu-issifu.jpg"
+    },
+    {
+      "name": "John Martin",
+      "position": "Member",
+      "bio": "John is a former Director of Cambridge Education where he oversaw a variety of large-scale education programmes across numerous countries including Tanzania, Uganda, Ghana and Nigeria. John played a central role in designing T-TEL in 2013 and 2014.",
+      "photo": "/images/team/subscribers-john-martin.jpg"
+    },
+    {
+      "name": "Perpetual Wadjoly",
+      "position": "Subscriber",
+      "bio": "Perpetual is a newly qualified JHS teacher based in Worawora, Oti Region. She graduated from St. Teresa’s College of Education, Hohoe in 2020 and was very active in both the SRC and TTAG. She is the first female to be elected as TTAG Coordinator for the Volta Sector.",
+      "photo": "/images/team/subscribers-perpetual-wadjoly.jpeg"
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+/* Simplified home page, matching the live T-TEL implementation. */
+.hero,
+.who,
+.objectives,
+.articles,
+.focus,
+.funders {
+  --deep: #023e38;
+  --teal: #027f6c;
+  --red: #e2574c;
+}
+
+/* live content column: 1126px inner width (x=157 at 1440) */
+.wrap {
+  width: 100%;
+  max-width: 1186px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+/* ================= HERO ================= */
+/* Pulled up under the sticky header so the video runs full-bleed behind it,
+   the same trick PageHero uses. The height grows by the header so everything
+   below the hero stays where it was. */
+.hero {
+  position: relative;
+  margin-top: calc(-1 * var(--header-h));
+  height: calc(700px + var(--header-h));
+  overflow: hidden;
+  background: var(--deep);
+}
+
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.playToggle {
+  position: absolute;
+  /* clears the header now that the hero starts behind it */
+  top: calc(var(--header-h) + 26px);
+  right: 34px;
+  z-index: 2;
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.5);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s var(--ease);
+}
+
+.playToggle:hover { background: rgba(20, 20, 20, 0.75); }
+
+.heroCaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 22.5px 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.heroCaption h1 {
+  color: #fff;
+  font-size: 36.3px;
+  font-weight: 100;
+  line-height: 1.35;
+  letter-spacing: normal;
+  max-width: 760px;
+  margin: 0;
+}
+
+.tricolour {
+  display: flex;
+  height: 10px;
+}
+
+.tricolour span:nth-child(1) { flex: 0 0 33%; background: #159b5a; }
+.tricolour span:nth-child(2) { flex: 0 0 33%; background: #f0b323; }
+.tricolour span:nth-child(3) { flex: 1; background: #e2574c; }
+
+/* ================= WHO WE ARE ================= */
+.who { background: #e9e9e7; }
+
+.whoGrid {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+  padding: 0;
+}
+
+.whoCopy { padding: 72px 0; }
+
+.whoCopy h2 {
+  font-size: 40.3px;
+  font-weight: 100;
+  color: #1f2421;
+  margin-bottom: 20px;
+}
+
+.whoCopy p {
+  color: #5e6661;
+  font-size: 19px;
+  max-width: 52ch;
+  margin-bottom: 28px;
+}
+
+.redBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 30px;
+  border-radius: 6px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16.8px;
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.redBtn:hover { background: #c94439; transform: translateY(-2px); }
+
+.whoMedia img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.whoMedia img:hover { transform: scale(1.03); }
+
+/* ================= STRATEGIC OBJECTIVES ================= */
+.objectives {
+  position: relative;
+  background-color: #e9e9e7;
+  background-image: url("/images/about-teaser-bg.png");
+  background-repeat: no-repeat;
+  background-position: center top 60px;
+  background-size: 100% auto;
+}
+
+/* deep green fills the lower portion behind the cards */
+.objectives::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: var(--deep);
+  z-index: 0;
+}
+
+.objInner { position: relative; z-index: 1; padding: 129px 30px 72px; }
+
+.objInner h2 {
+  font-size: 40.3px;
+  font-weight: 100;
+  color: #1f2421;
+  margin-bottom: 30px;
+}
+
+.objGrid {
+  display: grid;
+  gap: 27px;
+  align-items: stretch;
+}
+
+.objCard {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 31.5px 31.5px 27px;
+}
+
+.objCard p {
+  color: #5e6661;
+  font-size: 18.1px;
+  line-height: 1.8;
+  margin: 0 0 28px;
+}
+
+.objCard footer {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.objIcon { color: var(--teal); display: inline-flex; }
+
+.objNum {
+  font-family: var(--font-display);
+  font-size: 65.5px;
+  font-weight: 800;
+  line-height: 0.9;
+  color: var(--teal);
+}
+
+.objFilled { background: var(--teal); }
+.objFilled p { color: #fff; }
+.objFilled .objIcon, .objFilled .objNum { color: #fff; }
+
+/* ================= ARTICLES ================= */
+.articles { background: var(--deep); padding: 56px 0 142px; }
+
+.artHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.artNav { display: flex; gap: 13px; }
+
+.artNav button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.artNav button:hover { background: #fff; color: var(--deep); }
+
+.artHead h2 {
+  color: #fff;
+  font-size: 40.3px;
+  font-weight: 100;
+  margin: 0;
+}
+
+.artGrid { display: grid; gap: 26px; }
+
+.artMedia { position: relative; margin-bottom: 18px; }
+
+.artMedia img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.artCard:hover .artMedia img { transform: scale(1.04); }
+
+.artDate {
+  position: absolute;
+  right: 0;
+  bottom: -16px;
+  padding: 7.2px 18px;
+  background: #00af96;
+  color: #fff;
+  font-size: 14.5px;
+}
+
+.artCard h3 {
+  color: #fff;
+  font-size: 21.2px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 16px 0 12px;
+}
+
+.artCard p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 16.8px;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.artBtn,
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10.8px 25.2px;
+  border-radius: 6px;
+  background: #004e42;
+  color: #fff;
+  font-size: 16.1px;
+  font-weight: 600;
+  transition: background 0.3s var(--ease);
+}
+
+.artBtn:hover, .viewAll:hover { background: #00352d; }
+
+.artFoot { display: flex; justify-content: center; margin-top: 44px; }
+
+/* ================= FOCUS AREAS ================= */
+.focus { background: #fff; padding: 62px 0 0; }
+
+.focusHead {
+  display: grid;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 34px;
+}
+
+.focusHead h2 {
+  font-size: 40.3px;
+  font-weight: 100;
+  color: #1f2421;
+  margin: 0;
+}
+
+.focusHead p {
+  color: #5e6661;
+  font-size: 17.9px;
+  margin: 0;
+  max-width: 54ch;
+}
+
+/* ================= FUNDERS ================= */
+.funders { background: #fff; padding: 60px 0 72px; }
+
+.fundersTitle {
+  text-align: center;
+  font-size: 40.3px;
+  font-weight: 100;
+  color: #1f2421;
+  margin-bottom: 36px;
+}
+
+.fundersRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.fundersTrack {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 24px;
+  align-items: center;
+}
+
+.fundersTrack li { display: flex; justify-content: center; }
+
+.fundersTrack img {
+  max-height: 58px;
+  max-width: 150px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.fundersTrack img:hover { transform: scale(1.06); }
+
+.fundersNav {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: #6b6b6b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.fundersNav:hover { background: var(--deep); border-color: var(--deep); color: #fff; }
+
+
+/* ================= RESPONSIVE ================= */
+@media (min-width: 820px) {
+  .whoGrid { grid-template-columns: 1.05fr 0.95fr; gap: 54px; }
+  .objGrid { grid-template-columns: 440fr 659fr; }
+  /* card 01 spans both rows on the left, 02 and 03 stack on the right */
+  .objGrid > :first-child { grid-row: span 2; }
+  .artGrid { grid-template-columns: repeat(3, 1fr); }
+  .focusHead { grid-template-columns: auto 1fr; gap: 48px; }
+}

@@ -1,0 +1,121 @@
+.intro { padding-bottom: 0; }
+.intro .lede { max-width: 66ch; margin-bottom: 48px; }
+
+/* principal partner gradient card */
+.principal {
+  display: grid;
+  gap: 26px;
+  padding: 40px 36px;
+  border-radius: 14px;
+  background: linear-gradient(115deg, var(--green-deep) 0%, var(--green-dark) 52%, #2a7f86 100%);
+  color: #fff;
+  box-shadow: 0 26px 60px rgba(18, 69, 42, 0.26);
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 15px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 12.3px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.principalLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.principalLogo img { height: 42px; width: auto; object-fit: contain; }
+
+.principal h3 { color: #fff; font-size: 28px; margin: 0; }
+
+.principalRight p {
+  margin: 0;
+  font-size: clamp(19px, 1.6vw, 23.5px);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* partner groups */
+.group { padding-top: clamp(48px, 6vw, 80px); }
+.group:nth-of-type(even) { background: var(--bg-alt); }
+
+.groupHead {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+
+.groupHead::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--green);
+}
+
+.groupHead h2 { font-size: clamp(26.9px, 2.7vw, 35.8px); margin-bottom: 6px; }
+.groupHead p { margin: 0; color: var(--text-soft); font-size: 17.9px; }
+
+.grid { display: grid; gap: 22px; }
+
+.card {
+  position: relative;
+  padding: 30px 28px;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-top: 2px solid var(--green);
+  border-radius: 10px;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 44px rgba(20, 18, 16, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  margin-bottom: 20px;
+}
+
+.logo img { max-height: 46px; max-width: 150px; object-fit: contain; }
+
+.card h3 { font-size: 21.3px; margin-bottom: 10px; }
+.card p { margin: 0; font-size: 16.8px; color: var(--text-soft); }
+
+@media (min-width: 700px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .principal { grid-template-columns: 0.9fr 1.6fr; gap: 44px; align-items: center; }
+  .principalRight { border-left: 1px solid rgba(255, 255, 255, 0.28); padding-left: 44px; }
+}
+
+@media (min-width: 1040px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+.logo img { transition: transform 0.5s var(--ease-out); }
+.card:hover .logo img { transform: scale(1.07); }
+
+.principalLogo { transition: transform 0.5s var(--ease-out); }
+.principal:hover .principalLogo { transform: translateY(-4px); }
+
+/* the logo/heading half of the principal-partner banner, opposite
+   .principalRight */
+.principalLeft {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}

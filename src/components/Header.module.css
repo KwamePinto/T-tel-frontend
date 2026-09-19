@@ -1,0 +1,346 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.clear {
+  background: linear-gradient(180deg, rgba(10, 12, 10, 0.55), rgba(10, 12, 10, 0));
+}
+
+/* Home sits over a video whose caption bar is a flat translucent black; the
+   header uses the same value so the two read as one bar. Applied alongside
+   .clear, so it only swaps the background and inherits the light-on-dark
+   logo, nav and icon treatment. */
+.clearBar {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.solid {
+  background: var(--bg);
+  box-shadow: 0 1px 0 var(--line), 0 8px 30px rgba(20, 18, 16, 0.06);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: var(--header-h);
+  width: 100%;
+  max-width: 1186px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.logo img {
+  height: 52px;
+  width: auto;
+}
+
+/* the white-wordmark logo is used over the hero video and in dark mode */
+.logoLight { display: none; }
+.clear .logoInk { display: none; }
+.clear .logoLight { display: block; }
+
+:global(:root[data-theme="dark"]) .logoInk { display: none; }
+:global(:root[data-theme="dark"]) .logoLight { display: block; }
+
+/* ---- desktop nav ---- */
+.nav {
+  display: none;
+  flex: 1;
+  justify-content: center;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.navItem {
+  position: relative;
+}
+
+.navItem > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-display);
+  /* the site-wide type bump made six items overflow the bar and wrap onto
+     two lines; chrome stays compact and labels never break mid-item */
+  font-size: 16.6px;
+  white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: normal;
+  color: #1f2421;
+  padding: 9px 13px;
+  line-height: 1.2;
+  border-bottom: 2px solid transparent;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.clear .navItem > a {
+  color: #fff;
+}
+
+.navItem > a:hover,
+.navItem > a.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.clear .navItem > a:hover,
+.clear .navItem > a.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.caret {
+  opacity: 0.7;
+  transition: transform 0.25s var(--ease);
+}
+
+.navItem:hover .caret {
+  transform: rotate(180deg);
+}
+
+/* ---- dropdown panel ---- */
+.dropdown,
+.subDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 340px;
+  background: var(--bg);
+  box-shadow: 0 24px 50px rgba(20, 18, 16, 0.18);
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease),
+    visibility 0.28s var(--ease);
+}
+
+.subDropdown {
+  top: -10px;
+  left: 100%;
+  min-width: 300px;
+}
+
+.dropdownOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown li,
+.subDropdown li {
+  position: relative;
+}
+
+.dropdown li + li > a,
+.subDropdown li + li > a {
+  border-top: 1px solid var(--line-soft);
+}
+
+.dropdown a,
+.subDropdown a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 26px;
+  font-size: 17.9px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.35;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.dropdown a:hover,
+.subDropdown a:hover,
+.hasSub:hover > a {
+  background: rgba(226, 87, 76, 0.10);
+  color: var(--accent);
+}
+
+.dropdown svg,
+.subDropdown svg {
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+/* ---- right side actions ---- */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav + .actions {
+  margin-left: 0;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.clear .iconBtn {
+  color: #fff;
+}
+
+.iconBtn:hover {
+  background: rgba(226, 87, 76, 0.14);
+  color: var(--accent);
+}
+
+.clear .iconBtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.a11yWrap {
+  position: relative;
+}
+
+.gearOn {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+
+.cta {
+  display: none;
+  padding: 13px 26px;
+  border-radius: 6px;
+  margin-left: 6px;
+}
+
+.burger {
+  display: inline-flex;
+}
+
+/* ---- search bar ---- */
+.searchBar {
+  background: var(--bg);
+  border-top: 1px solid var(--line-soft);
+  padding: 18px 0;
+  animation: slideDown 0.35s var(--ease-out);
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: none; }
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 12px;
+}
+
+.searchForm svg { color: var(--text-soft); flex-shrink: 0; }
+
+.searchForm input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 22.4px;
+  color: var(--ink);
+  outline: none;
+}
+
+.searchForm button {
+  border: none;
+  background: transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* ---- tricolour stripe ---- */
+.stripe {
+  display: flex;
+  height: 5px;
+  overflow: hidden;
+}
+
+.stripe span { flex: 1; }
+.stripe span:nth-child(1) { background: var(--green); }
+.stripe span:nth-child(2) { background: var(--gold); }
+.stripe span:nth-child(3) { background: var(--blue); }
+
+.clear .stripe { opacity: 0; }
+
+/* ---- mobile nav ---- */
+.mobileNav {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  background: var(--bg);
+  overflow-y: auto;
+  padding: 16px var(--gutter) 60px;
+  animation: slideDown 0.3s var(--ease-out);
+}
+
+.mLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 0;
+  font-family: var(--font-display);
+  font-size: 21.3px;
+  font-weight: 600;
+  color: var(--ink);
+  border: none;
+  border-bottom: 1px solid var(--line-soft);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mToggle svg { transition: transform 0.3s var(--ease); }
+
+.mSub { padding-left: 16px; }
+
+.mSubLink {
+  display: block;
+  padding: 12px 0;
+  font-size: 17.9px;
+  font-weight: 500;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.mLeafLink {
+  display: block;
+  padding: 10px 0 10px 16px;
+  font-size: 16.8px;
+  color: var(--text-soft);
+}
+
+.mCta {
+  width: 100%;
+  margin-top: 24px;
+}
+
+@media (min-width: 1140px) {
+  .nav { display: flex; }
+  .cta { display: inline-flex; }
+  .burger { display: none; }
+}

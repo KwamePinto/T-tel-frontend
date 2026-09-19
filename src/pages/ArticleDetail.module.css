@@ -1,0 +1,95 @@
+.layout { display: grid; gap: 48px; align-items: start; }
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  font-size: 15.7px;
+  color: var(--text-soft);
+  margin-bottom: 22px;
+}
+
+.tag {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  font-size: 13.4px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+}
+
+.lede {
+  font-size: clamp(20.2px, 1.6vw, 23.5px);
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+
+/* the editor emits plain HTML, so style it here rather than per-element */
+.prose { color: var(--text-soft); font-size: 19px; line-height: 1.75; }
+.prose :global(p) { margin: 0 0 20px; }
+.prose :global(h2),
+.prose :global(h3),
+.prose :global(h4) { color: var(--ink); margin: 34px 0 14px; }
+.prose :global(h2) { font-size: 29.1px; }
+.prose :global(h3) { font-size: 23.5px; }
+.prose :global(img) { width: 100%; height: auto; border-radius: 10px; margin: 24px 0; }
+.prose :global(ul),
+.prose :global(ol) { margin: 0 0 20px; padding-left: 22px; list-style: revert; }
+.prose :global(li) { margin-bottom: 8px; }
+.prose :global(a) { color: var(--green-dark); text-decoration: underline; }
+.prose :global(blockquote) {
+  margin: 26px 0;
+  padding: 16px 22px;
+  border-left: 3px solid var(--green);
+  background: var(--bg-alt);
+  font-style: italic;
+}
+.prose :global(table) { width: 100%; border-collapse: collapse; margin: 22px 0; }
+.prose :global(td), .prose :global(th) { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+.prose :global(figure) { margin: 24px 0; }
+.prose :global(figcaption) { font-size: 15.1px; color: var(--text-soft); margin-top: 8px; }
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 34px;
+  font-size: 14.6px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.back:hover { color: var(--green-dark); }
+
+.aside h4 {
+  font-size: 14.6px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 4px;
+}
+
+.aside li { border-bottom: 1px solid var(--line-soft); }
+.aside li a { display: flex; gap: 14px; padding: 16px 0; align-items: flex-start; }
+.aside img { width: 74px; height: 56px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+.aside span { display: block; font-size: 16.8px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.aside em { display: block; font-style: normal; font-size: 13.4px; color: var(--text-soft); margin-bottom: 4px; }
+.aside li a:hover span { color: var(--green-dark); }
+
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: 1fr 300px; gap: 64px; }
+  .aside { position: sticky; top: calc(var(--header-h) + 40px); }
+}
+
+/* The article column of .layout. Without min-width:0 a long word or a wide
+   <pre> in the body stretches the grid track and pushes the aside off-screen. */
+.body {
+  min-width: 0;
+}
