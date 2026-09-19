@@ -19,19 +19,32 @@ function Bio({ text }) {
 export default function TeamModal({ person, onClose }) {
   const panel = useRef(null);
 
-  // Escape closes, the page behind stops scrolling, and focus moves into the
-  // dialog so a keyboard user is not left behind on the card grid.
+  // The caller renders this component all the time and passes person=null when
+  // nothing is selected, so the effect must do nothing until there is someone
+  // to show — an early `return null` below would not save us, because hooks run
+  // on every render regardless of what the component returns.
+  //
+  // onClose is also a fresh arrow on each render, so depending on it would
+  // re-run this every time and re-capture an already-locked body as the state
+  // to restore. A ref keeps the latest handler without retriggering.
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
+
   useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && onClose();
+    if (!person) return undefined;
+
+    const onKey = (e) => e.key === "Escape" && closeRef.current();
     window.addEventListener("keydown", onKey);
-    const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     panel.current?.focus();
+
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = previous;
+      // back to the stylesheet's value rather than a captured one, which could
+      // itself have been "hidden" if anything else had locked scrolling
+      document.body.style.overflow = "";
     };
-  }, [onClose]);
+  }, [person]);
 
   if (!person) return null;
 
