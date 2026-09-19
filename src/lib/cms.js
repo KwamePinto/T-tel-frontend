@@ -55,6 +55,18 @@ export const cms = {
   },
 };
 
+/**
+ * Where uploaded files are served from. Set this to the bucket's public URL
+ * and the browser fetches them straight from the CDN.
+ *
+ * Without it every picture is two round trips: one to the API, which answers
+ * with a redirect, and one to the bucket. That roughly doubles the time per
+ * image even against a local API, and in production it puts the whole image
+ * load of every page through the API host. Leave it unset and uploads are
+ * served by the API, which is what local development on disk storage needs.
+ */
+const MEDIA_BASE = (import.meta.env.VITE_MEDIA_URL || "").replace(/\/+$/, "");
+
 /** Turns a stored media path into something the browser can load. */
 export function mediaUrl(value) {
   if (!value) return "";
@@ -63,6 +75,7 @@ export function mediaUrl(value) {
   if (/^https?:\/\//i.test(url)) return url;
   // seeded records point at files that ship with the front end
   if (url.startsWith("/images/") || url.startsWith("/video/")) return url;
+  if (MEDIA_BASE && url.startsWith("/uploads/")) return MEDIA_BASE + url.slice("/uploads".length);
   return new URL(url, BASE).toString();
 }
 
