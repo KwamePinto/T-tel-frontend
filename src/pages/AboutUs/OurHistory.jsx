@@ -1,6 +1,6 @@
 import PageHero from "../../components/PageHero";
 import Seo from "../../components/Seo";
-import HistoryMilestones from "../../components/HistoryMilestones";
+import HistoryTimeline from "../../components/HistoryTimeline";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
@@ -43,7 +43,7 @@ export default function OurHistory() {
         )}
 
         {milestones ? (
-          <HistoryMilestones data={milestones.data} />
+          <HistoryTimeline data={milestones.data} />
         ) : (
           page && (
             <div className="container">
