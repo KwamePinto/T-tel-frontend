@@ -81,8 +81,14 @@ export default function TeamModal({ person, onClose }) {
           <div className={styles.head}>
             <span className={styles.rule} aria-hidden="true" />
             <h3 className={styles.name}>{person.name}</h3>
-            {person.position && <p className={styles.position}>{person.position}</p>}
-            {person.group?.name && <span className={styles.group}>{person.group.name}</span>}
+            {/* role and group share a line where they fit, and wrap onto their
+                own when they don't — a row saved here is a row of biography */}
+            {(person.position || person.group?.name) && (
+              <div className={styles.meta}>
+                {person.position && <p className={styles.position}>{person.position}</p>}
+                {person.group?.name && <span className={styles.group}>{person.group.name}</span>}
+              </div>
+            )}
           </div>
 
           <div className={styles.scroll}>

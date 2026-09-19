@@ -1,0 +1,158 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 320;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(10px, 2.4vw, 32px);
+  background: rgba(12, 18, 16, 0.72);
+  backdrop-filter: blur(3px);
+  animation: fade 0.22s var(--ease-out);
+}
+
+@keyframes fade { from { opacity: 0; } }
+
+/* A reader wants the page as large as the screen allows, so this runs wider
+   and taller than the profile dialog: a bar of controls on top, the document
+   filling everything underneath. */
+.modal {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: 100%;
+  max-width: 1180px;
+  height: min(94vh, 1000px);
+  background: var(--bg);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 32px 90px rgba(12, 18, 16, 0.46);
+  animation: rise 0.3s var(--ease-out);
+  outline: none;
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(16px) scale(0.99); } }
+
+/* ---- control bar ---- */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 14px 13px 22px;
+  background: var(--green-deep);
+  color: #fff;
+}
+
+.heading { min-width: 0; flex: 1; }
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+  /* long manual names would otherwise push the buttons off the bar */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.68);
+  margin: 3px 0 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 0;
+  border-radius: 7px;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background 0.25s var(--ease);
+}
+
+.action:hover { background: rgba(255, 255, 255, 0.22); }
+.action svg { flex-shrink: 0; }
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.close:hover { background: var(--accent); transform: rotate(90deg); }
+
+/* ---- document ---- */
+.frame {
+  position: relative;
+  background: #52565c;   /* the grey every native PDF viewer mats pages against */
+  min-height: 0;
+}
+
+.viewer {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  pointer-events: none;   /* never blocks the viewer painting underneath */
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay, .modal { animation: none; }
+  .spinner { animation-duration: 2s; }
+}
+
+@media (max-width: 720px) {
+  .overlay { padding: 0; }
+  .modal { height: 100%; max-width: none; border-radius: 0; }
+  .bar { padding: 11px 11px 11px 16px; gap: 10px; }
+  /* labels go, icons stay — three controls still fit a narrow bar */
+  .action span { display: none; }
+  .action { padding: 10px; }
+}
