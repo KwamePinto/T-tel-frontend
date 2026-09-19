@@ -71,12 +71,27 @@
 
 /* ---- profile ---- */
 .body {
+  display: flex;
+  flex-direction: column;
   padding: clamp(26px, 3.4vw, 46px);
   overflow-y: auto;
   overscroll-behavior: contain;   /* reaching the end doesn't scroll the page */
   min-width: 0;
   min-height: 0;                  /* the half that makes overflow-y actually scroll */
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-soft) transparent;
 }
+
+/* auto margins centre a short profile and collapse to nothing on a long one,
+   so it scrolls from the first line rather than from its middle */
+.inner { margin: auto 0; width: 100%; }
+
+.body::-webkit-scrollbar { width: 8px; }
+.body::-webkit-scrollbar-thumb {
+  background: var(--line-soft);
+  border-radius: 999px;
+}
+.body::-webkit-scrollbar-thumb:hover { background: var(--text-soft); }
 
 .rule {
   display: block;
