@@ -67,7 +67,15 @@ export default function HistoryTimeline({ data }) {
         </div>
       )}
 
-      <ol className={styles.timeline}>
+      {/*
+        Closing happens when the pointer leaves the whole list, not when it
+        leaves one entry. Per-entry closing collapses the one you are moving
+        away from while you are still between the two, which drags everything
+        below it upwards and out from under the cursor — you end up on the
+        wrong entry, or on none. Handing the open state straight from one
+        entry to the next keeps the movement predictable.
+      */}
+      <ol className={styles.timeline} onMouseLeave={() => setOpenStep(null)}>
         {milestones.map((m, i) => {
           const step = m.step ?? i + 1;
           const open = openStep === step;
@@ -76,9 +84,18 @@ export default function HistoryTimeline({ data }) {
           return (
             <li
               key={step}
-              className={`${styles.entry} ${i % 2 ? styles.right : styles.left} ${open ? styles.open : ""} reveal`}
+              /**
+               * className must not change with the open state. The scroll
+               * reveal marks this element by adding a class straight to the
+               * DOM node; if React rewrites className afterwards it strips
+               * that mark off again and the entry fades back to nothing —
+               * which looked like hovering made the content disappear.
+               * The open state travels as an attribute instead, which React
+               * updates without touching the class list.
+               */
+              className={`${styles.entry} ${i % 2 ? styles.right : styles.left} reveal`}
+              data-open={open ? "true" : "false"}
               onMouseEnter={() => setOpenStep(step)}
-              onMouseLeave={() => setOpenStep((s) => (s === step ? null : s))}
             >
               <span className={styles.badge} aria-hidden="true">{step}</span>
 
