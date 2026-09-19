@@ -129,7 +129,15 @@ export default function Home() {
 
       {/* ---------------- WHO WE ARE ---------------- */}
       {flag("show_who") && (
-      <section className={styles.who}>
+      <section
+        className={styles.who}
+        /* the hero still image, no longer needed as a video poster */
+        style={
+          mediaUrl(settings.hero_image_url)
+            ? { backgroundImage: `url(${mediaUrl(settings.hero_image_url)})` }
+            : undefined
+        }
+      >
         <div className={`${styles.wrap} ${styles.whoGrid}`}>
           <div className={`${styles.whoCopy} reveal`}>
             <h2>{settings.home_who_heading}</h2>
