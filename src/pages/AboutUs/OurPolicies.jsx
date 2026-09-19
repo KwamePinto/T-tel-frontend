@@ -1,6 +1,8 @@
+import { useState } from "react";
 import PageHero from "../../components/PageHero";
 import Seo from "../../components/Seo";
 import Icon from "../../components/Icon";
+import PdfPreview, { openPreview } from "../../components/PdfPreview";
 import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
@@ -18,6 +20,7 @@ export default function OurPolicies() {
     [],
   );
   const items = data?.items ?? [];
+  const [reading, setReading] = useState(null);
 
   async function handleDownload(doc) {
     try {
@@ -27,6 +30,9 @@ export default function OurPolicies() {
       if (doc.file?.url) window.open(mediaUrl(doc.file), "_blank", "noopener");
     }
   }
+
+  // reading and saving stay separate, so the download figures keep their meaning
+  const preview = (doc) => openPreview(doc, setReading);
 
   return (
     <>
@@ -74,6 +80,15 @@ export default function OurPolicies() {
                   <div className={styles.actions}>
                     <button
                       type="button"
+                      className={styles.read}
+                      onClick={() => preview(policy)}
+                      disabled={!policy.file?.url}
+                    >
+                      <Icon name="eye" size={15} />
+                      Read
+                    </button>
+                    <button
+                      type="button"
                       className={styles.download}
                       onClick={() => handleDownload(policy)}
                       disabled={!policy.file?.url}
@@ -88,6 +103,8 @@ export default function OurPolicies() {
           </div>
         </div>
       </section>
+
+      <PdfPreview doc={reading} onClose={() => setReading(null)} onDownload={handleDownload} />
     </>
   );
 }

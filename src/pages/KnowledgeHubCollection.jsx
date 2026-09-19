@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import PageHero from "../components/PageHero";
 import Icon from "../components/Icon";
+import PdfPreview, { openPreview } from "../components/PdfPreview";
 import { CardsLoading, ErrorState, EmptyState } from "../components/States";
 import { cms, mediaUrl } from "../lib/cms";
 import { useCms } from "../hooks/useCms";
@@ -64,6 +65,7 @@ export default function KnowledgeHubCollection() {
 
   const items = data?.items || [];
   const pages = data?.pages || 1;
+  const [reading, setReading] = useState(null);
 
   async function download(doc) {
     try {
@@ -74,6 +76,11 @@ export default function KnowledgeHubCollection() {
       window.open(mediaUrl(doc.file?.url), "_blank", "noopener");
     }
   }
+
+  // Reading and saving are separate actions: the cover and the title open the
+  // document, the download button saves it. Only the latter counts as a
+  // download, which keeps the dashboard's figures meaning what they say.
+  const preview = (doc) => openPreview(doc, setReading);
 
   return (
     <>
@@ -160,8 +167,8 @@ export default function KnowledgeHubCollection() {
                     <button
                       type="button"
                       className={styles.cover}
-                      onClick={() => download(doc)}
-                      aria-label={`Download ${doc.title}`}
+                      onClick={() => preview(doc)}
+                      aria-label={`Read ${doc.title}`}
                     >
                       {doc.thumbnail?.url ? (
                         <img
@@ -176,15 +183,15 @@ export default function KnowledgeHubCollection() {
                         <span className={styles.coverFallback}>PDF</span>
                       )}
                       <span className={styles.coverOverlay}>
-                        <Icon name="download" size={20} />
-                        Download
+                        <Icon name="eye" size={20} />
+                        Read
                       </span>
                     </button>
 
                     <h3 className={styles.title}>
                       {/* title attribute: the card clamps long names to four
                           lines, so the full one stays reachable on hover */}
-                      <button type="button" title={doc.title} onClick={() => download(doc)}>
+                      <button type="button" title={doc.title} onClick={() => preview(doc)}>
                         {doc.title}
                       </button>
                     </h3>
@@ -192,6 +199,16 @@ export default function KnowledgeHubCollection() {
                     <p className={styles.meta}>
                       {[doc.year, fileSize(doc.file?.size)].filter(Boolean).join(" · ")}
                     </p>
+
+                    <button
+                      type="button"
+                      className={styles.save}
+                      onClick={() => download(doc)}
+                      aria-label={`Download ${doc.title}`}
+                    >
+                      <Icon name="download" size={15} />
+                      Download
+                    </button>
                   </article>
                 ))}
               </div>
@@ -221,6 +238,8 @@ export default function KnowledgeHubCollection() {
           )}
         </div>
       </section>
+
+      <PdfPreview doc={reading} onClose={() => setReading(null)} onDownload={download} />
     </>
   );
 }
