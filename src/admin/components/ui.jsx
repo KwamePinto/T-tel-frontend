@@ -5,18 +5,26 @@ import s from "./ui.module.css";
 const cx = (...parts) => parts.filter(Boolean).join(" ");
 
 /* ------------------------------------------------------------------ button */
-export function Button({ variant = "secondary", size, className, icon, children, ...rest }) {
+// A plain <button> with no type defaults to type="submit", so every one of
+// these that lives inside an editor's <form> (EditorShell wraps every
+// admin editor in one) submits that form the instant it's clicked — a click
+// meant only to open the media picker, expand a section, or dismiss a modal
+// instead saves the post, unmounts the editor while it reloads, and closes
+// whatever the click was actually trying to open. "type" is still
+// overridable, which is how the real Save/Create buttons opt back in to
+// type="submit".
+export function Button({ variant = "secondary", size, className, icon, children, type = "button", ...rest }) {
   return (
-    <button className={cx(s.btn, s[variant], size === "sm" && s.sm, className)} {...rest}>
+    <button type={type} className={cx(s.btn, s[variant], size === "sm" && s.sm, className)} {...rest}>
       {icon && <AdminIcon name={icon} size={size === "sm" ? 14 : 16} />}
       {children}
     </button>
   );
 }
 
-export function IconButton({ icon, label, ...rest }) {
+export function IconButton({ icon, label, type = "button", ...rest }) {
   return (
-    <button className={s.iconBtn} title={label} aria-label={label} {...rest}>
+    <button type={type} className={s.iconBtn} title={label} aria-label={label} {...rest}>
       <AdminIcon name={icon} size={17} />
     </button>
   );
@@ -65,6 +73,7 @@ export function FilterPills({ options, value, onChange }) {
       {options.map((opt) => (
         <button
           key={opt.value}
+          type="button"
           role="tab"
           aria-selected={value === opt.value}
           className={cx(s.pill, value === opt.value && s.pillOn)}
