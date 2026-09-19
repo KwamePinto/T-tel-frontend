@@ -1,24 +1,93 @@
+import { useEffect, useRef } from "react";
 import Icon from "./Icon";
+import { mediaUrl } from "../lib/cms";
 import styles from "./TeamModal.module.css";
 
+/** Bios arrive either as editor HTML or as plain text with blank lines. */
+function Bio({ text }) {
+  if (!text) return null;
+  if (/<[a-z][\s\S]*>/i.test(text)) {
+    return <div className={styles.bio} dangerouslySetInnerHTML={{ __html: text }} />;
+  }
+  return (
+    <div className={styles.bio}>
+      {text.split(/\n\s*\n/).filter(Boolean).map((para, i) => <p key={i}>{para}</p>)}
+    </div>
+  );
+}
+
 export default function TeamModal({ person, onClose }) {
+  const panel = useRef(null);
+
+  // Escape closes, the page behind stops scrolling, and focus moves into the
+  // dialog so a keyboard user is not left behind on the card grid.
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    panel.current?.focus();
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previous;
+    };
+  }, [onClose]);
+
   if (!person) return null;
 
+  // photo is a populated media record, not a string — passing the object
+  // straight to src is what left every portrait blank
+  const photo = mediaUrl(person.photo);
+
   return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+    <div className={styles.overlay} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+      <div
+        className={styles.modal}
+        role="dialog"
+        aria-modal="true"
+        aria-label={person.name}
+        tabIndex={-1}
+        ref={panel}
+      >
         <button className={styles.close} onClick={onClose} aria-label="Close">
           <Icon name="close" size={20} />
         </button>
-        {person.photo && (
-          <img src={person.photo} alt={person.name} className={styles.photo} />
-        )}
-        <h3>{person.name}</h3>
-        <p className={styles.position}>{person.position}</p>
-        {person.bio &&
-          person.bio
-            .split("\n\n")
-            .map((para, i) => <p key={i}>{para}</p>)}
+
+        <div className={styles.media}>
+          {photo ? (
+            <img src={photo} alt={person.name} />
+          ) : (
+            <span className={styles.initials} aria-hidden="true">
+              {person.name?.split(/\s+/).slice(0, 2).map((w) => w[0]).join("")}
+            </span>
+          )}
+        </div>
+
+        <div className={styles.body}>
+          <span className={styles.rule} aria-hidden="true" />
+          <h3 className={styles.name}>{person.name}</h3>
+          {person.position && <p className={styles.position}>{person.position}</p>}
+          {person.group?.name && <span className={styles.group}>{person.group.name}</span>}
+
+          <Bio text={person.bio} />
+
+          {(person.email || person.linkedin) && (
+            <div className={styles.links}>
+              {person.email && (
+                <a href={`mailto:${person.email}`} className={styles.link}>
+                  <Icon name="mail" size={16} />
+                  {person.email}
+                </a>
+              )}
+              {person.linkedin && (
+                <a href={person.linkedin} target="_blank" rel="noreferrer" className={styles.link}>
+                  <Icon name="linkedin" size={16} />
+                  LinkedIn
+                </a>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
