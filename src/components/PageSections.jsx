@@ -28,7 +28,16 @@ export default function PageSections({ sections }) {
           if (!img) return null;
           return (
             <figure key={key} className={`${styles.figure} reveal`}>
-              <img src={img} alt={section.image?.alt || ""} loading="lazy" decoding="async" />
+              <img
+                src={img}
+                alt={section.image?.alt || ""}
+                loading="lazy"
+                decoding="async"
+                /* the real pixel size, so the browser reserves the right box
+                   and the page stops jumping as pictures arrive */
+                width={section.image?.width || undefined}
+                height={section.image?.height || undefined}
+              />
             </figure>
           );
         }
@@ -38,7 +47,14 @@ export default function PageSections({ sections }) {
             <div key={key} className={`${styles.split} ${section.flip ? styles.flip : ""} reveal`}>
               {img && (
                 <figure className={styles.splitMedia}>
-                  <img src={img} alt={section.image?.alt || ""} loading="lazy" decoding="async" />
+                  <img
+                    src={img}
+                    alt={section.image?.alt || ""}
+                    loading="lazy"
+                    decoding="async"
+                    width={section.image?.width || undefined}
+                    height={section.image?.height || undefined}
+                  />
                 </figure>
               )}
               <div
