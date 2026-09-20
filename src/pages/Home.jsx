@@ -13,18 +13,18 @@ import styles from "./Home.module.css";
 export default function Home() {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(true);
-  const [funderPage, setFunderPage] = useState(0);
-  const [funderPerView, setFunderPerView] = useState(3);
+  const [partnerPage, setPartnerPage] = useState(0);
+  const [partnerPerView, setPartnerPerView] = useState(3);
   const [artPage, setArtPage] = useState(0);
 
   useEffect(() => {
-    const updateFunderPerView = () => {
+    const updatePartnerPerView = () => {
       const width = window.innerWidth;
-      setFunderPerView(width < 640 ? 1 : width < 1000 ? 2 : 3);
+      setPartnerPerView(width < 640 ? 1 : width < 1000 ? 2 : 3);
     };
-    updateFunderPerView();
-    window.addEventListener("resize", updateFunderPerView);
-    return () => window.removeEventListener("resize", updateFunderPerView);
+    updatePartnerPerView();
+    window.addEventListener("resize", updatePartnerPerView);
+    return () => window.removeEventListener("resize", updatePartnerPerView);
   }, []);
 
   // The video is the hero — it starts downloading with the page rather than
@@ -64,10 +64,10 @@ export default function Home() {
   const { settings, flag } = useSite();
 
   const articles = useCms(() => cms.posts({ type: "blog", limit: 12 }), []);
-  const funders = useCms(() => cms.partners({ group: "funder", home: true }), []);
+  const partners = useCms(() => cms.partners(), []);
 
   const posts = articles.data?.items ?? [];
-  const funderList = funders.data?.items ?? [];
+  const partnerList = partners.data?.items ?? [];
 
   const ART_PER_VIEW = 3;
   const artPages = Math.max(1, Math.ceil(posts.length / ART_PER_VIEW));
@@ -76,12 +76,16 @@ export default function Home() {
         posts[(artPage * ART_PER_VIEW + k) % posts.length])
     : [];
 
-  const funderPages = Math.max(1, Math.ceil(funderList.length / funderPerView));
-  const visibleFunders = funderList.slice(funderPage * funderPerView, funderPage * funderPerView + funderPerView);
+  const partnerPages = Math.max(1, Math.ceil(partnerList.length / partnerPerView));
+  const visiblePartners = partnerList.slice(partnerPage * partnerPerView, partnerPage * partnerPerView + partnerPerView);
 
   useEffect(() => {
-    setFunderPage((page) => Math.min(page, funderPages - 1));
-  }, [funderPages]);
+    setPartnerPage((page) => Math.min(page, partnerPages - 1));
+  }, [partnerPages]);
+
+  function goToPartnerPage(page) {
+    setPartnerPage((page + partnerPages) % partnerPages);
+  }
 
   // Strategic objectives are three editable settings rather than a fixed list.
   const objectives = [
@@ -270,42 +274,42 @@ export default function Home() {
       )}
 
       {/* ---------------- FUNDERS ---------------- */}
-      {flag("show_funders") && funderList.length > 0 && (
+      {flag("show_funders") && partnerList.length > 0 && (
       <section className={styles.funders}>
         <div className={styles.wrap}>
           <h2 className={`${styles.fundersTitle} reveal`}>{settings.home_funders_heading || "Funders"}</h2>
 
           <div className={styles.fundersRow}>
-            {funderPages > 1 && (
+            {partnerPages > 1 && (
               <button
                 type="button"
                 className={styles.fundersNav}
-                onClick={() => setFunderPage((p) => (p - 1 + funderPages) % funderPages)}
+                onClick={() => goToPartnerPage(partnerPage - 1)}
                 aria-label="Previous funders"
               >
                 <Icon name="arrowRight" size={18} style={{ transform: "rotate(180deg)" }} />
               </button>
             )}
 
-            <ul className={styles.fundersTrack}>
-              {visibleFunders.map((f) => (
-                <li key={f._id || f.slug}>
-                  {f.url ? (
-                    <a href={f.url} target="_blank" rel="noreferrer" title={f.name}>
-                      <img src={mediaUrl(f.logo)} alt={f.name} loading="lazy" />
+            <ul key={partnerPage} className={styles.fundersTrack}>
+              {visiblePartners.map((partner) => (
+                <li key={partner._id || partner.slug}>
+                  {partner.url ? (
+                    <a href={partner.url} target="_blank" rel="noreferrer" title={partner.name}>
+                      <img src={mediaUrl(partner.logo)} alt={partner.name} loading="lazy" />
                     </a>
                   ) : (
-                    <img src={mediaUrl(f.logo)} alt={f.name} loading="lazy" />
+                    <img src={mediaUrl(partner.logo)} alt={partner.name} loading="lazy" />
                   )}
                 </li>
               ))}
             </ul>
 
-            {funderPages > 1 && (
+            {partnerPages > 1 && (
               <button
                 type="button"
                 className={styles.fundersNav}
-                onClick={() => setFunderPage((p) => (p + 1) % funderPages)}
+                onClick={() => goToPartnerPage(partnerPage + 1)}
                 aria-label="Next funders"
               >
                 <Icon name="arrowRight" size={18} />
@@ -314,9 +318,10 @@ export default function Home() {
           </div>
 
           <SliderProgress
-            count={funderPages}
-            index={funderPage}
-            onSelect={setFunderPage}
+            count={partnerPages}
+            index={partnerPage}
+            onSelect={goToPartnerPage}
+            duration={9000}
           />
         </div>
       </section>
