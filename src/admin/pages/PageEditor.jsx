@@ -305,16 +305,27 @@ export default function PageEditor() {
           </p>
           {blueprint?.summary && <p className={s.noticeBody}>{blueprint.summary}</p>}
           {blueprint?.managedIn?.length > 0 && (
-            <p className={s.noticeBody}>
-              Also on this page:{" "}
-              {blueprint.managedIn.map((ref, i) => (
-                <span key={ref.to}>
-                  {i > 0 && ", "}
-                  <Link to={ref.to}>{ref.label}</Link>
-                </span>
-              ))}
-              .
-            </p>
+            <>
+              <p className={s.noticeBody}>
+                <strong>How to edit this section:</strong>
+                <br />
+                1. Use this page for the hero, heading, SEO and overall layout.
+                <br />
+                2. Go to <Link to={blueprint.managedIn[0].to}>{blueprint.managedIn[0].label}</Link> to edit the actual entries.
+                <br />
+                3. For Focus Areas and Programmes, open each item in Posts and set the Content Type to the matching type before saving.
+              </p>
+              <p className={s.noticeBody}>
+                Also on this page:{" "}
+                {blueprint.managedIn.map((ref, i) => (
+                  <span key={ref.to}>
+                    {i > 0 && ", "}
+                    <Link to={ref.to}>{ref.label}</Link>
+                  </span>
+                ))}
+                .
+              </p>
+            </>
           )}
         </div>
       )}
