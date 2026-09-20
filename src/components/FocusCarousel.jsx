@@ -12,6 +12,7 @@ export default function FocusCarousel() {
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(1);
   const [hovered, setHovered] = useState(false);
+  const movingRef = useRef(false);
 
   const { data, loading, error, reload } = useCms(
     () => cms.posts({ type: "focus-areas", limit: 50 }),
@@ -36,7 +37,12 @@ export default function FocusCarousel() {
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
+    movingRef.current = true;
     el.scrollTo({ left: page * el.clientWidth, behavior: "smooth" });
+    const settle = window.setTimeout(() => {
+      movingRef.current = false;
+    }, 520);
+    return () => window.clearTimeout(settle);
   }, [page]);
 
   // wraps, so the arrows never dead-end at either edge
@@ -50,6 +56,7 @@ export default function FocusCarousel() {
     if (!el) return undefined;
     let timer;
     const onScroll = () => {
+      if (movingRef.current) return;
       clearTimeout(timer);
       timer = setTimeout(() => {
         const i = Math.round(el.scrollLeft / el.clientWidth);
