@@ -37,11 +37,11 @@ export const PROJECTS = [
   },
   {
     slug: "edtech-hub",
-    title: "COVID-19 Impact Assessment Study",
+    title: "EdTech Hub",
     partner: "In partnership with the EdTech Hub",
     image: "/images/work/edtech-hub.jpg",
     summary:
-      "A research study, in partnership with the EdTech Hub, assessing the impact of the COVID-19 pandemic on Ghana's education system.",
+      "The COVID-19 Impact Assessment Study is a research study, in partnership with the EdTech Hub, assessing the impact of the COVID-19 pandemic on Ghana's education system.",
     description: [
       "The COVID-19 Impact Assessment Study is a research partnership between T-TEL and the EdTech Hub, examining how the pandemic affected teaching, learning and education delivery in Ghana.",
       "Findings from the study inform T-TEL's ongoing work supporting resilient, equitable education systems.",

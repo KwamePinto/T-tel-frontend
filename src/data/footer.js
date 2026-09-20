@@ -30,7 +30,7 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: "Secondary Education Reform (T-SHEL)", to: "/our-work/t-shel" },
       { label: "DeliverEd", to: "/our-work/delivered" },
-      { label: "COVID-19 Impact Assessment Study", to: "/our-work/edtech-hub" },
+      { label: "EdTech Hub", to: "/our-work/edtech-hub" },
       { label: "Work With Us", to: "/join-us" },
     ],
   },
