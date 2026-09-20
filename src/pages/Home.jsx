@@ -10,13 +10,22 @@ import { useSite } from "../context/SiteContext";
 import { CardsLoading, ErrorState } from "../components/States";
 import styles from "./Home.module.css";
 
-const PER_VIEW = 5;
-
 export default function Home() {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(true);
   const [funderPage, setFunderPage] = useState(0);
+  const [funderPerView, setFunderPerView] = useState(3);
   const [artPage, setArtPage] = useState(0);
+
+  useEffect(() => {
+    const updateFunderPerView = () => {
+      const width = window.innerWidth;
+      setFunderPerView(width < 640 ? 1 : width < 1000 ? 2 : 3);
+    };
+    updateFunderPerView();
+    window.addEventListener("resize", updateFunderPerView);
+    return () => window.removeEventListener("resize", updateFunderPerView);
+  }, []);
 
   // The video is the hero — it starts downloading with the page rather than
   // waiting for window.load, and there is no poster, because a still frame
@@ -55,7 +64,7 @@ export default function Home() {
   const { settings, flag } = useSite();
 
   const articles = useCms(() => cms.posts({ type: "blog", limit: 12 }), []);
-  const funders = useCms(() => cms.partners({ home: true }), []);
+  const funders = useCms(() => cms.partners({ group: "funder", home: true }), []);
 
   const posts = articles.data?.items ?? [];
   const funderList = funders.data?.items ?? [];
@@ -67,8 +76,12 @@ export default function Home() {
         posts[(artPage * ART_PER_VIEW + k) % posts.length])
     : [];
 
-  const funderPages = Math.max(1, Math.ceil(funderList.length / PER_VIEW));
-  const visibleFunders = funderList.slice(funderPage * PER_VIEW, funderPage * PER_VIEW + PER_VIEW);
+  const funderPages = Math.max(1, Math.ceil(funderList.length / funderPerView));
+  const visibleFunders = funderList.slice(funderPage * funderPerView, funderPage * funderPerView + funderPerView);
+
+  useEffect(() => {
+    setFunderPage((page) => Math.min(page, funderPages - 1));
+  }, [funderPages]);
 
   // Strategic objectives are three editable settings rather than a fixed list.
   const objectives = [
@@ -263,14 +276,16 @@ export default function Home() {
           <h2 className={`${styles.fundersTitle} reveal`}>{settings.home_funders_heading || "Funders"}</h2>
 
           <div className={styles.fundersRow}>
-            <button
-              type="button"
-              className={styles.fundersNav}
-              onClick={() => setFunderPage((p) => (p - 1 + funderPages) % funderPages)}
-              aria-label="Previous funders"
-            >
-              <Icon name="arrowRight" size={18} style={{ transform: "rotate(180deg)" }} />
-            </button>
+            {funderPages > 1 && (
+              <button
+                type="button"
+                className={styles.fundersNav}
+                onClick={() => setFunderPage((p) => (p - 1 + funderPages) % funderPages)}
+                aria-label="Previous funders"
+              >
+                <Icon name="arrowRight" size={18} style={{ transform: "rotate(180deg)" }} />
+              </button>
+            )}
 
             <ul className={styles.fundersTrack}>
               {visibleFunders.map((f) => (
@@ -286,14 +301,16 @@ export default function Home() {
               ))}
             </ul>
 
-            <button
-              type="button"
-              className={styles.fundersNav}
-              onClick={() => setFunderPage((p) => (p + 1) % funderPages)}
-              aria-label="Next funders"
-            >
-              <Icon name="arrowRight" size={18} />
-            </button>
+            {funderPages > 1 && (
+              <button
+                type="button"
+                className={styles.fundersNav}
+                onClick={() => setFunderPage((p) => (p + 1) % funderPages)}
+                aria-label="Next funders"
+              >
+                <Icon name="arrowRight" size={18} />
+              </button>
+            )}
           </div>
 
           <SliderProgress
