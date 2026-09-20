@@ -19,7 +19,6 @@ export default function OurHistory() {
   );
   const data = milestones?.data;
   const story = data?.story || {};
-  const intro = story.lead || data?.intro?.[0] || "Transforming Teaching, Education and Learning grew from a nationally owned teacher education programme into an independent Ghanaian institution.";
   const resources = data?.links || [];
   const quoteText = story.quote || data?.quote?.text || "Created to serve as a trusted technical partner, supporting national leadership to own reforms and drive innovations that move Ghana's education system to greater heights.";
   const quoteAttribution = story.quoteAttrib || data?.quote?.attribution || "T-TEL's founding principle";

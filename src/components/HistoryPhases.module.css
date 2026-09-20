@@ -1,32 +1,34 @@
 .wrap {
-  background: #111;
-  color: #fff;
-  padding: clamp(74px, 9vw, 150px) 0 clamp(64px, 8vw, 120px);
+  position: relative;
+  background: linear-gradient(120deg, #000000 0%, #001f19 45%, #00544a 100%);
+  padding: clamp(80px, 9vw, 140px) 0 clamp(60px, 7vw, 110px);
   overflow: hidden;
+  color: #fff;
 }
 
 .headingWrap {
-  width: min(1186px, calc(100% - 60px));
-  margin: 0 auto clamp(46px, 6vw, 88px);
+  width: 100%;
+  padding: 0 clamp(28px, 4vw, 64px);
+  margin-bottom: clamp(56px, 6vw, 96px);
 }
 
 .headingWrap span {
   display: block;
+  margin-bottom: 16px;
   color: #35c46a;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: .16em;
   text-transform: uppercase;
-  margin-bottom: 17px;
 }
 
 .headingWrap h2 {
-  max-width: 10ch;
-  color: #fff;
-  font-size: clamp(46px, 7vw, 94px);
-  line-height: .96;
-  letter-spacing: -.055em;
+  max-width: 13ch;
   margin: 0;
+  color: #fff;
+  font-size: clamp(46px, 5.4vw, 80px);
+  line-height: .98;
+  letter-spacing: -.04em;
 }
 
 .timelineShell {
@@ -34,13 +36,27 @@
   width: 100%;
 }
 
+/* the thin gold guideline every numbered marker sits on */
+.timelineShell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(28px, 4vw, 64px);
+  right: clamp(28px, 4vw, 64px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(240, 194, 60, 0) 0%, #f0c23c 8%, #f0c23c 92%, rgba(240, 194, 60, 0) 100%);
+}
+
 .track {
+  position: relative;
+  z-index: 1;
   display: flex;
+  gap: clamp(20px, 2.2vw, 32px);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   scroll-behavior: smooth;
-  padding: 18px max(30px, calc((100vw - 1186px) / 2)) 42px;
+  padding: 64px clamp(28px, 4vw, 64px) 20px;
   overscroll-behavior-x: contain;
 }
 
@@ -49,90 +65,138 @@
 
 .phase {
   position: relative;
-  flex: 0 0 min(86vw, 980px);
-  min-height: 530px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: clamp(28px, 5vw, 82px);
-  padding: 28px clamp(22px, 4vw, 72px);
+  flex: 0 0 clamp(300px, 22vw, 420px);
+  display: flex;
+  flex-direction: column;
   scroll-snap-align: center;
-  opacity: .45;
-  transform: scale(.94);
-  transition: opacity .55s ease, transform .7s cubic-bezier(.22, .61, .36, 1);
+  background: #132420;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 6px;
+  opacity: .5;
+  transform: translateY(6px) scale(.97);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.22, .61, .36, 1), border-color .5s ease;
 }
 
-.phase::after {
-  content: "";
+.phase.active {
+  opacity: 1;
+  transform: none;
+  border-color: #35c46a;
+}
+
+/* the numbered marker floating above the card, on the guideline */
+.phaseNumber {
   position: absolute;
+  z-index: 3;
+  top: -58px;
   left: 50%;
-  bottom: -10px;
-  width: 1px;
-  height: calc(100% + 20px);
-  background: linear-gradient(#35c46a, #f2c744);
-  opacity: .55;
-  z-index: -1;
-}
-
-.phase.active { opacity: 1; transform: scale(1); }
-.phase.reverse .phaseCopy { order: 2; }
-.phase.reverse .phaseMedia { order: 1; }
-
-.phaseCopy { text-align: right; }
-.reverse .phaseCopy { text-align: left; }
-
-.step {
-  display: block;
-  color: #77736c;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 2px solid #f0c23c;
+  border-radius: 50%;
+  background: #d99f15;
+  color: #10251e;
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
+  transform: translateX(-50%) scale(.8);
+  opacity: .55;
+  transition: transform .45s cubic-bezier(.22, .61, .36, 1), box-shadow .45s ease, opacity .45s ease;
 }
 
-.phaseCopy h3 {
-  color: #fff;
-  font-size: clamp(28px, 3.3vw, 52px);
-  line-height: 1.02;
-  letter-spacing: -.04em;
-  margin: 0 0 20px;
+/* the stem connecting the marker down to the top of the card, above the image */
+.phaseNumber::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: 24px;
+  background: #f0c23c;
+  opacity: .55;
+  transform: translateX(-50%);
+  transition: opacity .45s ease;
 }
 
-.phaseCopy p {
-  max-width: 560px;
-  margin: 0 0 15px auto;
-  color: rgba(255,255,255,.7);
-  font-size: clamp(16px, 1.35vw, 21px);
-  line-height: 1.65;
+.phase.active .phaseNumber {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.1);
+  box-shadow: 0 0 0 6px rgba(240, 194, 60, .15), 0 0 22px rgba(240, 194, 60, .6);
+  animation: markerPulse 2.4s ease-in-out infinite;
 }
+.phase.active .phaseNumber::after { opacity: 1; }
 
-.reverse .phaseCopy p { margin-left: 0; margin-right: auto; }
+@keyframes markerPulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(240, 194, 60, .15), 0 0 22px rgba(240, 194, 60, .6); }
+  50% { box-shadow: 0 0 0 9px rgba(240, 194, 60, .05), 0 0 30px rgba(240, 194, 60, .8); }
+}
 
 .phaseMedia {
   margin: 0;
   overflow: hidden;
-  border-radius: 3px;
-  background: #222;
-  box-shadow: 0 18px 48px rgba(0,0,0,.34);
+  border-radius: 6px 6px 0 0;
 }
 
 .phaseMedia img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
-  filter: saturate(.78) contrast(1.04);
-  transition: transform .9s ease, filter .7s ease;
+  filter: saturate(.75) contrast(1.05);
+  transition: filter .6s ease;
 }
 
-.phase.active .phaseMedia img { filter: saturate(1) contrast(1.04); transform: scale(1.015); }
+.phase.active .phaseMedia img { filter: saturate(1) contrast(1.05); }
 
+.phaseCopy { padding: 26px 26px 30px; }
+
+.step {
+  display: block;
+  margin-bottom: 12px;
+  color: #77736c;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.phaseCopy h3 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: clamp(22px, 1.9vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+
+.phaseCopy p {
+  margin: 0;
+  min-height: 6.5em;
+  color: rgba(255, 255, 255, .7);
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.55;
+}
+
+.readMore {
+  margin-top: 22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #f0c23c;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.readMore span { margin-left: 6px; }
+.readMore:hover { color: #ffd863; }
+
+/* progress rail beneath the cards, with the active number sliding above it */
 .rail {
-  height: 2px;
-  margin: 0 max(30px, calc((100vw - 1186px) / 2));
+  position: relative;
+  height: 4px;
+  margin: 8px clamp(28px, 4vw, 64px) 0;
   background: #383838;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .rail span {
@@ -142,17 +206,35 @@
   transition: width .65s cubic-bezier(.22, .61, .36, 1);
 }
 
+.railMarker {
+  position: absolute;
+  top: -56px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #f5c43d;
+  border-radius: 50%;
+  background: #d99f15;
+  color: #11231e;
+  font-size: 15px;
+  font-weight: 800;
+  transform: translateX(-50%);
+  transition: left .7s cubic-bezier(.22, .61, .36, 1), box-shadow .4s ease;
+  box-shadow: 0 0 0 6px rgba(240, 194, 60, .12), 0 0 22px rgba(240, 194, 60, .55);
+}
+
 .controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 25px;
-  margin-top: 28px;
+  margin-top: 32px;
 }
 
 .controls button {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border: 1px solid #464646;
   border-radius: 50%;
   background: transparent;
@@ -164,16 +246,15 @@
 
 .controls button:hover { background: #35c46a; border-color: #35c46a; }
 .dots { display: flex; gap: 8px; align-items: center; }
-.dots button { width: 8px; height: 8px; border: 0; padding: 0; background: #555; }
+.dots button { width: 8px; height: 8px; border: 0; padding: 0; border-radius: 50%; background: #555; }
 .dots button.dotActive { width: 28px; border-radius: 5px; background: #35c46a; }
 
 .links {
   display: flex;
   flex-wrap: wrap;
   gap: 14px 28px;
-  width: min(1186px, calc(100% - 60px));
-  margin: 52px auto 0;
-  padding: 24px 0 0;
+  padding: 24px clamp(28px, 4vw, 64px) 0;
+  margin: 44px 0 0;
   border-top: 1px solid #333;
   list-style: none;
 }
@@ -182,181 +263,59 @@
 .links a span { text-decoration: none; }
 .links a:hover { color: #f2c744; }
 
-@media (max-width: 720px) {
-  .headingWrap, .links { width: calc(100% - 36px); }
-  .track { padding-left: 18px; padding-right: 18px; }
-  .phase { flex-basis: calc(100vw - 36px); min-height: 0; grid-template-columns: 1fr; gap: 25px; padding: 22px 8px 36px; }
-  .phase::after { left: 8px; bottom: 0; width: calc(100% - 16px); height: 1px; background: linear-gradient(90deg, #35c46a, #f2c744); }
-  .phase.reverse .phaseCopy, .phase.reverse .phaseMedia { order: initial; }
-  .phaseCopy, .reverse .phaseCopy { text-align: left; }
-  .phaseCopy p, .reverse .phaseCopy p { margin-left: 0; margin-right: 0; }
-  .phaseMedia { order: 2; }
-  .phaseCopy { order: 1; }
-  .rail { margin: 0 18px; }
-}
-
-/* final readable scale and modal treatment */
-.wrap { padding: clamp(78px, 8vw, 128px) 0 62px; }
-.headingWrap { width: min(1186px, calc(100% - 60px)); margin-bottom: 58px; }
-.headingWrap span { font-size: 13px; }
-.headingWrap h2 { max-width: 13ch; font-size: clamp(44px, 5vw, 74px); }
-.track { gap: 24px; padding: 52px max(30px, calc((100vw - 1186px) / 2)) 42px; }
-.phase { flex-basis: clamp(290px, 26vw, 370px); }
-.phaseCopy { padding: 24px 24px 28px; }
-.phaseCopy h3 { min-height: 2.2em; font-size: clamp(21px, 1.8vw, 28px); }
-.phaseCopy p { min-height: 7em; font-size: clamp(13px, 1.05vw, 16px); line-height: 1.55; }
-.step { font-size: 11px; }
-.readMore { margin-top: 20px; padding: 0; border: 0; background: none; color: #f0c23c; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
-.readMore span { margin-left: 6px; }
-.rail { margin: 3px max(30px, calc((100vw - 1186px) / 2)) 0; height: 4px; position: relative; }
-.railMarker { position: absolute; top: -52px; display: grid; place-items: center; width: 42px; height: 42px; border: 2px solid #f5c43d; border-radius: 50%; background: #d99f15; color: #11231e; font-size: 14px; transform: translateX(-50%); transition: left .7s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease; box-shadow: 0 0 0 6px rgba(240,194,60,.12), 0 0 22px rgba(240,194,60,.55); }
-.modalBackdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; background: rgba(0, 18, 14, .78); backdrop-filter: blur(8px); }
-.modal { position: relative; width: min(720px, 100%); max-height: min(80vh, 720px); overflow: auto; padding: 46px clamp(28px, 5vw, 60px) 44px; border: 1px solid rgba(53,196,106,.5); background: linear-gradient(135deg, #092c25, #001613); color: #fff; box-shadow: 0 24px 80px rgba(0,0,0,.42); }
-.modalClose { position: absolute; top: 14px; right: 18px; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; background: transparent; color: #fff; font-size: 24px; line-height: 1; cursor: pointer; }
-.modalNumber { color: #f0c23c; font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.modal h3 { margin: 12px 0 22px; color: #fff; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; }
-.modal p { margin: 0 0 17px; color: rgba(255,255,255,.78); font-size: 17px; line-height: 1.65; }
-@media (max-width: 720px) {
-  .headingWrap { width: calc(100% - 42px); }
-  .track { padding-left: 21px; padding-right: 21px; }
-  .phase { flex-basis: min(82vw, 350px); }
-  .rail { margin-left: 21px; margin-right: 21px; }
-}
-
-/* screenshot proportions: the journey is a compact dark gallery, not a full
-   viewport slide. */
-.wrap { padding: 48px 0 33px; background: linear-gradient(112deg, #020f0d 0%, #001b17 65%, #004439 100%); }
-.headingWrap { width: min(620px, calc(100% - 104px)); margin-bottom: 22px; }
-.headingWrap span { margin-bottom: 10px; font-size: 8px; letter-spacing: .1em; }
-.headingWrap h2 { max-width: 12ch; font-size: 28px; line-height: 1.06; letter-spacing: -.04em; }
-.track { gap: 17px; padding: 48px max(30px, calc((100vw - 620px) / 2)) 18px; }
-.phase { flex-basis: 185px; border-radius: 4px; }
-.phaseMedia img { aspect-ratio: 1.75 / 1; }
-.phaseCopy { padding: 14px 12px 17px; }
-.phaseCopy h3 { min-height: 2.2em; margin-bottom: 8px; font-size: 14px; }
-.phaseCopy p { min-height: 12em; font-size: 8px; line-height: 1.45; }
-.step { margin-bottom: 6px; font-size: 7px; }
-.timelineShell::before { top: 16px; left: max(30px, calc((100vw - 620px) / 2)); right: max(30px, calc((100vw - 620px) / 2)); }
-.rail { margin: 2px max(30px, calc((100vw - 620px) / 2)) 0; height: 3px; }
-.controls { margin-top: 15px; gap: 9px; }
-.controls button { width: 0; height: 0; border: 0; overflow: hidden; padding: 0; }
-.dots { gap: 7px; }
-.dots button { width: 17px; height: 3px; border-radius: 3px; }
-.dots button.dotActive { width: 24px; background: #e4b126; }
-@media (max-width: 720px) {
-  .headingWrap { width: calc(100% - 42px); }
-  .track { padding-left: 21px; padding-right: 21px; }
-  .phase { flex-basis: 185px; }
-  .timelineShell::before { left: 21px; right: 21px; }
-  .rail { margin-left: 21px; margin-right: 21px; }
-}
-
-/* compact card row from the supplied page reference */
-.track {
-  gap: 22px;
-  padding-top: 48px;
-  padding-bottom: 32px;
-}
-.phase {
-  flex: 0 0 270px;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  padding: 0;
-  opacity: .62;
-  transform: translateY(10px);
-  background: #1b2522;
-  border: 1px solid rgba(255,255,255,.12);
-  transition: opacity .45s ease, transform .45s ease, border-color .45s ease;
-}
-.phase::after { display: none; }
-.phase.active { opacity: 1; transform: none; border-color: #35c46a; }
-.phaseMedia { order: 1; width: 100%; border-radius: 0; box-shadow: none; }
-.phaseMedia img { aspect-ratio: 16 / 10; filter: saturate(.7) contrast(1.04); transform: none; }
-.phase.active .phaseMedia img { transform: none; }
-.phaseCopy, .reverse .phaseCopy { order: 2; padding: 22px 20px 24px; text-align: left; }
-.phaseCopy h3 { min-height: 2.2em; margin-bottom: 12px; font-size: 22px; }
-.phaseCopy p, .reverse .phaseCopy p { min-height: 8.5em; margin: 0; color: rgba(255,255,255,.68); font-size: 14px; line-height: 1.55; }
-.step { margin-bottom: 10px; font-size: 10px; }
-.timelineShell { position: relative; }
-.timelineShell::before { content: ""; position: absolute; top: 16px; left: max(30px, calc((100vw - 1186px) / 2)); right: max(30px, calc((100vw - 1186px) / 2)); height: 1px; background: #d5b83c; z-index: 0; }
-.track { position: relative; z-index: 1; }
-.rail { height: 3px; margin-top: 4px; }
-.controls { margin-top: 26px; }
-@media (max-width: 720px) {
-  .track { padding-left: 18px; padding-right: 18px; }
-  .phase { flex-basis: 82vw; }
-  .timelineShell::before { left: 18px; right: 18px; }
-}
-
-/* visible milestone markers from the reference timeline */
-.wrap { background: linear-gradient(116deg, #000 0%, #001b17 55%, #005346 100%); }
-.headingWrap h2 { max-width: 12ch; font-size: clamp(38px, 4.6vw, 64px); }
-.phase { position: relative; margin-top: 0; }
-.phaseNumber {
-  position: absolute;
-  z-index: 3;
-  top: -35px;
-  left: 50%;
+/* details modal opened from "Read more" */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
   display: grid;
   place-items: center;
-  width: 29px;
-  height: 29px;
-  border: 2px solid #f0c23c;
-  border-radius: 50%;
-  background: #d99f15;
-  color: #10251e;
-  font-size: 11px;
-  font-weight: 800;
-  transform: translateX(-50%) scale(.82);
-  opacity: .65;
-  transition: transform .45s cubic-bezier(.22,.61,.36,1), box-shadow .45s ease, opacity .45s ease;
+  padding: 24px;
+  background: rgba(0, 18, 14, .78);
+  backdrop-filter: blur(8px);
 }
-.phaseNumber::after {
-  content: "";
+
+.modal {
+  position: relative;
+  width: min(720px, 100%);
+  max-height: min(80vh, 720px);
+  overflow: auto;
+  padding: 46px clamp(28px, 5vw, 60px) 44px;
+  border: 1px solid rgba(53, 196, 106, .5);
+  background: linear-gradient(135deg, #092c25, #001613);
+  color: #fff;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .42);
+}
+
+.modalClose {
   position: absolute;
-  top: 27px;
-  width: 2px;
+  top: 14px;
+  right: 18px;
+  width: 34px;
   height: 34px;
-  background: #f0c23c;
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
 }
-.phase.active .phaseNumber {
-  opacity: 1;
-  transform: translateX(-50%) scale(1.08);
-  box-shadow: 0 0 0 5px rgba(240,194,60,.12), 0 0 18px rgba(240,194,60,.5);
-  animation: markerPulse 2.4s ease-in-out infinite;
-}
-@keyframes markerPulse {
-  0%, 100% { box-shadow: 0 0 0 5px rgba(240,194,60,.12), 0 0 18px rgba(240,194,60,.5); }
-  50% { box-shadow: 0 0 0 8px rgba(240,194,60,.04), 0 0 24px rgba(240,194,60,.72); }
-}
-.phaseCopy h3 { font-size: 18px; }
-.phaseCopy p { font-size: 11px; line-height: 1.5; }
-.phaseMedia img { aspect-ratio: 1.7 / 1; }
-.headingWrap span { font-size: 10px; }
+
+.modalNumber { color: #f0c23c; font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.modal h3 { margin: 12px 0 22px; color: #fff; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; }
+.modal p { margin: 0 0 17px; color: rgba(255, 255, 255, .78); font-size: 17px; line-height: 1.65; }
+
 @media (prefers-reduced-motion: reduce) {
   .phase.active .phaseNumber { animation: none; }
 }
 
-/* final cascade: keep the page readable after the legacy compact calibration */
-.wrap { padding: clamp(78px, 8vw, 128px) 0 62px; }
-.headingWrap { width: min(1186px, calc(100% - 60px)); margin-bottom: 58px; }
-.headingWrap span { margin-bottom: 17px; font-size: 13px; letter-spacing: .16em; }
-.headingWrap h2 { max-width: 13ch; font-size: clamp(44px, 5vw, 74px); }
-.track { gap: 24px; padding: 52px max(30px, calc((100vw - 1186px) / 2)) 42px; }
-.phase { flex: 0 0 clamp(290px, 26vw, 370px); }
-.phaseCopy { padding: 24px 24px 28px; }
-.phaseCopy h3 { font-size: clamp(21px, 1.8vw, 28px); }
-.phaseCopy p { min-height: 7em; font-size: clamp(13px, 1.05vw, 16px); line-height: 1.55; }
-.step { font-size: 11px; }
-.readMore { margin-top: 20px; padding: 0; border: 0; background: none; color: #f0c23c; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
-.readMore span { margin-left: 6px; }
-.rail { margin: 3px max(30px, calc((100vw - 1186px) / 2)) 0; height: 4px; position: relative; }
-.railMarker { top: -52px; width: 42px; height: 42px; font-size: 14px; }
 @media (max-width: 720px) {
-  .headingWrap { width: calc(100% - 42px); }
-  .track { padding-left: 21px; padding-right: 21px; }
-  .phase { flex-basis: min(82vw, 350px); }
-  .rail { margin-left: 21px; margin-right: 21px; }
+  .headingWrap { padding: 0 20px; }
+  .track { padding-left: 20px; padding-right: 20px; }
+  .phase { flex-basis: min(82vw, 340px); }
+  .rail { margin-left: 20px; margin-right: 20px; }
+  .timelineShell::before { left: 20px; right: 20px; }
 }
+
+/* final readable scale and modal treatment */
