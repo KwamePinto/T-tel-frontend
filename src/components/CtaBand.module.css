@@ -98,13 +98,13 @@
 @media (min-width: 900px) {
   .inner {
     grid-template-columns: 1fr 1fr;
-    min-height: 460px;
+    min-height: 340px;
     gap: 40px;
   }
 
-  .art { padding: 56px 40px 56px 0; }
-  .art img { max-width: 360px; }
+  .art { padding: 36px 40px 36px 0; }
+  .art img { max-width: 280px; }
 
   /* clear the diagonal so the copy never crosses the divider */
-  .copy { padding: 56px 0 56px 42px; }
+  .copy { padding: 36px 0 36px 42px; }
 }

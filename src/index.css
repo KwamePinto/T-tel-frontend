@@ -101,7 +101,11 @@ body {
   min-height: 100vh;
 }
 
-main { flex: 1; }
+main {
+  flex: 1;
+  min-height: 100vh;
+  position: relative;
+}
 
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }

@@ -84,8 +84,8 @@
   height: 10px;
 }
 
-.tricolour span:nth-child(1) { flex: 0 0 33%; background: #159b5a; }
-.tricolour span:nth-child(2) { flex: 0 0 33%; background: #f0b323; }
+.tricolour span:nth-child(1) { flex: 0 0 34%; background: #159b5a; }
+.tricolour span:nth-child(2) { flex: 0 0 34%; background: #f0b323; }
 .tricolour span:nth-child(3) { flex: 1; background: #e2574c; }
 
 /* ================= WHO WE ARE ================= */
