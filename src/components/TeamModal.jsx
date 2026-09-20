@@ -16,7 +16,7 @@ function Bio({ text }) {
   );
 }
 
-export default function TeamModal({ person, onClose }) {
+export default function TeamModal({ person, onClose, imageFit = "cover" }) {
   const panel = useRef(null);
 
   // The caller renders this component all the time and passes person=null when
@@ -55,7 +55,7 @@ export default function TeamModal({ person, onClose }) {
   return (
     <div className={styles.overlay} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div
-        className={styles.modal}
+        className={`${styles.modal} ${imageFit === "contain" ? styles.partner : ""}`}
         role="dialog"
         aria-modal="true"
         aria-label={person.name}
@@ -66,7 +66,7 @@ export default function TeamModal({ person, onClose }) {
           <Icon name="close" size={20} />
         </button>
 
-        <div className={styles.media}>
+        <div className={`${styles.media} ${imageFit === "contain" ? styles.contain : ""}`}>
           {photo ? (
             <img src={photo} alt={person.name} />
           ) : (

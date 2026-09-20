@@ -1,25 +1,29 @@
+import { useState } from "react";
 import PageHero from "../../components/PageHero";
+import TeamModal from "../../components/TeamModal";
 import Seo from "../../components/Seo";
+import Icon from "../../components/Icon";
 import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import styles from "./OurPartners.module.css";
 
-/**
- * The reference site's three groups, in its own order. No subtitle text and
- * no "Principal Partner" spotlight — the reference page has neither, so this
- * is a straight replica rather than a fusion of the two.
- */
+/** Keep the content groups from the CMS, while omitting the reference page's
+ * principal Mastercard block as requested for this page. */
 const GROUPS = [
   { key: "government", title: "Government Partners" },
   { key: "university", title: "Universities" },
   { key: "funder", title: "Funding & Project Partners" },
 ];
 
-function PartnerRow({ partner }) {
+function PartnerCard({ partner }) {
   return (
-    <div className={`${styles.row} reveal`}>
-      <figure className={styles.rowMedia}>
+    <button
+      type="button"
+      className={`${styles.card} reveal`}
+      onClick={() => partner.onSelect(partner)}
+    >
+      <figure className={styles.cardMedia}>
         {partner.logo?.url && (
           <img
             src={mediaUrl(partner.logo)}
@@ -31,15 +35,19 @@ function PartnerRow({ partner }) {
           />
         )}
       </figure>
-      <div className={styles.rowCopy}>
+      <div className={styles.cardCopy}>
         <h3>{partner.name}</h3>
         {partner.description && <p>{partner.description}</p>}
+        <span className={styles.readMore}>
+          Read more <Icon name="arrowRight" size={13} />
+        </span>
       </div>
-    </div>
+    </button>
   );
 }
 
 export default function OurPartners() {
+  const [selected, setSelected] = useState(null);
   const page = useCms(() => cms.page("about-us/our-partners"), []);
   const partners = useCms(() => cms.partners(), []);
   const all = partners.data?.items ?? [];
@@ -60,6 +68,17 @@ export default function OurPartners() {
         image={mediaUrl(page.data?.heroImage) || "/images/photos/team-group.jpg"}
       />
 
+      <section className={styles.intro}>
+        <div className="container">
+          <span className="eyebrow eyebrow-plain">Working Together</span>
+          <p>
+            T-TEL works with a wide range of government, university, funding and
+            implementation partners across Ghana, bringing together specialist
+            expertise to strengthen teaching, education and learning.
+          </p>
+        </div>
+      </section>
+
       {loading && (
         <section className="section"><div className="container"><CardsLoading count={3} /></div></section>
       )}
@@ -75,7 +94,9 @@ export default function OurPartners() {
       )}
 
       {GROUPS.map(({ key, title }) => {
-        const items = all.filter((p) => p.group === key);
+        const items = all.filter(
+          (p) => p.group === key && p.name !== "Mastercard Foundation",
+        );
         if (!items.length) return null;
         return (
           <section key={key} className={styles.group}>
@@ -83,13 +104,28 @@ export default function OurPartners() {
               <h2 className="reveal">{title}</h2>
             </div>
             <div className="container">
-              <div className={styles.rows}>
-                {items.map((p) => <PartnerRow key={p._id} partner={p} />)}
+              <div className={styles.cards}>
+                {items.map((p) => (
+                  <PartnerCard
+                    key={p._id}
+                    partner={{ ...p, onSelect: setSelected }}
+                  />
+                ))}
               </div>
             </div>
           </section>
         );
       })}
+      <TeamModal
+        person={selected && {
+          ...selected,
+          photo: selected.logo,
+          position: "Partner",
+          bio: selected.description,
+        }}
+        onClose={() => setSelected(null)}
+        imageFit="contain"
+      />
     </>
   );
 }
