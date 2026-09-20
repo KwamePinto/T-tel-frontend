@@ -1,103 +1,62 @@
-/* The roadmap runs on a dark band so it reads as a passage of time set apart
-   from the account above it, and so the line and its nodes have something to
-   glow against. */
+/* The roadmap runs on the deep green rather than a neutral dark, so the band
+   belongs to this site rather than to any timeline, and the numerals have a
+   brand colour to be cut out of. */
 .wrap {
-  background: #0e100f;
-  padding: clamp(64px, 8vw, 120px) 0 clamp(72px, 9vw, 130px);
+  background: var(--deep, #023e38);
+  padding: clamp(64px, 8vw, 118px) 0 clamp(72px, 9vw, 128px);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(44px, 5vw, 72px);
+  align-items: start;
 }
 
 .head { margin-bottom: 10px; }
 
 .headTitle {
   color: #fff;
-  max-width: 17ch;
-  margin-bottom: clamp(48px, 6vw, 86px);
+  max-width: 15ch;
+  margin-bottom: clamp(26px, 3vw, 38px);
 }
 
-.timeline {
-  position: relative;
-  list-style: none;
+/* ---- the rail ---- */
+/* the column itself; min-width lets the sticky child shrink with the grid
+   rather than forcing the track wider than its share */
+/* stretch, not the grid's start: a sticky child can only travel inside a
+   parent taller than itself, and align-items: start would shrink this column
+   to exactly the height of what it holds */
+.rail { min-width: 0; align-self: stretch; }
+
+/* One photograph for five phases. Rather than give it to a single phase and
+   leave the rest short, it anchors the whole sequence from a column that
+   holds its place while the phases move. */
+.railMedia {
   margin: 0;
-  padding: 0;
+  overflow: hidden;
+  border-radius: 3px;
 }
 
-/* the line itself: the site's tricolour turned on its end, so the roadmap is
-   recognisably part of this site rather than a generic timeline */
-.timeline::before {
-  content: "";
-  position: absolute;
-  top: 6px;
-  bottom: 6px;
-  left: 17px;
-  width: 2px;
-  background: linear-gradient(180deg, var(--green) 0%, var(--gold) 55%, var(--accent) 100%);
-}
-
-.row {
-  position: relative;
-  display: grid;
-  gap: 22px;
-  padding: 0 0 clamp(52px, 6vw, 86px) 52px;
-}
-
-.row:last-child { padding-bottom: 0; }
-
-.node {
-  position: absolute;
-  top: 5px;
-  left: 17px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: var(--green);
-  border: 3px solid #0e100f;
-  transform: translateX(-50%);
-}
-
-.step { margin-bottom: 10px; }
-
-.title {
-  color: #fff;
-  margin: 0 0 14px;
-}
-
-.para {
-  font-size: 16.5px;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.72);
-  margin: 0 0 16px;
-}
-
-.para:last-child { margin-bottom: 0; }
-
-.media img {
-  width: 100%;
-  border-radius: 4px;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-}
-
-/* the closing year: the one moment on the line that is allowed to shout */
-.climaxInner { padding-top: 4px; }
-
-.year {
+.railMedia img {
   display: block;
-  font-family: var(--font-display);
-  font-size: clamp(52px, 6.5vw, 76px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.035em;
-  color: var(--green);
-  margin-bottom: 14px;
+  width: 100%;
+  /* these are group photographs, so a wide frame keeps a row of people whole
+     where a squarer one cuts the ends off it */
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 32%;
+  /* the band is dark; the photograph meets it rather than sitting on it */
+  filter: saturate(1.02) contrast(1.02);
 }
 
 .links {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  margin: clamp(48px, 6vw, 80px) 0 0;
-  padding: 26px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  list-style: none;
+  margin: clamp(28px, 3.4vw, 40px) 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .links a {
@@ -108,33 +67,111 @@
   transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 
-.links a:hover { color: #fff; border-bottom-color: var(--green); }
+.links a:hover { color: #fff; border-bottom-color: var(--green, #159b5a); }
 
-@media (min-width: 900px) {
-  /* Above this width the line moves to the centre and the phases alternate
-     around it. Below it there is no room for two columns, so everything stacks
-     to the right of a line at the left edge — the layout above is the mobile
-     one, and this block is the enhancement. */
-  .timeline::before { left: 50%; transform: translateX(-50%); }
+/* ---- the phases ---- */
+.phases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-  .row {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 88px;
-    padding-left: 0;
-    align-items: center;
+.phase {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(18px, 2.4vw, 34px);
+  padding: clamp(26px, 3.2vw, 40px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.phase:first-child { border-top: 0; padding-top: 0; }
+.phase:last-child { padding-bottom: 0; }
+
+/* Outlined, not filled: the numerals are a structure the eye can follow down
+   the column without competing with the text for attention. */
+.numeral {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.6vw, 62px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.42);
+  text-stroke: 1px rgba(255, 255, 255, 0.42);
+  transition: color 0.4s var(--ease), -webkit-text-stroke-color 0.4s var(--ease);
+}
+
+.phase:hover .numeral {
+  color: rgba(255, 255, 255, 0.07);
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.72);
+}
+
+/* the text beside the numeral */
+.body { min-width: 0; }
+
+.step {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green, #159b5a);
+  margin-bottom: 12px;
+}
+
+.title {
+  color: #fff;
+  margin: 0 0 14px;
+}
+
+.para {
+  font-size: clamp(15.5px, 1.16vw, 17px);
+  line-height: 1.78;
+  color: rgba(255, 255, 255, 0.76);
+  margin: 0 0 16px;
+}
+
+.para:last-child { margin-bottom: 0; }
+
+.inlineMedia {
+  margin: 26px 0 0;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.inlineMedia img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* The arrival: a year in place of a number, filled rather than outlined, and
+   set larger so the sequence lands instead of simply stopping. */
+.arrival .numeral {
+  color: var(--green, #159b5a);
+  -webkit-text-stroke: 0;
+  text-stroke: 0;
+  font-size: clamp(30px, 3.4vw, 46px);
+}
+
+.arrival .para {
+  font-size: clamp(17px, 1.35vw, 20px);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@media (min-width: 960px) {
+  .grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); }
+
+  /* holds its place while the phases scroll by, and releases with the section
+     — the same behaviour the About Us heading has, so the two pages read as
+     one hand rather than two */
+  .railInner {
+    position: sticky;
+    top: calc(var(--header-h) + 44px);
   }
+}
 
-  .node { left: 50%; top: 50%; margin-top: -7px; }
-
-  .text { grid-column: 1; grid-row: 1; text-align: right; }
-  .media { grid-column: 2; grid-row: 1; }
-
-  .flip .text { grid-column: 2; text-align: left; }
-  .flip .media { grid-column: 1; }
-
-  .climax { grid-template-columns: 1fr; justify-items: center; text-align: center; }
-  .climaxInner { max-width: 44ch; }
-  .climax .node { top: 0; margin-top: 0; }
-
-  .links { align-items: center; text-align: center; }
+@media (prefers-reduced-motion: reduce) {
+  .railInner { position: static; }
 }
