@@ -1,4 +1,18 @@
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+function resolveApiBase() {
+  const configured = import.meta.env.VITE_API_URL || "";
+  if (configured && configured !== "http://localhost:5000" && configured !== "http://127.0.0.1:5000") {
+    return configured.replace(/\/+$/, "");
+  }
+
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname || "localhost";
+    return `http://${hostname}:5000`;
+  }
+
+  return configured || "http://localhost:5000";
+}
+
+const BASE = resolveApiBase();
 
 async function get(path, params) {
   const url = new URL(`/api${path}`, BASE);
@@ -31,6 +45,7 @@ export const cms = {
   personGroups: () => get("/person-groups"),
 
   partners: (params) => get("/partners", params),
+  partnerGroups: () => get("/partner-groups"),
 
   search: (q, limit) => get("/search", { q, limit }),
 

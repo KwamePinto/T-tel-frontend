@@ -11,6 +11,7 @@ const TYPE_LABELS = {
   pages: "Page",
   people: "Person",
   partners: "Partner",
+  "partner-groups": "Partner group",
   documents: "Document",
   events: "Event",
   sliders: "Slider",

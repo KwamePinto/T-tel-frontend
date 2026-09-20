@@ -57,8 +57,40 @@ const BLUEPRINTS = {
 
   "about-us/our-partners": {
     label: "Our Partners",
-    summary: "The hero at the top of the page.",
-    managedIn: [{ label: "Partners", to: "/admin/partners" }],
+    summary: "Edit the introduction and the headings/order of partner groups. Partner cards are managed in Partners.",
+    sections: [
+      {
+        type: "partnerIntro",
+        label: "Working Together introduction",
+        fields: [
+          { key: "eyebrow", type: "text", label: "Small line above the text" },
+          { key: "body", type: "textarea", label: "Introduction", rows: 4 },
+        ],
+      },
+      {
+        type: "partnerGroups",
+        label: "Partner group presentation",
+        hint: "The groups and partner records are editable from Partner Groups and Partners.",
+        fields: [
+          {
+            key: "items",
+            type: "list",
+            label: "Groups shown on this page",
+            itemNoun: "group",
+            itemTitle: (item, i) => item.title || `Group ${i + 1}`,
+            blank: () => ({ key: "", title: "" }),
+            fields: [
+              { key: "key", type: "text", label: "Group slug", hint: "Must match the Partner Group slug." },
+              { key: "title", type: "text", label: "Heading shown on the page" },
+            ],
+          },
+        ],
+      },
+    ],
+    managedIn: [
+      { label: "Partner Groups", to: "/admin/partner-groups" },
+      { label: "Partners", to: "/admin/partners" },
+    ],
   },
 
   "about-us/our-people": listing("Our People", { of: "People", to: "/admin/people" }),
@@ -76,6 +108,63 @@ const BLUEPRINTS = {
   "join-us": {
     label: "Join Us",
     summary: "The hero at the top of the page. The rest of this page is fixed in the design.",
+      sections: [
+        {
+          type: "joinIntro",
+          label: "Careers introduction",
+          fields: [
+            { key: "eyebrow", type: "text", label: "Eyebrow" },
+            { key: "title", type: "text", label: "Title" },
+            { key: "accent", type: "text", label: "Highlighted title word" },
+            { key: "lead", type: "textarea", label: "Introduction", rows: 4 },
+          ],
+        },
+        {
+          type: "joinValues",
+          label: "What we value",
+          fields: [
+            {
+              key: "items", type: "list", label: "Values", itemNoun: "value",
+              itemTitle: (item, i) => item.title || `Value ${i + 1}`,
+              blank: () => ({ n: "", accent: "green", title: "", body: "" }),
+              fields: [
+                { key: "n", type: "text", label: "Number" },
+                { key: "accent", type: "text", label: "Colour token" },
+                { key: "title", type: "text", label: "Title" },
+                { key: "body", type: "textarea", label: "Text", rows: 3 },
+              ],
+            },
+          ],
+        },
+        {
+          type: "joinRoles",
+          label: "Available positions",
+          fields: [
+            {
+              key: "groups", type: "list", label: "Role groups", itemNoun: "group",
+              itemTitle: (item, i) => item.group || `Group ${i + 1}`,
+              blank: () => ({ group: "", roles: [""] }),
+              fields: [
+                { key: "group", type: "text", label: "Group name" },
+                { key: "roles", type: "textlist", label: "Roles", itemNoun: "role", rows: 2 },
+              ],
+            },
+          ],
+        },
+        {
+          type: "joinSafeguarding",
+          label: "Safeguarding commitment",
+          fields: [
+            { key: "title", type: "text", label: "Title" },
+            { key: "body", type: "textarea", label: "Text", rows: 5 },
+          ],
+        },
+        {
+          type: "joinCta",
+          label: "Closing note",
+          fields: [{ key: "spec", type: "textarea", label: "Speculative application note", rows: 3 }],
+        },
+      ],
   },
 
   home: {

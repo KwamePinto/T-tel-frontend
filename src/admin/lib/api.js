@@ -1,4 +1,18 @@
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+function resolveApiBase() {
+  const configured = import.meta.env.VITE_API_URL || "";
+  if (configured && configured !== "http://localhost:5000" && configured !== "http://127.0.0.1:5000") {
+    return configured.replace(/\/+$/, "");
+  }
+
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname || "localhost";
+    return `http://${hostname}:5000`;
+  }
+
+  return configured || "http://localhost:5000";
+}
+
+const BASE = resolveApiBase();
 
 class ApiError extends Error {
   constructor(status, message, details) {
@@ -73,6 +87,7 @@ export const api = {
   people: resource("people"),
   personGroups: resource("person-groups"),
   partners: resource("partners"),
+  partnerGroups: resource("partner-groups"),
   events: resource("events"),
   eventCategories: resource("event-categories"),
   sliders: resource("sliders"),

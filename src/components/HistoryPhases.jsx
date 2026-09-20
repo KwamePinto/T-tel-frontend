@@ -52,14 +52,6 @@ export default function HistoryPhases({ data }) {
   const [progress, setProgress] = useState(0);
   const phases = data?.milestones || [];
   const links = data?.links || [];
-  if (!phases.length) return null;
-
-  // The rail takes a phase's own picture where there is one — that phase then
-  // doesn't repeat it further down. The roadmap's heroImage is only the
-  // fallback, because the page banner above is already showing it and the
-  // same photograph twice on one screen reads as a mistake.
-  const borrowed = phases.findIndex((p) => p.image);
-  const railImage = borrowed >= 0 ? phases[borrowed].image : data?.heroImage || null;
 
   useEffect(() => {
     let frame = 0;
@@ -91,6 +83,15 @@ export default function HistoryPhases({ data }) {
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, [phases.length]);
+
+  if (!phases.length) return null;
+
+  // The rail takes a phase's own picture where there is one — that phase then
+  // doesn't repeat it further down. The roadmap's heroImage is only the
+  // fallback, because the page banner above is already showing it and the
+  // same photograph twice on one screen reads as a mistake.
+  const borrowed = phases.findIndex((p) => p.image);
+  const railImage = borrowed >= 0 ? phases[borrowed].image : data?.heroImage || null;
 
   const activeIndex = Math.min(
     phases.length - 1,
