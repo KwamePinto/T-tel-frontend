@@ -20,6 +20,12 @@ export default function OurHistory() {
     (s) => s.type === "milestones" && s.enabled !== false,
   );
   const data = milestones?.data;
+  const story = data?.story || (data?.intro?.length ? {
+    eyebrow: "Institutional origins",
+    heading: data.milestonesHeading || "A decade of investment. A lifetime of impact.",
+    lead: data.intro[0],
+    paras: data.intro.slice(1),
+  } : null);
 
   return (
     <>
@@ -45,7 +51,7 @@ export default function OurHistory() {
 
       {/* Both halves run full-bleed and carry their own vertical rhythm, so
           they sit outside the shared .section padding. */}
-      {data && <HistoryStory data={data.story} />}
+      {data && <HistoryStory data={story} />}
       {data && <HistoryPhases data={data} />}
 
       {page && !data && (
