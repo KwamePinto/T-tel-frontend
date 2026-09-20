@@ -194,3 +194,42 @@
   .phaseCopy { order: 1; }
   .rail { margin: 0 18px; }
 }
+
+/* compact card row from the supplied page reference */
+.track {
+  gap: 22px;
+  padding-top: 48px;
+  padding-bottom: 32px;
+}
+.phase {
+  flex: 0 0 270px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  opacity: .62;
+  transform: translateY(10px);
+  background: #1b2522;
+  border: 1px solid rgba(255,255,255,.12);
+  transition: opacity .45s ease, transform .45s ease, border-color .45s ease;
+}
+.phase::after { display: none; }
+.phase.active { opacity: 1; transform: none; border-color: #35c46a; }
+.phaseMedia { order: 1; width: 100%; border-radius: 0; box-shadow: none; }
+.phaseMedia img { aspect-ratio: 16 / 10; filter: saturate(.7) contrast(1.04); transform: none; }
+.phase.active .phaseMedia img { transform: none; }
+.phaseCopy, .reverse .phaseCopy { order: 2; padding: 22px 20px 24px; text-align: left; }
+.phaseCopy h3 { min-height: 2.2em; margin-bottom: 12px; font-size: 22px; }
+.phaseCopy p, .reverse .phaseCopy p { min-height: 8.5em; margin: 0; color: rgba(255,255,255,.68); font-size: 14px; line-height: 1.55; }
+.step { margin-bottom: 10px; font-size: 10px; }
+.timelineShell { position: relative; }
+.timelineShell::before { content: ""; position: absolute; top: 16px; left: max(30px, calc((100vw - 1186px) / 2)); right: max(30px, calc((100vw - 1186px) / 2)); height: 1px; background: #d5b83c; z-index: 0; }
+.track { position: relative; z-index: 1; }
+.rail { height: 3px; margin-top: 4px; }
+.controls { margin-top: 26px; }
+@media (max-width: 720px) {
+  .track { padding-left: 18px; padding-right: 18px; }
+  .phase { flex-basis: 82vw; }
+  .timelineShell::before { left: 18px; right: 18px; }
+}

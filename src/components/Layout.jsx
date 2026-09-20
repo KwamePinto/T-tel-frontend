@@ -30,6 +30,7 @@ export default function Layout() {
   // the home page carries its own hero and closing sections, so it skips the
   // shared CTA band; every other page is unchanged
   const isHome = pathname === "/";
+  const isHistory = pathname === "/about-us/our-history";
 
   return (
     <>
@@ -45,7 +46,7 @@ export default function Layout() {
           <Outlet />
         </PageTransition>
       </main>
-      {!isHome && <CtaBand />}
+      {!isHome && !isHistory && <CtaBand />}
       <Footer />
     </>
   );
