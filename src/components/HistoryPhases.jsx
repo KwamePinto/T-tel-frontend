@@ -13,18 +13,16 @@ function phaseText(phase) {
 function Phase({ phase, index, image, active }) {
   const text = phaseText(phase);
   const heading = /^\s*phase\s*\d+\s*$/i.test(phase.title || "") ? "" : phase.title;
-  const reverse = index % 2 === 1;
-
   return (
-    <article className={`${styles.phase} ${reverse ? styles.reverse : ""} ${active ? styles.active : ""}`}>
-      <div className={styles.phaseCopy}>
-        <span className={styles.step}>Phase {String(index + 1).padStart(2, "0")}</span>
-        <h3>{heading || phase.year || `Phase ${index + 1}`}</h3>
-        {text.slice(0, 2).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-      </div>
+    <article className={`${styles.phase} ${active ? styles.active : ""}`}>
       <figure className={styles.phaseMedia}>
         <img src={mediaUrl(image)} alt={phase.title || `History phase ${index + 1}`} loading={index < 2 ? "eager" : "lazy"} />
       </figure>
+      <div className={styles.phaseCopy}>
+        <span className={styles.step}>Phase {String(index + 1).padStart(2, "0")}</span>
+        <h3>{heading || phase.year || `Phase ${index + 1}`}</h3>
+        <p>{text[0] || ""}</p>
+      </div>
     </article>
   );
 }
@@ -40,7 +38,9 @@ export default function HistoryPhases({ data }) {
     const element = track.current;
     if (!element) return undefined;
     const onScroll = () => {
-      const page = Math.round(element.scrollLeft / element.clientWidth);
+      const card = element.querySelector(`.${styles.phase}`);
+      const gap = parseFloat(getComputedStyle(element).gap) || 0;
+      const page = card ? Math.round(element.scrollLeft / (card.getBoundingClientRect().width + gap)) : 0;
       setActiveIndex(Math.max(0, Math.min(phases.length - 1, page)));
     };
     element.addEventListener("scroll", onScroll, { passive: true });
@@ -52,7 +52,10 @@ export default function HistoryPhases({ data }) {
   const go = useCallback((index) => {
     const element = track.current;
     if (!element) return;
-    element.scrollTo({ left: index * element.clientWidth, behavior: "smooth" });
+    const card = element.querySelector(`.${styles.phase}`);
+    const gap = parseFloat(getComputedStyle(element).gap) || 0;
+    if (!card) return;
+    element.scrollTo({ left: index * (card.getBoundingClientRect().width + gap), behavior: "smooth" });
     setActiveIndex(index);
   }, []);
 
