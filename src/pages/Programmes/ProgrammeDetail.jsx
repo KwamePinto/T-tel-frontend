@@ -6,8 +6,21 @@ import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import PageSections from "../../components/PageSections";
 import prose from "../ArticleDetail.module.css";
-import styles from "../FocusAreas/FocusAreaDetail.module.css";
+import e from "../../styles/editorial.module.css";
+import cards from "../FocusAreas/FocusAreaDetail.module.css";
+import styles from "./ProgrammeDetail.module.css";
 
+/**
+ * A programme is nearly all text — these pages carry no pictures of their own
+ * and mostly never will — so the work here is done by the typography rather
+ * than by imagery: a heading held to one side of the reading column, a large
+ * initial opening the narrative, and the project's figures set apart on their
+ * own band instead of being buried in the prose.
+ *
+ * Blocks still run through PageSections, so the moment an admin adds a
+ * picture to a programme it appears between the paragraphs with no change
+ * here.
+ */
 export default function ProgrammeDetail() {
   const { slug } = useParams();
   const item = useCms(() => cms.post(slug), [slug]);
@@ -36,6 +49,15 @@ export default function ProgrammeDetail() {
 
   const post = item.data;
   const others = (all.data?.items || []).filter((o) => o.slug !== slug);
+  const sections = post.sections || [];
+
+  // The project's figures live on the "facts" blocks as a side panel. They are
+  // pulled out to their own band below, so the blocks are handed on as plain
+  // text — otherwise the same figures would render twice.
+  const details = sections.map((s) => s.aside).filter(Boolean).join("");
+  const narrative = sections.map((s) =>
+    s.type === "facts" ? { ...s, type: "prose", aside: "" } : s,
+  );
 
   return (
     <>
@@ -46,50 +68,61 @@ export default function ProgrammeDetail() {
         image={mediaUrl(post.featuredImage) || "/images/focus/leadership-conference.jpg"}
       />
 
-      <section className="section">
-        <div className={`container ${styles.layout} ${post.sections?.length ? styles.wide : ""}`}>
-          <article className={styles.body}>
-            {post.sections?.length ? (
-              <PageSections sections={post.sections} />
+      <section className={styles.band}>
+        <div className={`container ${styles.grid}`}>
+          <div className={styles.head}>
+            <div className={styles.headInner}>
+              <span className={e.eyebrow}>Overview</span>
+              <h2 className={e.display}>{post.title}</h2>
+              {post.excerpt && <p className={styles.standfirst}>{post.excerpt}</p>}
+            </div>
+          </div>
+
+          <article className={`${styles.read} reveal`}>
+            {narrative.length ? (
+              <PageSections sections={narrative} variant="column" />
             ) : (
-              <div className={prose.prose} dangerouslySetInnerHTML={{ __html: post.body }} />
+              <div
+                className={`${prose.prose} ${e.dropCap}`}
+                dangerouslySetInnerHTML={{ __html: post.body }}
+              />
             )}
           </article>
-
-          <aside className={styles.aside}>
-            <div className={`${styles.asideCard} reveal`} style={{ background: "var(--green-dark)" }}>
-              <span className={styles.asideEyebrow}>Programme</span>
-              <h3>At a glance</h3>
-              <span className={styles.asideRule} />
-              <p>{post.meta?.description || post.excerpt}</p>
-              <Link to="/about-us/our-partners" className={styles.asideLink}>
-                Our partners
-                <Icon name="arrowRight" size={16} />
-              </Link>
-            </div>
-
-            <Link to="/programmes" className={styles.backLink}>
-              <Icon name="arrowRight" size={16} style={{ transform: "rotate(180deg)" }} />
-              All programmes
-            </Link>
-          </aside>
         </div>
       </section>
 
+      {details && (
+        <section className={`${styles.band} ${styles.bandAlt}`}>
+          <div className={`container ${styles.grid}`}>
+            <div className={styles.head}>
+              <div className={styles.headInner}>
+                <span className={e.eyebrow}>The Project</span>
+                <h2 className={e.display}>At a glance</h2>
+              </div>
+            </div>
+
+            <div
+              className={`${styles.details} reveal`}
+              dangerouslySetInnerHTML={{ __html: details }}
+            />
+          </div>
+        </section>
+      )}
+
       {others.length > 0 && (
-        <section className={`section ${styles.others}`}>
+        <section className={`section ${cards.others}`}>
           <div className="container">
-            <h2 className={`${styles.othersTitle} reveal`}>Other programmes</h2>
-            <div className={styles.othersGrid}>
+            <h2 className={`${cards.othersTitle} reveal`}>Other programmes</h2>
+            <div className={cards.othersGrid}>
               {others.map((o, i) => (
                 <Link
                   key={o._id}
                   to={`/programmes/${o.slug}`}
-                  className={`${styles.otherCard} ${styles.teal} reveal`}
+                  className={`${cards.otherCard} ${cards.teal} reveal`}
                   data-delay={String(i % 3)}
                 >
-                  <span className={styles.otherBar} />
-                  {o.meta?.description && <span className={styles.otherTag}>{o.meta.description}</span>}
+                  <span className={cards.otherBar} />
+                  {o.meta?.description && <span className={cards.otherTag}>{o.meta.description}</span>}
                   <h3>{o.title}</h3>
                   <span className="link-arrow">
                     Learn more

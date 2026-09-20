@@ -1,0 +1,77 @@
+/* Alternating bands, each one a heading held to the left of its own text.
+   Reading a programme is a long single-column task, and the bands are what
+   break it into stages the reader can see the shape of. */
+.band { padding: clamp(56px, 6.5vw, 96px) 0; }
+
+.bandAlt { background: var(--bg-alt); }
+
+.grid { display: grid; gap: 34px; }
+
+.head, .read, .details { min-width: 0; }
+
+.standfirst {
+  margin: 20px 0 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+/* the project's figures, authored as a run of paragraphs each opening with a
+   bold label — the label becomes the caption above its value */
+.details p {
+  margin: 0 0 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.details p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+
+.details strong {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+}
+
+.details ul { display: flex; flex-direction: column; gap: 10px; margin: 10px 0 0; }
+
+.details li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+.details li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
+@media (min-width: 900px) {
+  /* No align-items here on purpose: the cells must stretch to the full row
+     height, or the heading's cell shrinks to its own content and the sticky
+     box inside it has no distance left to travel. */
+  .grid { grid-template-columns: 0.72fr 1fr; gap: 72px; }
+
+  /* the heading keeps pace with its text rather than scrolling away from it */
+  .headInner {
+    position: sticky;
+    top: calc(var(--header-h) + 48px);
+  }
+}
+
+@media (min-width: 1160px) {
+  .grid { gap: 96px; }
+  .read, .details { max-width: 660px; }
+}

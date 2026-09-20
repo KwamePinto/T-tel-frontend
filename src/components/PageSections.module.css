@@ -100,3 +100,17 @@
   .figure img, .splitMedia img { transition: transform 0.9s var(--ease-out); }
   .figure:hover img, .splitMedia:hover img { transform: scale(1.03); }
 }
+
+/* In a reading column there is no room for image and copy side by side, so a
+   split lays the picture across the full measure between the paragraphs. */
+.stacked { grid-template-columns: 1fr; gap: 24px; }
+
+.caption {
+  margin-top: 12px;
+  padding-left: 14px;
+  border-left: 3px solid var(--green);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
