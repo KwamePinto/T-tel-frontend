@@ -74,7 +74,7 @@
   border-radius: 6px;
   opacity: .5;
   transform: translateY(6px) scale(.97);
-  transition: opacity .5s ease, transform .5s cubic-bezier(.22, .61, .36, 1), border-color .5s ease;
+  transition: opacity .28s ease, transform .32s cubic-bezier(.22, .61, .36, 1), border-color .28s ease;
 }
 
 .phase.active {
@@ -101,7 +101,7 @@
   font-weight: 800;
   transform: translateX(-50%) scale(.8);
   opacity: .55;
-  transition: transform .45s cubic-bezier(.22, .61, .36, 1), box-shadow .45s ease, opacity .45s ease;
+  transition: transform .28s cubic-bezier(.22, .61, .36, 1), box-shadow .28s ease, opacity .28s ease;
 }
 
 /* the stem connecting the marker down to the top of the card, above the image */
@@ -189,40 +189,6 @@
 }
 .readMore span { margin-left: 6px; }
 .readMore:hover { color: #ffd863; }
-
-/* progress rail beneath the cards, with the active number sliding above it */
-.rail {
-  position: relative;
-  height: 4px;
-  margin: 8px clamp(28px, 4vw, 64px) 0;
-  background: #383838;
-  overflow: visible;
-}
-
-.rail span {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, #35c46a, #f2c744);
-  transition: width .65s cubic-bezier(.22, .61, .36, 1);
-}
-
-.railMarker {
-  position: absolute;
-  top: -56px;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 2px solid #f5c43d;
-  border-radius: 50%;
-  background: #d99f15;
-  color: #11231e;
-  font-size: 15px;
-  font-weight: 800;
-  transform: translateX(-50%);
-  transition: left .7s cubic-bezier(.22, .61, .36, 1), box-shadow .4s ease;
-  box-shadow: 0 0 0 6px rgba(240, 194, 60, .12), 0 0 22px rgba(240, 194, 60, .55);
-}
 
 .controls {
   display: flex;
