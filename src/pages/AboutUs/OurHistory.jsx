@@ -1,5 +1,6 @@
 import PageHero from "../../components/PageHero";
 import Seo from "../../components/Seo";
+import HistoryStory from "../../components/HistoryStory";
 import HistoryPhases from "../../components/HistoryPhases";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
@@ -13,11 +14,12 @@ export default function OurHistory() {
     [],
   );
 
-  // The page is authored as dated milestones; the prose body is the fallback
-  // for as long as any of it is still being migrated.
+  // The page is authored as an account followed by a roadmap; the prose body
+  // is the fallback for as long as any of it is still being migrated.
   const milestones = (page?.sections || []).find(
     (s) => s.type === "milestones" && s.enabled !== false,
   );
+  const data = milestones?.data;
 
   return (
     <>
@@ -34,29 +36,28 @@ export default function OurHistory() {
         image={mediaUrl(page?.heroImage) || "/images/photos/team-group.jpg"}
       />
 
-      {/* The milestone bricks run full-bleed, so they sit outside .container
-          and manage their own gutters; the prose fallback keeps the container. */}
-      <section className="section">
-        {loading && <div className="container"><Loading rows={8} /></div>}
-        {error && (
-          <div className="container">
-            <ErrorState error={error} onRetry={reload} label="page" />
-          </div>
-        )}
+      {loading && <div className="container" style={{ padding: "80px 30px" }}><Loading rows={8} /></div>}
+      {error && (
+        <div className="container" style={{ padding: "80px 30px" }}>
+          <ErrorState error={error} onRetry={reload} label="page" />
+        </div>
+      )}
 
-        {milestones ? (
-          <HistoryPhases data={milestones.data} />
-        ) : (
-          page && (
-            <div className="container">
-              <div
-                className={`${prose.prose} ${styles.pageBody} reveal`}
-                dangerouslySetInnerHTML={{ __html: page.body }}
-              />
-            </div>
-          )
-        )}
-      </section>
+      {/* Both halves run full-bleed and carry their own vertical rhythm, so
+          they sit outside the shared .section padding. */}
+      {data && <HistoryStory data={data.story} />}
+      {data && <HistoryPhases data={data} />}
+
+      {page && !data && (
+        <section className="section">
+          <div className="container">
+            <div
+              className={`${prose.prose} ${styles.pageBody} reveal`}
+              dangerouslySetInnerHTML={{ __html: page.body }}
+            />
+          </div>
+        </section>
+      )}
     </>
   );
 }
