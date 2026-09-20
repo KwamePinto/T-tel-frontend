@@ -5,4 +5,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-Sitemap: https://t-tel.org/sitemap.xml
+Sitemap: https://t-tel-frontend.onrender.com/sitemap.xml
