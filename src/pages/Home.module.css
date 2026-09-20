@@ -125,36 +125,6 @@
   margin-bottom: 28px;
 }
 
-/* ---- carousel arrows ----
-   On a phone the section stacks copy above the photograph, and its overall
-   height varies a lot from one slide's word count to the next — vertically
-   centering on that variable height is exactly what previously landed the
-   arrows on top of the "Learn More" button on a short slide. So on narrow
-   screens this renders as its own row in the normal flow, between the copy
-   and the photograph, spaced by .whoGrid's own gap like any other row. Only
-   from 820px, where copy and photograph sit side by side at a much more
-   predictable height, do the buttons move out to the edges of the section. */
-.whoNavGroup {
-  display: flex;
-  gap: 14px;
-}
-
-.whoNav {
-  width: 46px;
-  height: 46px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--deep);
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
-}
-
-.whoNav:hover { background: var(--red); }
-
 .redBtn {
   display: inline-flex;
   align-items: center;
@@ -430,20 +400,6 @@
 /* ================= RESPONSIVE ================= */
 @media (min-width: 820px) {
   .whoGrid { grid-template-columns: 1.05fr 0.95fr; gap: 54px; }
-
-  /* Pulled out of the copy column entirely and pinned to the light band
-     itself, clear of both the text and the photograph. */
-  .whoNavGroup { display: contents; }
-
-  .whoNav {
-    position: absolute;
-    top: 50%;
-    z-index: 2;
-    transform: translateY(-50%);
-  }
-
-  .whoNavPrev { left: clamp(6px, 3vw, 40px); }
-  .whoNavNext { right: clamp(6px, 3vw, 40px); }
 
   .objGrid { grid-template-columns: 440fr 659fr; }
   /* card 01 spans both rows on the left, 02 and 03 stack on the right */
