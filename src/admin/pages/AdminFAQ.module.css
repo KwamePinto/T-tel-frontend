@@ -10,18 +10,19 @@
   margin: 8px 0 22px;
   padding: 28px 30px;
   border-radius: 12px;
-  color: #fff;
-  background: linear-gradient(120deg, #172554 0%, #1e3a8a 58%, #0f766e 100%);
-  box-shadow: 0 14px 28px rgba(30, 58, 138, 0.18);
+  color: var(--a-text);
+  background: var(--a-surface);
+  border: 1px solid var(--a-line);
+  box-shadow: var(--a-shadow);
 }
 
 .heroCopy { max-width: 690px; }
-.heroCopy h2 { color: #fff; font-size: 27px; margin: 10px 0 8px; letter-spacing: -0.02em; }
-.heroCopy p { color: rgba(255, 255, 255, 0.78); line-height: 1.6; font-size: 14px; }
-.eyebrow { display: inline-flex; align-items: center; gap: 7px; color: #a7f3d0; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.heroStat { min-width: 132px; padding: 14px 16px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 9px; background: rgba(255, 255, 255, 0.1); }
+.heroCopy h2 { color: var(--a-ink); font-size: 27px; margin: 10px 0 8px; letter-spacing: -0.02em; }
+.heroCopy p { color: var(--a-muted); line-height: 1.6; font-size: 14px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 7px; color: var(--a-brand); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.heroStat { min-width: 132px; padding: 14px 16px; border: 1px solid var(--a-line); border-radius: 9px; background: var(--a-line-soft); }
 .heroStat strong { display: block; font-size: 28px; line-height: 1; }
-.heroStat span { display: block; margin-top: 7px; color: rgba(255, 255, 255, 0.72); font-size: 12px; }
+.heroStat span { display: block; margin-top: 7px; color: var(--a-muted); font-size: 12px; }
 
 .controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 15px; }
 .search { position: relative; display: flex; align-items: center; flex: 1 1 300px; min-width: 260px; }
