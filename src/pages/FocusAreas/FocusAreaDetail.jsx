@@ -5,6 +5,7 @@ import Icon from "../../components/Icon";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
+import CustomPage from "../CustomPage";
 import prose from "../ArticleDetail.module.css";
 import styles from "./FocusAreaDetail.module.css";
 
@@ -21,6 +22,11 @@ export default function FocusAreaDetail() {
     );
   }
   if (area.error) {
+    // This route also covers custom pages filed under this menu, because a
+    // dynamic segment outranks the catch-all and would otherwise swallow
+    // them. Nothing here by that name means it is a page, not a focus area — and
+    // if it is neither, CustomPage renders the 404 itself.
+    if (area.error.status === 404) return <CustomPage />;
     return (
       <section className="section">
         <div className="container">

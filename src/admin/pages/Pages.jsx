@@ -10,6 +10,13 @@ import {
 } from "../components/ui";
 import s from "./Pages.module.css";
 
+/** Reads a page's menu back as a label for the list. */
+const SECTION_LABEL = {
+  "about-us": "About Us",
+  "focus-areas": "Focus Areas",
+  programmes: "Programmes",
+};
+
 const STATUSES = [
   { value: "all", label: "All" },
   { value: "published", label: "Published" },
@@ -92,7 +99,7 @@ export default function Pages() {
         )}
 
         {!loading && !error && special.items.length > 0 && (
-          <Table columns={["Page", "Address", "Status", ""]}>
+          <Table columns={["Page", "Menu", "Address", "Status", ""]}>
             {special.items.map((p) => {
               const blueprint = getBlueprint(p.slug);
               return (
@@ -103,6 +110,7 @@ export default function Pages() {
                     </Link>
                     {!blueprint && <span className={s.flag}>no editor defined</span>}
                   </td>
+                  <td>{SECTION_LABEL[p.section] || <span className={s.dash}>—</span>}</td>
                   <td style={{ color: "var(--a-muted)" }}>/{p.slug}</td>
                   <td><Chip>{p.status}</Chip></td>
                   <td>
@@ -124,7 +132,7 @@ export default function Pages() {
       <Card className={s.group}>
         <CardHead title="Custom pages">
           <span className={s.groupNote}>
-            A hero and a block of text. Every page you create is one of these.
+            A hero and a block of text, laid out to match the menu it is filed under. Every page you create is one of these.
           </span>
         </CardHead>
 
@@ -141,14 +149,14 @@ export default function Pages() {
 
         {!loading && !error && custom.items.length > 0 && (
           <>
-            <Table columns={["Title", "Address", "Template", "Status", "In Nav", ""]}>
+            <Table columns={["Title", "Menu", "Address", "Status", "In Nav", ""]}>
               {custom.items.map((p) => (
                 <tr key={p._id}>
                   <td>
                     <Link to={`/admin/pages/${p._id}`}><RowTitle>{p.title}</RowTitle></Link>
                   </td>
+                  <td>{SECTION_LABEL[p.section] || <span className={s.dash}>Standalone</span>}</td>
                   <td style={{ color: "var(--a-muted)" }}>/{p.slug}</td>
-                  <td>{p.template || "default"}</td>
                   <td><Chip>{p.status}</Chip></td>
                   <td>{p.showInNav ? <Chip tone="chipGreen">Yes</Chip> : <Chip tone="chipGrey">No</Chip>}</td>
                   <td>

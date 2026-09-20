@@ -4,3 +4,34 @@
   max-width: 78ch;
   margin-inline: auto;
 }
+
+/* the About Us shape: a heading held beside its text, as on Our History */
+.band { padding: clamp(56px, 6.5vw, 100px) 0; }
+
+.grid { display: grid; gap: 34px; }
+
+.head, .read { min-width: 0; }
+
+.standfirst {
+  margin: 20px 0 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+@media (min-width: 900px) {
+  /* No align-items: the cells must stretch to the full row height, or the
+     heading's cell shrinks to its content and the sticky box inside it has no
+     distance left to travel. */
+  .grid { grid-template-columns: 0.82fr 1fr; gap: 72px; }
+
+  .headInner {
+    position: sticky;
+    top: calc(var(--header-h) + 48px);
+  }
+}
+
+@media (min-width: 1160px) {
+  .grid { gap: 96px; }
+  .read { max-width: 640px; }
+}
