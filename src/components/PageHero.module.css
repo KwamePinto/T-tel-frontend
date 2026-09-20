@@ -68,9 +68,9 @@
 }
 
 .tricolour span { flex: 1; }
-.tricolour span:nth-child(1) { background: var(--green); flex: 0 0 34%; }
-.tricolour span:nth-child(2) { background: var(--gold); flex: 0 0 34%; transform: skewX(-18deg) translateX(-6px); }
-.tricolour span:nth-child(3) { background: var(--blue); }
+.tricolour span:nth-child(1) { background: #159b5a; flex: 0 0 34%; }
+.tricolour span:nth-child(2) { background: #f0b323; flex: 0 0 34%; }
+.tricolour span:nth-child(3) { background: #e2574c; }
 
 .band {
   padding: 22px 0;

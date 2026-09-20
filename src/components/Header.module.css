@@ -281,9 +281,9 @@
 }
 
 .stripe span { flex: 1; }
-.stripe span:nth-child(1) { background: var(--green); }
-.stripe span:nth-child(2) { background: var(--gold); }
-.stripe span:nth-child(3) { background: var(--blue); }
+.stripe span:nth-child(1) { background: #159b5a; }
+.stripe span:nth-child(2) { background: #f0b323; }
+.stripe span:nth-child(3) { background: #e2574c; }
 
 .clear .stripe { opacity: 0; }
 

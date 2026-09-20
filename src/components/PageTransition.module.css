@@ -1,0 +1,58 @@
+.skeleton {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 5;
+  padding-bottom: 120px;
+  background: var(--bg);
+  pointer-events: none;
+  opacity: 0;
+  animation: skeletonHold 0.24s ease-out;
+}
+
+.skeletonHero {
+  display: block;
+  height: 420px;
+  background: linear-gradient(90deg, #e8ece9 25%, #f7f8f7 37%, #e8ece9 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.3s ease-in-out infinite;
+}
+
+.skeletonHeading,
+.skeletonLine {
+  display: block;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #e8ece9 25%, #f7f8f7 37%, #e8ece9 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.3s ease-in-out infinite;
+}
+
+.skeletonHeading {
+  width: min(380px, 55%);
+  height: 34px;
+  margin-top: 56px;
+}
+
+.skeletonLine {
+  width: 82%;
+  height: 15px;
+  margin-top: 22px;
+}
+
+.skeletonLine.short { width: 58%; margin-top: 12px; }
+
+@keyframes skeletonHold {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; opacity: 0; }
+  .skeletonHero, .skeletonHeading, .skeletonLine { animation: none; }
+}

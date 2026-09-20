@@ -1,3 +1,18 @@
+import styles from "./PageTransition.module.css";
+
+function RouteSkeleton() {
+  return (
+    <div className={styles.skeleton} aria-hidden="true">
+      <span className={styles.skeletonHero} />
+      <div className="container">
+        <span className={styles.skeletonHeading} />
+        <span className={styles.skeletonLine} />
+        <span className={`${styles.skeletonLine} ${styles.short}`} />
+      </div>
+    </div>
+  );
+}
+
 /**
  * Cross-fades the routed page in on every navigation, instead of the old
  * page's content being replaced by the new one's in the same instant React
@@ -14,6 +29,7 @@
 export default function PageTransition({ pathKey, children }) {
   return (
     <div key={pathKey} className="page-transition">
+      <RouteSkeleton />
       {children}
     </div>
   );
