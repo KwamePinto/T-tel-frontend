@@ -31,7 +31,6 @@ export default function HistoryPhases({ data }) {
   const track = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const phases = data?.milestones || [];
-  const links = data?.links || [];
   const fallbackImage = phases.find((phase) => phase.image)?.image || data?.heroImage || PLACEHOLDER_IMAGE;
 
   useEffect(() => {
@@ -83,7 +82,6 @@ export default function HistoryPhases({ data }) {
         <button type="button" onClick={() => go((activeIndex + 1) % phases.length)} aria-label="Next history phase">→</button>
       </div>
 
-      {links.length > 0 && <ul className={styles.links}>{links.map((link, index) => <li key={index}><a href={link.url}>{link.label} <span>↗</span></a></li>)}</ul>}
     </section>
   );
 }
