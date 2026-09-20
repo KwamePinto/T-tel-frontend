@@ -1,14 +1,14 @@
 /**
  * Writes public/sitemap.xml from the live API.
  *
- *   node scripts/build-sitemap.mjs [https://t-tel.org]
+ *   node scripts/build-sitemap.mjs [https://t-tel-frontend.onrender.com]
  *
  * Run it after a content change, or as part of the build once the API is
  * reachable from the build environment.
  */
 import fs from "node:fs";
 
-const SITE = (process.argv[2] || process.env.SITE_URL || "https://t-tel.org").replace(/\/$/, "");
+const SITE = (process.argv[2] || process.env.SITE_URL || "https://t-tel-frontend.onrender.com").replace(/\/$/, "");
 const API = (process.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
 
 const get = async (p) => {
