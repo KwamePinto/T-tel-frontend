@@ -195,6 +195,34 @@
   .rail { margin: 0 18px; }
 }
 
+/* screenshot proportions: the journey is a compact dark gallery, not a full
+   viewport slide. */
+.wrap { padding: 48px 0 33px; background: linear-gradient(112deg, #020f0d 0%, #001b17 65%, #004439 100%); }
+.headingWrap { width: min(620px, calc(100% - 104px)); margin-bottom: 22px; }
+.headingWrap span { margin-bottom: 10px; font-size: 8px; letter-spacing: .1em; }
+.headingWrap h2 { max-width: 12ch; font-size: 28px; line-height: 1.06; letter-spacing: -.04em; }
+.track { gap: 17px; padding: 48px max(30px, calc((100vw - 620px) / 2)) 18px; }
+.phase { flex-basis: 185px; border-radius: 4px; }
+.phaseMedia img { aspect-ratio: 1.75 / 1; }
+.phaseCopy { padding: 14px 12px 17px; }
+.phaseCopy h3 { min-height: 2.2em; margin-bottom: 8px; font-size: 14px; }
+.phaseCopy p { min-height: 12em; font-size: 8px; line-height: 1.45; }
+.step { margin-bottom: 6px; font-size: 7px; }
+.timelineShell::before { top: 16px; left: max(30px, calc((100vw - 620px) / 2)); right: max(30px, calc((100vw - 620px) / 2)); }
+.rail { margin: 2px max(30px, calc((100vw - 620px) / 2)) 0; height: 3px; }
+.controls { margin-top: 15px; gap: 9px; }
+.controls button { width: 0; height: 0; border: 0; overflow: hidden; padding: 0; }
+.dots { gap: 7px; }
+.dots button { width: 17px; height: 3px; border-radius: 3px; }
+.dots button.dotActive { width: 24px; background: #e4b126; }
+@media (max-width: 720px) {
+  .headingWrap { width: calc(100% - 42px); }
+  .track { padding-left: 21px; padding-right: 21px; }
+  .phase { flex-basis: 185px; }
+  .timelineShell::before { left: 21px; right: 21px; }
+  .rail { margin-left: 21px; margin-right: 21px; }
+}
+
 /* compact card row from the supplied page reference */
 .track {
   gap: 22px;
