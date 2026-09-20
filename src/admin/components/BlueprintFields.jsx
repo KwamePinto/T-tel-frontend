@@ -238,6 +238,21 @@ export default function BlueprintFields({ fields = [], value = {}, onChange }) {
               />
             );
 
+          // one nested object edited as a titled run of fields, for when a
+          // section holds two distinct pieces of content rather than one
+          case "group":
+            return (
+              <fieldset key={field.key} className={s.group}>
+                <legend className={s.groupLabel}>{field.label}</legend>
+                {field.hint && <p className={s.subHint}>{field.hint}</p>}
+                <BlueprintFields
+                  fields={field.fields}
+                  value={current || {}}
+                  onChange={(patch) => onChange({ [field.key]: { ...(current || {}), ...patch } })}
+                />
+              </fieldset>
+            );
+
           default:
             return (
               <Field key={field.key} label={field.label} hint={field.hint}>

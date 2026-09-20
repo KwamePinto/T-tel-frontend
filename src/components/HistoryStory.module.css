@@ -1,0 +1,32 @@
+.story { padding: clamp(60px, 7vw, 104px) 0; }
+
+.grid { display: grid; gap: 40px; }
+
+/* grid items default to min-width:auto, which lets a long unbroken word push
+   the column wider than its track */
+.aside, .main { min-width: 0; }
+
+.sub {
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+@media (min-width: 900px) {
+  /* the text column is the wider of the two: the heading beside it is a label
+     for the read, not a column of its own */
+  .grid { grid-template-columns: 0.82fr 1fr; gap: 72px; }
+
+  .pinned {
+    position: sticky;
+    /* clears the sticky header, plus breathing room */
+    top: calc(var(--header-h) + 48px);
+  }
+}
+
+@media (min-width: 1160px) {
+  .grid { gap: 96px; }
+  /* the reading column holds its measure rather than growing with the page */
+  .main { max-width: 640px; }
+}

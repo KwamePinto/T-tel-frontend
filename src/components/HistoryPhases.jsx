@@ -1,89 +1,91 @@
-import { Link } from "react-router-dom";
 import { mediaUrl } from "../lib/cms";
+import e from "../styles/editorial.module.css";
 import styles from "./HistoryPhases.module.css";
 
-/** Internal routes render as <Link>; anything absolute stays a plain anchor. */
-function SmartLink({ label, url, className }) {
-  const external = /^https?:\/\//i.test(url || "");
-  if (external) {
+/**
+ * The roadmap half of Our History: phases running down a single line, each one
+ * taking the side opposite the last.
+ *
+ * A phase with no picture simply leaves its other side empty rather than
+ * falling back to a placeholder — most of T-TEL's phases are text, and an
+ * invented image would say less than the white space does. A phase given a
+ * `year` is treated as the arrival the line has been building towards and is
+ * set across the full width, which is why it reads as an ending rather than
+ * as a sixth entry.
+ */
+function Phase({ phase, index }) {
+  const { title, paras = [], image, year } = phase;
+  const flip = index % 2 === 1;
+  // "Phase 3" as a title just repeats the numbered label above it. Titles were
+  // optional in the layout this replaced, so most phases still carry the
+  // placeholder; a real one typed in the admin renders normally.
+  const heading = /^\s*phase\s*\d+\s*$/i.test(title || "") ? null : title;
+
+  if (year) {
     return (
-      <a className={className} href={url} target="_blank" rel="noreferrer">
-        {label}
-      </a>
+      <li className={`${styles.row} ${styles.climax} reveal`}>
+        <span className={styles.node} aria-hidden="true" />
+        <div className={styles.climaxInner}>
+          <span className={styles.year}>{year}</span>
+          {heading && <h3 className={`${e.displaySm} ${styles.title}`}>{heading}</h3>}
+          {paras.map((para, i) => <p key={i} className={styles.para}>{para}</p>)}
+        </div>
+      </li>
     );
   }
-  return <Link className={className} to={url || "/"}>{label}</Link>;
-}
-
-/**
- * Our History as the reference site lays it out: a snaking bracket.
- *
- * Every phase spans the full width. A rule runs down one side and along the
- * bottom, and the side alternates, so the two rules join into a single line
- * that zigzags down the page. The numbered badge sits on the ruled edge,
- * centred against the height of its own phase. The last phase drops its
- * bottom rule so the line ends rather than closing a box.
- */
-export default function HistoryPhases({ data }) {
-  if (!data) return null;
-  const { intro = [], milestones = [], links = [] } = data;
 
   return (
-    <>
-      {intro.length > 0 && (
-        <div className={`${styles.intro} reveal`}>
-          {intro.map((para, i) => <p key={i}>{para}</p>)}
-        </div>
-      )}
+    <li className={`${styles.row} ${flip ? styles.flip : ""} reveal`}>
+      <span className={styles.node} aria-hidden="true" />
 
-      <div className={styles.timeline}>
-        {milestones.map((phase, i) => {
-          const last = i === milestones.length - 1;
-          const image = mediaUrl(phase.image);
-
-          return (
-            <div
-              key={phase.step ?? i}
-              className={[
-                styles.entry,
-                i % 2 ? styles.right : styles.left,
-                last ? styles.last : "",
-                "reveal",
-              ].filter(Boolean).join(" ")}
-            >
-              <span className={styles.badge} aria-hidden="true">{phase.step ?? i + 1}</span>
-
-              <div className={styles.body}>
-                <h2 className={styles.title}>{phase.title}</h2>
-
-                {image && (
-                  <img
-                    className={styles.photo}
-                    src={image}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    width={phase.imageWidth || undefined}
-                    height={phase.imageHeight || undefined}
-                  />
-                )}
-
-                {(phase.paras || []).map((para, n) => (
-                  <p key={n} className={styles.para}>{para}</p>
-                ))}
-              </div>
-            </div>
-          );
-        })}
+      <div className={styles.text}>
+        <span className={`${e.eyebrow} ${e.eyebrowMuted} ${styles.step}`}>
+          Phase {String(index + 1).padStart(2, "0")}
+        </span>
+        {heading && <h3 className={`${e.displaySm} ${styles.title}`}>{heading}</h3>}
+        {paras.map((para, i) => <p key={i} className={styles.para}>{para}</p>)}
       </div>
 
-      {links.length > 0 && (
-        <div className={`${styles.links} reveal`}>
-          {links.map((l, i) => (
-            <SmartLink key={i} label={l.label} url={l.url} className={styles.link} />
-          ))}
+      {image && (
+        <div className={styles.media}>
+          <img src={mediaUrl(image)} alt={title || ""} loading="lazy" />
         </div>
       )}
-    </>
+    </li>
+  );
+}
+
+export default function HistoryPhases({ data }) {
+  const phases = data?.milestones || [];
+  const links = data?.links || [];
+  if (!phases.length) return null;
+
+  return (
+    <section className={styles.wrap}>
+      <div className="container">
+        {data?.timelineEyebrow && (
+          <span className={`${e.eyebrow} ${e.eyebrowMuted} ${styles.head}`}>
+            {data.timelineEyebrow}
+          </span>
+        )}
+        {data?.timelineHeading && (
+          <h2 className={`${e.display} ${styles.headTitle} reveal`}>{data.timelineHeading}</h2>
+        )}
+
+        <ol className={styles.timeline}>
+          {phases.map((phase, i) => <Phase key={i} phase={phase} index={i} />)}
+        </ol>
+
+        {links.length > 0 && (
+          <ul className={styles.links}>
+            {links.map((link, i) => (
+              <li key={i}>
+                <a href={link.url}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
   );
 }
