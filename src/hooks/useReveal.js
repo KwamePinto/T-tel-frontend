@@ -14,11 +14,29 @@ export default function useReveal() {
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
+        // Everything already in view when a fresh page mounts intersects in
+        // the same callback — a whole hero and first section's worth of
+        // elements, all switching to opacity:1 on the same frame. One
+        // synchronized block popping in at once is what "aggressive" was
+        // describing, even though each element's own transition is a smooth
+        // 0.9s fade. Staggering them by their order in this one batch turns
+        // that into a brief, gentle cascade instead — capped at six steps so
+        // a long list doesn't drag the last cards out past the point of
+        // still feeling like part of the same page loading in.
+        let step = 0;
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            io.unobserve(entry.target);
+          if (!entry.isIntersecting) continue;
+          const el = entry.target;
+          // An element with its own data-delay already has a deliberate,
+          // author-chosen stagger via a stylesheet rule — an inline style
+          // here would win over that rule and override it, so those are
+          // left alone and only get the automatic stagger.
+          if (!el.hasAttribute("data-delay")) {
+            el.style.transitionDelay = `${Math.min(step, 6) * 60}ms`;
+            step++;
           }
+          el.classList.add("in");
+          io.unobserve(el);
         }
       },
       // threshold must stay 0: a ratio-based threshold can never be met by an

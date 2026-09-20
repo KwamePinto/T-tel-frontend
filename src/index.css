@@ -210,6 +210,20 @@ p { margin: 0 0 18px; }
 .link-arrow svg { transition: transform 0.35s var(--ease); }
 .link-arrow:hover svg { transform: translateX(5px); }
 
+/* ---------- page transition ----------
+   A fresh key on route change (see PageTransition.jsx) remounts this element,
+   which is what restarts the animation on every navigation rather than only
+   on first load. Short and understated — this runs on every single page
+   change, so anything longer or more dramatic would slow the site down
+   rather than make it feel smooth. */
+.page-transition {
+  animation: page-enter 0.32s var(--ease-out);
+}
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
 /* ---------- scroll reveal ---------- */
 .reveal {
   opacity: 0;
