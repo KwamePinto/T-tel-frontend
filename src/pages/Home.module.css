@@ -371,8 +371,11 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   align-items: center;
-  animation: funderGroupIn 0.5s var(--ease-out);
+  opacity: 1;
+  transition: opacity 0.18s ease;
 }
+
+.fundersTrackOut { opacity: 0; }
 
 .fundersTrack li { display: flex; justify-content: center; }
 
@@ -402,11 +405,6 @@
 }
 
 .fundersNav:hover { background: var(--deep); border-color: var(--deep); color: #fff; }
-
-@keyframes funderGroupIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
 @media (max-width: 999px) {
   .fundersTrack { grid-template-columns: repeat(2, minmax(0, 1fr)); }

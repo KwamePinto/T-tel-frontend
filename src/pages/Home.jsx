@@ -15,6 +15,8 @@ export default function Home() {
   const [playing, setPlaying] = useState(true);
   const [partnerPage, setPartnerPage] = useState(0);
   const [partnerPerView, setPartnerPerView] = useState(3);
+  const [partnerTransitioning, setPartnerTransitioning] = useState(false);
+  const partnerTransitionRef = useRef(null);
   const [artPage, setArtPage] = useState(0);
 
   useEffect(() => {
@@ -84,8 +86,20 @@ export default function Home() {
   }, [partnerPages]);
 
   const goToPartnerPage = useCallback((page) => {
-    setPartnerPage((page + partnerPages) % partnerPages);
-  }, [partnerPages]);
+    const nextPage = (page + partnerPages) % partnerPages;
+    if (nextPage === partnerPage || partnerTransitionRef.current) return;
+
+    setPartnerTransitioning(true);
+    partnerTransitionRef.current = window.setTimeout(() => {
+      setPartnerPage(nextPage);
+      window.requestAnimationFrame(() => {
+        setPartnerTransitioning(false);
+        partnerTransitionRef.current = null;
+      });
+    }, 180);
+  }, [partnerPage, partnerPages]);
+
+  useEffect(() => () => window.clearTimeout(partnerTransitionRef.current), []);
 
   // Strategic objectives are three editable settings rather than a fixed list.
   const objectives = [
@@ -291,7 +305,7 @@ export default function Home() {
               </button>
             )}
 
-            <ul key={partnerPage} className={styles.fundersTrack}>
+            <ul className={`${styles.fundersTrack} ${partnerTransitioning ? styles.fundersTrackOut : ""}`}>
               {visiblePartners.map((partner) => (
                 <li key={partner._id || partner.slug}>
                   {partner.url ? (
