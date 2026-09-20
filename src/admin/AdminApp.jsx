@@ -15,6 +15,7 @@ import Trash from "./pages/Trash";
 import Users, { Profile } from "./pages/Users";
 import { Forms, FormEditor, Submissions } from "./pages/Forms";
 import { Theme, Authentication } from "./pages/Settings";
+import AdminFAQ from "./pages/AdminFAQ";
 import {
   ContentTypes, People, PersonGroups, Partners, PartnerGroups, Documents, DocumentCategories,
   Events, EventCategories,
@@ -66,6 +67,9 @@ export default function AdminApp() {
               <Route path="partner-groups" element={<PartnerGroups />} />
               <Route path="documents" element={<Documents />} />
               <Route path="documents/collections" element={<DocumentCategories />} />
+              <Route path="faq" element={<AdminFAQ />} />
+              <Route path="events" element={<Events />} />
+              <Route path="event-categories" element={<EventCategories />} />
 
               <Route path="events" element={<Events />} />
               <Route path="event-categories" element={<EventCategories />} />
