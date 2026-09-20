@@ -307,16 +307,21 @@ export default function PageEditor() {
           {blueprint?.managedIn?.length > 0 && (
             <>
               <p className={s.noticeBody}>
-                <strong>How to edit this section:</strong>
+                <strong>Very explicit instructions:</strong>
                 <br />
-                1. Use this page for the hero, heading, SEO and overall layout.
                 <br />
-                2. Go to <Link to={blueprint.managedIn[0].to}>{blueprint.managedIn[0].label}</Link> to edit the actual entries.
+                <strong>What you can change here:</strong> this page only controls the section shell — the hero image, hero text, SEO fields, page title, and the page-level layout.
                 <br />
-                3. For Focus Areas and Programmes, open each item in Posts and set the Content Type to the matching type before saving.
+                <strong>What you must change elsewhere:</strong> the actual Focus Areas or Programmes entries are edited in <Link to={blueprint.managedIn[0].to}>{blueprint.managedIn[0].label}</Link>.
+                <br />
+                <strong>Exact route:</strong> open <Link to={blueprint.managedIn[0].to}>{blueprint.managedIn[0].label}</Link>, then click <strong>New Post</strong> or choose an existing entry.
+                <br />
+                <strong>What to do there:</strong> create or edit the item, then set the <strong>Content Type</strong> to <strong>{blueprint.label}</strong> (for example, Focus Areas or Programmes) and save.
+                <br />
+                <strong>What stays on this page:</strong> only the section-level content such as the page title, hero, meta title, meta description, and general page layout remain editable here. The individual item content is not edited from this screen.
               </p>
               <p className={s.noticeBody}>
-                Also on this page:{" "}
+                Related admin screens:{" "}
                 {blueprint.managedIn.map((ref, i) => (
                   <span key={ref.to}>
                     {i > 0 && ", "}
