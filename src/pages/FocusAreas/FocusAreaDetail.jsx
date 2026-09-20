@@ -36,6 +36,10 @@ export default function FocusAreaDetail() {
 
   const post = area.data;
   const accent = post.accent === "orange" ? "var(--orange)" : "var(--teal)";
+  // Written per focus area in the admin. The older pages were all showing one
+  // hard-coded partners paragraph, which said the same thing on nine pages;
+  // an area that has not been given its own panel now simply goes without.
+  const key = post.keyInfo || {};
   const others = (all.data?.items || []).filter((o) => o.slug !== slug).slice(0, 6);
 
   return (
@@ -49,29 +53,39 @@ export default function FocusAreaDetail() {
       />
 
       <section className="section">
-        <div className={`container ${styles.layout} ${post.sections?.length ? styles.wide : ""}`}>
+        {/* One column of text with its pictures set into it, and the panel
+            holding its place alongside — the layout stays two columns whether
+            or not the post has laid-out blocks, because the panel is the
+            point of it. */}
+        <div className={`container ${styles.layout}`}>
           <article className={styles.body}>
             {post.sections?.length ? (
-              <PageSections sections={post.sections} />
+              <PageSections sections={post.sections} variant="column" />
             ) : (
               <div className={prose.prose} dangerouslySetInnerHTML={{ __html: post.body }} />
             )}
           </article>
 
           <aside className={styles.aside}>
-            <div className={`${styles.asideCard} reveal`} style={{ background: accent }}>
-              <span className={styles.asideEyebrow}>Institutional Links</span>
-              <h3>Delivery Partners</h3>
-              <span className={styles.asideRule} />
-              <p>
-                Delivered with the Ministry of Education, Ghana Education Service, GTEC, NaCCA, the
-                National Teaching Council and NaSIA, alongside our funding and research partners.
-              </p>
-              <Link to="/about-us/our-partners" className={styles.asideLink}>
-                All partners
-                <Icon name="arrowRight" size={16} />
-              </Link>
-            </div>
+            {key.title && (
+              <div className={`${styles.asideCard} reveal`} style={{ background: accent }}>
+                {key.label && <span className={styles.asideEyebrow}>{key.label}</span>}
+                <h3>{key.title}</h3>
+                <span className={styles.asideRule} />
+                {key.html && (
+                  <div
+                    className={styles.asideBody}
+                    dangerouslySetInnerHTML={{ __html: key.html }}
+                  />
+                )}
+                {key.linkUrl && key.linkLabel && (
+                  <Link to={key.linkUrl} className={styles.asideLink}>
+                    {key.linkLabel}
+                    <Icon name="arrowRight" size={16} />
+                  </Link>
+                )}
+              </div>
+            )}
 
             <Link to="/focus-areas" className={styles.backLink}>
               <Icon name="arrowRight" size={16} style={{ transform: "rotate(180deg)" }} />

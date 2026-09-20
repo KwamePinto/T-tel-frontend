@@ -1,5 +1,6 @@
 import { mediaUrl } from "../lib/cms";
 import prose from "../pages/ArticleDetail.module.css";
+import e from "../styles/editorial.module.css";
 import styles from "./PageSections.module.css";
 
 /**
@@ -15,8 +16,23 @@ import styles from "./PageSections.module.css";
  * rendering `body` — which is what every Blog post and every page written
  * before this existed still does.
  */
-export default function PageSections({ sections }) {
+export default function PageSections({ sections, variant }) {
   if (!sections?.length) return null;
+
+  // In "column" the blocks run inside a reading column beside a pinned panel,
+  // so a split lays its picture across the full measure between the
+  // paragraphs rather than beside them — which is what "images placed between
+  // the text" means once there is no room for a second column inside one.
+  const column = variant === "column";
+  // The first run of text carries the large initial, and only that one — but
+  // not when it opens with a bold label like "Introduction", where the cap
+  // would land on the label rather than on the prose and read as a mistake.
+  const firstProse = sections.findIndex(
+    (sec) =>
+      (sec.type === "prose" || sec.type === "split") &&
+      sec.html &&
+      !/^\s*<p>\s*<strong>/i.test(sec.html),
+  );
 
   return (
     <div className={styles.sections}>
@@ -38,13 +54,19 @@ export default function PageSections({ sections }) {
                 width={section.image?.width || undefined}
                 height={section.image?.height || undefined}
               />
+              {section.image?.caption && (
+                <figcaption className={styles.caption}>{section.image.caption}</figcaption>
+              )}
             </figure>
           );
         }
 
         if (section.type === "split") {
           return (
-            <div key={key} className={`${styles.split} ${section.flip ? styles.flip : ""} reveal`}>
+            <div
+              key={key}
+              className={`${styles.split} ${column ? styles.stacked : ""} ${section.flip && !column ? styles.flip : ""} reveal`}
+            >
               {img && (
                 <figure className={styles.splitMedia}>
                   <img
@@ -55,10 +77,13 @@ export default function PageSections({ sections }) {
                     width={section.image?.width || undefined}
                     height={section.image?.height || undefined}
                   />
+                  {section.image?.caption && (
+                    <figcaption className={styles.caption}>{section.image.caption}</figcaption>
+                  )}
                 </figure>
               )}
               <div
-                className={`${styles.splitCopy} ${prose.prose}`}
+                className={`${styles.splitCopy} ${prose.prose} ${column && i === firstProse ? e.dropCap : ""}`}
                 dangerouslySetInnerHTML={{ __html: section.html }}
               />
             </div>
@@ -80,7 +105,7 @@ export default function PageSections({ sections }) {
         return (
           <div
             key={key}
-            className={`${prose.prose} reveal`}
+            className={`${prose.prose} ${column && i === firstProse ? e.dropCap : ""} reveal`}
             dangerouslySetInnerHTML={{ __html: section.html }}
           />
         );

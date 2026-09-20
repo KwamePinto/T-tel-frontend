@@ -19,6 +19,7 @@ const EMPTY = {
   tags: [],
   featuredImage: null,
   sections: [],
+  keyInfo: { label: "", title: "", html: "", linkLabel: "", linkUrl: "" },
 };
 
 /** <input type="datetime-local"> needs `YYYY-MM-DDTHH:mm` in local time. */
@@ -54,6 +55,7 @@ export default function PostEditor() {
       contentType: post.contentType?._id || post.contentType || "",
       featuredImage: post.featuredImage || null,
       sections: post.sections || [],
+      keyInfo: { ...EMPTY.keyInfo, ...(post.keyInfo || {}) },
       publishedAt: toLocalInput(post.publishedAt),
       tags: post.tags || [],
     });
@@ -63,6 +65,11 @@ export default function PostEditor() {
 
   const set = (patch) => {
     setForm((f) => ({ ...f, ...patch }));
+    setDirty(true);
+  };
+
+  const setKeyInfo = (patch) => {
+    setForm((f) => ({ ...f, keyInfo: { ...f.keyInfo, ...patch } }));
     setDirty(true);
   };
 
@@ -90,6 +97,7 @@ export default function PostEditor() {
           ...sec,
           image: sec.image?._id || sec.image || null,
         })),
+        keyInfo: form.keyInfo,
         tagNames: tagInput.split(",").map((t) => t.trim()).filter(Boolean),
       };
 
@@ -190,6 +198,48 @@ export default function PostEditor() {
                 value={tagInput}
                 onChange={(e) => { setTagInput(e.target.value); setDirty(true); }}
                 placeholder="teacher education, policy"
+              />
+            </Field>
+          </RailSection>
+
+          <RailSection title="Key information" defaultOpen={false}>
+            <Field
+              label="Small line above the heading"
+              hint="The panel that stays beside the text as the reader scrolls a Focus Area. Leave the heading empty and no panel is shown."
+            >
+              <Input
+                value={form.keyInfo.label || ""}
+                onChange={(e) => setKeyInfo({ label: e.target.value })}
+                placeholder="Institutional Links"
+              />
+            </Field>
+            <Field label="Heading">
+              <Input
+                value={form.keyInfo.title || ""}
+                onChange={(e) => setKeyInfo({ title: e.target.value })}
+                placeholder="Delivery Partners"
+              />
+            </Field>
+            <Field label="Text">
+              <Textarea
+                rows={5}
+                value={form.keyInfo.html || ""}
+                onChange={(e) => setKeyInfo({ html: e.target.value })}
+                placeholder="Who delivers this work, and with whom…"
+              />
+            </Field>
+            <Field label="Link text">
+              <Input
+                value={form.keyInfo.linkLabel || ""}
+                onChange={(e) => setKeyInfo({ linkLabel: e.target.value })}
+                placeholder="All partners"
+              />
+            </Field>
+            <Field label="Link address">
+              <Input
+                value={form.keyInfo.linkUrl || ""}
+                onChange={(e) => setKeyInfo({ linkUrl: e.target.value })}
+                placeholder="/about-us/our-partners"
               />
             </Field>
           </RailSection>
