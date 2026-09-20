@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { mediaUrl } from "../lib/cms";
 import e from "../styles/editorial.module.css";
 import styles from "./HistoryPhases.module.css";
@@ -17,7 +18,7 @@ import styles from "./HistoryPhases.module.css";
  * year in place of a number and is set larger, so it reads as an ending rather
  * than as one more entry.
  */
-function Phase({ phase, index, withImage }) {
+function Phase({ phase, index, withImage, active }) {
   const { title, paras = [], image, year } = phase;
 
   // "Phase 3" as a title only repeats the numeral beside it. Titles were
@@ -26,7 +27,7 @@ function Phase({ phase, index, withImage }) {
   const heading = /^\s*phase\s*\d+\s*$/i.test(title || "") ? null : title;
 
   return (
-    <li className={`${styles.phase} ${year ? styles.arrival : ""} reveal`}>
+    <li className={`${styles.phase} ${year ? styles.arrival : ""} ${active ? styles.active : ""}`}>
       <span className={styles.numeral} aria-hidden="true">
         {year || String(index + 1).padStart(2, "0")}
       </span>
@@ -47,6 +48,8 @@ function Phase({ phase, index, withImage }) {
 }
 
 export default function HistoryPhases({ data }) {
+  const wrap = useRef(null);
+  const [progress, setProgress] = useState(0);
   const phases = data?.milestones || [];
   const links = data?.links || [];
   if (!phases.length) return null;
@@ -58,8 +61,44 @@ export default function HistoryPhases({ data }) {
   const borrowed = phases.findIndex((p) => p.image);
   const railImage = borrowed >= 0 ? phases[borrowed].image : data?.heroImage || null;
 
+  useEffect(() => {
+    let frame = 0;
+
+    const updateProgress = () => {
+      frame = 0;
+      const element = wrap.current;
+      if (!element) return;
+
+      const rect = element.getBoundingClientRect();
+      const start = window.innerHeight * 0.2;
+      const end = window.innerHeight * 0.76;
+      const travel = Math.max(rect.height + start - end, 1);
+      const next = Math.min(1, Math.max(0, (start - rect.top) / travel));
+      setProgress(next);
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [phases.length]);
+
+  const activeIndex = Math.min(
+    phases.length - 1,
+    Math.floor(progress * phases.length),
+  );
+
   return (
-    <section className={styles.wrap}>
+    <section ref={wrap} className={styles.wrap}>
       <div className={`container ${styles.grid}`}>
         <div className={styles.rail}>
           <div className={styles.railInner}>
@@ -91,8 +130,17 @@ export default function HistoryPhases({ data }) {
         </div>
 
         <ol className={styles.phases}>
+          <span className={styles.progressTrack} aria-hidden="true">
+            <span className={styles.progressFill} style={{ transform: `scaleY(${progress})` }} />
+          </span>
           {phases.map((phase, i) => (
-            <Phase key={i} phase={phase} index={i} withImage={Boolean(phase.image) && i !== borrowed} />
+            <Phase
+              key={i}
+              phase={phase}
+              index={i}
+              active={i <= activeIndex}
+              withImage={Boolean(phase.image) && i !== borrowed}
+            />
           ))}
         </ol>
       </div>
