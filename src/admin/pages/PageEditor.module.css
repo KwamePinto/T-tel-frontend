@@ -1,0 +1,46 @@
+/* The explanatory panel at the top of a special page's editor. Deliberately
+   quiet — it is orientation, not a warning, so it uses the same dashed,
+   muted treatment as the empty states elsewhere in the admin. */
+.notice {
+  padding: 16px 18px;
+  background: var(--a-bg);
+  border: 1px dashed var(--a-line);
+  border-radius: 8px;
+}
+
+.noticeLead {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--a-text);
+}
+
+.noticeBody {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--a-muted);
+}
+
+.noticeBody a {
+  color: var(--a-brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.notice code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--a-surface);
+  border: 1px solid var(--a-line);
+  font-size: 12.5px;
+}
+
+.sectionBody { display: flex; flex-direction: column; gap: 18px; }
+
+.sectionHint {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--a-muted);
+}

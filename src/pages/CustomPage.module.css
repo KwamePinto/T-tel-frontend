@@ -1,0 +1,6 @@
+/* Matching the measure the other prose pages use, so a page written in the
+   admin sits at the same width as one built by hand. */
+.body {
+  max-width: 78ch;
+  margin-inline: auto;
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Seo from "../components/Seo";
-import PageHero from "../components/PageHero";
+import CmsHero from "../components/CmsHero";
 import Icon from "../components/Icon";
 import { Loading, ErrorState } from "../components/States";
 import { cms } from "../lib/cms";
@@ -84,7 +84,8 @@ export default function ContactUs() {
   return (
     <>
       <Seo title="Contact Us" description="Get in touch with T-TEL. Ministries, funders, researchers and school leaders are welcome at every level of the system." />
-      <PageHero
+      <CmsHero
+        slug="contact-us"
         title="Contact Us"
         crumb="Contact Us"
         subtitle="Have questions or enquiries? Reach us using the details below or complete the enquiry form."

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Seo from "../../components/Seo";
-import PageHero from "../../components/PageHero";
+import CmsHero from "../../components/CmsHero";
 import SectionIntro from "../../components/SectionIntro";
 import Icon from "../../components/Icon";
 import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
@@ -18,7 +18,7 @@ export default function OurPeopleIndex() {
   return (
     <>
       <Seo title="Our People" description="T-TEL's subscribers, board of directors, key advisors, senior management and technical team." />
-      <PageHero title="Our People" crumb="Our People" image="/images/photos/team-group.jpg" />
+      <CmsHero slug="about-us/our-people" title="Our People" crumb="Our People" image="/images/photos/team-group.jpg" />
 
       <SectionIntro
         eyebrow="Governance & Delivery"

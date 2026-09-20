@@ -1,4 +1,4 @@
-import PageHero from "../components/PageHero";
+import CmsHero from "../components/CmsHero";
 import Seo from "../components/Seo";
 import SectionIntro from "../components/SectionIntro";
 import Icon from "../components/Icon";
@@ -46,7 +46,8 @@ export default function JoinUs() {
   return (
     <>
       <Seo title="Join Us" description="Work with T-TEL: current opportunities and what it is like to be part of a Ghanaian technical assistance team." />
-      <PageHero
+      <CmsHero
+        slug="join-us"
         title="Join Our Team"
         crumb="Careers"
         subtitle="Build your career with a Ghanaian organisation transforming teaching, education and learning."

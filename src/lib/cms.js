@@ -10,7 +10,11 @@ async function get(path, params) {
   const res = await fetch(url);
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.error || `Request failed (${res.status})`);
+    const err = new Error(body.error || `Request failed (${res.status})`);
+    // a missing page is an ordinary 404 to be rendered as such, not a fault to
+    // report — callers need the code to tell those apart
+    err.status = res.status;
+    throw err;
   }
   return res.json();
 }

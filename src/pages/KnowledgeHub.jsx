@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Seo from "../components/Seo";
-import PageHero from "../components/PageHero";
+import CmsHero from "../components/CmsHero";
 import Icon from "../components/Icon";
 import { CardsLoading, ErrorState, EmptyState } from "../components/States";
 import { cms } from "../lib/cms";
@@ -19,7 +19,8 @@ export default function KnowledgeHub() {
   return (
     <>
       <Seo title="Knowledge Hub" description="Course manuals, handbooks, evaluation reports and policy documents from a decade of education reform in Ghana — free to download." />
-      <PageHero
+      <CmsHero
+        slug="knowledge-hub"
         title="Knowledge Hub"
         crumb="Knowledge Hub"
         subtitle="Research, teaching resources, evaluation reports and publications from a decade of education reform in Ghana."

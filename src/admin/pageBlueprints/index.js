@@ -1,0 +1,99 @@
+import aboutUs from "./aboutUs";
+import ourHistory from "./ourHistory";
+
+/**
+ * What each special page's editor shows.
+ *
+ * A special page is one with a coded component of its own, so its editor can
+ * only honestly offer the fields that component actually reads — the promise
+ * being that anything you can edit here changes something on the page, and
+ * anything on the page that an admin can change is editable here. A blueprint
+ * is how that promise is written down.
+ *
+ * ── Adding a special page ──────────────────────────────────────────────────
+ *  1. Build the component and give it a route in App.jsx.
+ *  2. Have it read its content from its Page record — structured content from
+ *     `sections`, hero and SEO from `heroImage`/`meta` (CmsHero does the
+ *     latter for you).
+ *  3. Add a blueprint here, keyed by slug, describing those fields.
+ *  4. Add the slug to SPECIAL_SLUGS in the backend's scripts/classifyPages.js
+ *     and run it.
+ *
+ * Field types available: text, textarea, richtext, image, textlist (a list of
+ * strings) and list (a list of objects, each with its own `fields`). See
+ * BlueprintFields.jsx.
+ *
+ * A blueprint describes only the fields worth showing. Anything stored but not
+ * declared is left untouched on save, so a component can keep reading values
+ * that nobody edits by hand.
+ */
+
+const defaults = {
+  /** hero image and hero text in the rail — every page has a hero */
+  hero: true,
+  /** the Content rich-text box. Off for special pages: their text lives in
+   *  `sections`, and a box that renders nowhere is exactly the confusion this
+   *  split exists to end. */
+  body: false,
+  sections: [],
+  managedIn: [],
+  /** Every special page falls back to an image chosen in its design when none
+   *  is set here, so an empty hero image is a real state rather than a gap. */
+  heroNote: "With no image chosen, the page keeps the one from its design.",
+};
+
+/** A page that is a list of something kept elsewhere — documents, people,
+ *  posts. Its own editable content is the hero, and the rest is a signpost so
+ *  nobody hunts for the cards on the wrong screen. */
+const listing = (label, { of, to, summary }) => ({
+  label,
+  summary: summary || `The hero at the top of the page. ${of} are edited in their own section.`,
+  managedIn: [{ label: of, to }],
+});
+
+const BLUEPRINTS = {
+  "about-us": aboutUs,
+  "about-us/our-history": ourHistory,
+
+  "about-us/our-partners": {
+    label: "Our Partners",
+    summary: "The hero at the top of the page.",
+    managedIn: [{ label: "Partners", to: "/admin/partners" }],
+  },
+
+  "about-us/our-people": listing("Our People", { of: "People", to: "/admin/people" }),
+  "about-us/our-policies": listing("Our Policies", { of: "Documents", to: "/admin/documents" }),
+  "focus-areas": listing("Focus Areas", { of: "Focus Areas", to: "/admin/posts" }),
+  programmes: listing("Programmes", { of: "Programmes", to: "/admin/posts" }),
+  "knowledge-hub": listing("Knowledge Hub", { of: "Documents", to: "/admin/documents" }),
+  "news-and-media": listing("News & Media", { of: "Posts", to: "/admin/posts" }),
+  "contact-us": listing("Contact Us", {
+    of: "Contact details",
+    to: "/admin/theme",
+    summary:
+      "The hero at the top of the page. The address, phone numbers and map come from Theme settings, and messages sent through the form arrive under Forms.",
+  }),
+  "join-us": {
+    label: "Join Us",
+    summary: "The hero at the top of the page. The rest of this page is fixed in the design.",
+  },
+
+  home: {
+    label: "Home",
+    summary:
+      "The home page is built from Theme settings rather than from this record — the hero video and heading, the Who We Are band, the strategic objective cards and every section heading are all there. The articles, focus areas and funders it lists come from their own sections.",
+    hero: false,
+    managedIn: [
+      { label: "Theme settings", to: "/admin/theme" },
+      { label: "Posts", to: "/admin/posts" },
+      { label: "Partners", to: "/admin/partners" },
+    ],
+  },
+};
+
+export function getBlueprint(slug) {
+  const blueprint = BLUEPRINTS[slug];
+  return blueprint ? { ...defaults, ...blueprint } : null;
+}
+
+export default BLUEPRINTS;

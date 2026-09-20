@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Seo from "../components/Seo";
 import { Link } from "react-router-dom";
-import PageHero from "../components/PageHero";
+import CmsHero from "../components/CmsHero";
 import Icon from "../components/Icon";
 import { CardsLoading, ErrorState, EmptyState } from "../components/States";
 import { cms, mediaUrl } from "../lib/cms";
@@ -44,7 +44,8 @@ export default function NewsAndMedia() {
   return (
     <>
       <Seo title="News &amp; Media" description="Announcements, field stories and press coverage from T-TEL and its partners across Ghana's education system." />
-      <PageHero
+      <CmsHero
+        slug="news-and-media"
         title={settings.blog_label || "News & Media"}
         crumb={settings.blog_label || "News & Media"}
         image="/images/focus/books-children.jpg"

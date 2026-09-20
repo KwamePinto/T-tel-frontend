@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Seo from "../../components/Seo";
-import PageHero from "../../components/PageHero";
+import CmsHero from "../../components/CmsHero";
 import Icon from "../../components/Icon";
 import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
@@ -17,7 +17,8 @@ export default function Programmes() {
   return (
     <>
       <Seo title="Programmes" description="T-TEL's programmes with the Ministry of Education and its agencies, from secondary education reform to district-level change." />
-      <PageHero
+      <CmsHero
+        slug="programmes"
         title="Programmes"
         crumb="Programmes"
         subtitle="The projects through which T-TEL delivers technical advice, project management, research and implementation support across Ghana."
