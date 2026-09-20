@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Seo from "../components/Seo";
 import { Link } from "react-router-dom";
 import Icon from "../components/Icon";
@@ -83,9 +83,9 @@ export default function Home() {
     setPartnerPage((page) => Math.min(page, partnerPages - 1));
   }, [partnerPages]);
 
-  function goToPartnerPage(page) {
+  const goToPartnerPage = useCallback((page) => {
     setPartnerPage((page + partnerPages) % partnerPages);
-  }
+  }, [partnerPages]);
 
   // Strategic objectives are three editable settings rather than a fixed list.
   const objectives = [
@@ -296,10 +296,10 @@ export default function Home() {
                 <li key={partner._id || partner.slug}>
                   {partner.url ? (
                     <a href={partner.url} target="_blank" rel="noreferrer" title={partner.name}>
-                      <img src={mediaUrl(partner.logo)} alt={partner.name} loading="lazy" />
+                      <img src={mediaUrl(partner.logo)} alt={partner.name} loading="eager" decoding="async" />
                     </a>
                   ) : (
-                    <img src={mediaUrl(partner.logo)} alt={partner.name} loading="lazy" />
+                    <img src={mediaUrl(partner.logo)} alt={partner.name} loading="eager" decoding="async" />
                   )}
                 </li>
               ))}
