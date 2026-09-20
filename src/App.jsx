@@ -18,7 +18,7 @@ import KnowledgeHub from "./pages/KnowledgeHub";
 import KnowledgeHubCollection from "./pages/KnowledgeHubCollection";
 import ContactUs from "./pages/ContactUs";
 import JoinUs from "./pages/JoinUs";
-import NotFound from "./pages/NotFound";
+import CustomPage from "./pages/CustomPage";
 
 // The dashboard is a separate bundle — visitors never download it.
 const AdminApp = lazy(() => import("./admin/AdminApp"));
@@ -60,7 +60,12 @@ export default function App() {
         <Route path="contact-us" element={<ContactUs />} />
         <Route path="join-us" element={<JoinUs />} />
 
-        <Route path="*" element={<NotFound />} />
+        {/* Anything not claimed above is looked up as a custom page — the kind
+            created in the admin — and falls through to the 404 when there is
+            no published page at that address. React Router ranks the static
+            routes above this one, so a page with a component of its own is
+            never reached through here. */}
+        <Route path="*" element={<CustomPage />} />
       </Route>
     </Routes>
   );

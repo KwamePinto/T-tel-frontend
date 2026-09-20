@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Seo from "../../components/Seo";
-import PageHero from "../../components/PageHero";
+import CmsHero from "../../components/CmsHero";
 import Icon from "../../components/Icon";
 import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms } from "../../lib/cms";
@@ -19,7 +19,8 @@ export default function FocusAreas() {
   return (
     <>
       <Seo title="Focus Areas" description="The areas T-TEL works in: curriculum and assessment, teacher professional development, leadership, inclusion, data and digital learning." />
-      <PageHero
+      <CmsHero
+        slug="focus-areas"
         title={settings.home_focus_heading || "Focus Areas"}
         crumb="Focus Areas"
         subtitle={settings.home_focus_intro}

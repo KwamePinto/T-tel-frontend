@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PageHero from "../../components/PageHero";
+import CmsHero from "../../components/CmsHero";
 import Seo from "../../components/Seo";
 import Icon from "../../components/Icon";
 import PdfPreview, { openPreview } from "../../components/PdfPreview";
@@ -37,7 +37,7 @@ export default function OurPolicies() {
   return (
     <>
       <Seo title="Our Policies" description="T-TEL's governing policies on safeguarding, harassment, conflict of interest, intellectual property and inclusion." />
-      <PageHero title="Our Policies" crumb="Our Policies" image="/images/focus/library-review.jpg" />
+      <CmsHero slug="about-us/our-policies" title="Our Policies" crumb="Our Policies" image="/images/focus/library-review.jpg" />
 
       <section className="section">
         <div className="container">

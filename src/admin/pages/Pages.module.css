@@ -1,0 +1,23 @@
+/* The two groups are the same card and table the list has always used, with a
+   heading above each — the split should read as the page being sorted, not as
+   a different screen. */
+.group { margin-top: 16px; }
+
+.groupNote {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--a-muted);
+}
+
+/* a special page whose blueprint has not been written yet */
+.flag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--a-bg);
+  border: 1px solid var(--a-line);
+  font-size: 11.5px;
+  color: var(--a-muted);
+  vertical-align: middle;
+}

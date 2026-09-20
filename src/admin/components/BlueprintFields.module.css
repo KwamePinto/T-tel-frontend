@@ -1,0 +1,115 @@
+/* Deliberately the same vocabulary as SectionsEditor.module.css — a collapsed
+   row with a chevron, move and remove controls, a grey body when open. An
+   admin who has edited a Focus Area's blocks should recognise a special page's
+   fields as the same kind of thing rather than a new interface. */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  background: var(--a-surface);
+  overflow: hidden;
+}
+
+.itemOpen { border-color: var(--a-brand); box-shadow: 0 0 0 1px var(--a-brand); }
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+}
+
+.toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 8px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--a-text);
+}
+
+.kind {
+  font-size: 13.5px;
+  font-weight: 600;
+  /* a long phase title must not push the row controls off the card */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.controls { display: flex; gap: 2px; flex-shrink: 0; }
+
+.controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--a-muted);
+  cursor: pointer;
+}
+
+.controls button:hover:not(:disabled) { background: var(--a-bg); color: var(--a-text); }
+.controls button:disabled { opacity: 0.32; cursor: default; }
+.remove:hover:not(:disabled) { color: var(--a-red); }
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-top: 1px solid var(--a-line);
+  background: var(--a-bg);
+}
+
+.sub { display: flex; flex-direction: column; gap: 6px; }
+
+.subLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--a-muted);
+}
+
+.subHint { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--a-muted); }
+
+/* a paragraph box and its remove button on one line, the button holding its
+   width so the boxes all end at the same edge */
+.textListRow { display: flex; align-items: flex-start; gap: 8px; }
+.textListRow > :first-child { flex: 1; min-width: 0; }
+
+.rowRemove {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-top: 5px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--a-muted);
+  cursor: pointer;
+}
+
+.rowRemove:hover { background: var(--a-surface); color: var(--a-red); }
