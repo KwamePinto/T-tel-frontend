@@ -86,8 +86,11 @@
   letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--text-soft);
-  cursor: not-allowed;
+  cursor: pointer;
 }
+
+/* only a button with nothing to open refuses the click */
+.actions button:disabled { cursor: not-allowed; }
 
 .download { color: var(--green-dark) !important; }
 

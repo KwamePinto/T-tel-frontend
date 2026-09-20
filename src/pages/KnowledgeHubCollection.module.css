@@ -253,3 +253,75 @@
 @media (min-width: 760px) {
   .filters { grid-template-columns: 1fr 190px 170px auto; align-items: center; }
 }
+
+/* ---- Secondary Education group filters ---- */
+/* Four discs above the controls, one per group the collection is split into.
+   Chosen is the deep green with the mark reversed out of white; the rest sit
+   in a pale ring of the accent so the chosen one is obvious at a glance. */
+.groups {
+  /* one hue for the unchosen discs, the ring being the same colour held well
+     back — this page resolves --accent to the teal, not the red */
+  --grp: var(--accent);
+  --grp-ring: color-mix(in srgb, var(--accent) 15%, #fff);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px 12px;
+  margin-bottom: 34px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.groupDisc {
+  display: grid;
+  place-items: center;
+  width: clamp(96px, 13vw, 132px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--grp-ring);
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.groupInner {
+  display: grid;
+  place-items: center;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--grp);
+  color: #fff;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.group:hover .groupDisc { transform: translateY(-3px); }
+
+.groupOn .groupDisc { background: var(--green-dark); }
+.groupOn .groupInner { background: #fff; color: var(--green-dark); }
+
+.groupLabel {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.15vw, 16.5px);
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--ink);
+}
+
+.groupOn .groupLabel { color: var(--green-dark); }
+
+.group:focus-visible .groupDisc {
+  outline: 2px solid var(--green-dark);
+  outline-offset: 3px;
+}
+
+@media (min-width: 720px) {
+  .groups { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+}

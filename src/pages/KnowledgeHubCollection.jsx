@@ -8,6 +8,27 @@ import { cms, mediaUrl } from "../lib/cms";
 import { useCms } from "../hooks/useCms";
 import styles from "./KnowledgeHubCollection.module.css";
 
+/* Secondary Education is published as four groups. The live site gives each
+   its own page; we filter the one collection in place, which keeps the sort,
+   search and paging controls working across all four. The tags are written by
+   the backend's tagSecondaryGroups script. */
+const SECONDARY_GROUPS = [
+  { tag: "departmental-plc-handbooks", lines: ["Departmental", "PLC Handbooks"] },
+  { tag: "teacher-manuals-y1-book-1", lines: ["Teacher Manuals", "Year 1 Book 1"] },
+  { tag: "teacher-manuals-y1-book-2", lines: ["Teacher Manuals", "Year 1 Book 2"] },
+  { tag: "subject-specific-plc-handbooks", lines: ["Subject-Specific", "PLC Handbooks"] },
+];
+
+function BooksMark() {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
+      <path d="M3.4 16.6h17.2c.5 0 .9.4.9.9s-.4.9-.9.9H3.4c-.5 0-.9-.4-.9-.9s.4-.9.9-.9Z" />
+      <path d="M4.6 13.1h14.8c.5 0 .9.4.9.9s-.4.9-.9.9H4.6c-.5 0-.9-.4-.9-.9s.4-.9.9-.9Z" />
+      <path d="M12 3.6 3.9 7.2a.8.8 0 0 0 0 1.5l8.1 3.5 8.1-3.5a.8.8 0 0 0 0-1.5L12 3.6Zm0 6.6L6.4 7.9 12 5.5l5.6 2.4L12 10.2Z" />
+    </svg>
+  );
+}
+
 const SORTS = [
   { value: "date", label: "Publish Date" },
   { value: "title", label: "Title" },
@@ -32,6 +53,7 @@ export default function KnowledgeHubCollection() {
   const sort = params.get("sort") || "date";
   const order = params.get("order") || "desc";
   const query = params.get("q") || "";
+  const tag = params.get("tag") || "";
 
   // the input is local so typing doesn't refetch on every keystroke
   const [term, setTerm] = useState(query);
@@ -39,8 +61,8 @@ export default function KnowledgeHubCollection() {
 
   const { data: cats } = useCms(() => cms.documentCategories(), []);
   const { data, loading, error, reload } = useCms(
-    () => cms.documents({ collection: slug, page, limit: PER_PAGE, sort, order, search: query }),
-    [slug, page, sort, order, query],
+    () => cms.documents({ collection: slug, page, limit: PER_PAGE, sort, order, search: query, tag }),
+    [slug, page, sort, order, query, tag],
   );
 
   const { collection, parent } = useMemo(() => {
@@ -113,6 +135,33 @@ export default function KnowledgeHubCollection() {
                   <span>{c.count}</span>
                 </Link>
               ))}
+            </div>
+          )}
+
+          {slug === "secondary-education" && (
+            <div className={styles.groups}>
+              {SECONDARY_GROUPS.map((g) => {
+                const on = tag === g.tag;
+                return (
+                  <button
+                    key={g.tag}
+                    type="button"
+                    className={`${styles.group} ${on ? styles.groupOn : ""}`}
+                    aria-pressed={on}
+                    /* pressing the one already chosen clears it, so there is a
+                       way back to the whole collection without the browser's
+                       back button */
+                    onClick={() => setParam({ tag: on ? "" : g.tag })}
+                  >
+                    <span className={styles.groupDisc}>
+                      <span className={styles.groupInner}><BooksMark /></span>
+                    </span>
+                    <span className={styles.groupLabel}>
+                      {g.lines[0]}<br />{g.lines[1]}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           )}
 
