@@ -4,12 +4,12 @@ import { useSite } from "../context/SiteContext";
 import styles from "./Footer.module.css";
 
 const SOCIALS = [
-  ["social_facebook", "facebook", "Facebook"],
-  ["social_twitter", "twitter", "X"],
-  ["social_instagram", "instagram", "Instagram"],
-  ["social_linkedin", "linkedin", "LinkedIn"],
-  ["social_youtube", "youtube", "YouTube"],
-  ["social_flickr", "flickr", "Flickr"],
+  ["social_facebook", "social_facebook_icon", "Facebook"],
+  ["social_twitter", "social_twitter_icon", "X"],
+  ["social_instagram", "social_instagram_icon", "Instagram"],
+  ["social_linkedin", "social_linkedin_icon", "LinkedIn"],
+  ["social_youtube", "social_youtube_icon", "YouTube"],
+  ["social_flickr", "social_flickr_icon", "Flickr"],
 ];
 
 function FooterLink({ item }) {
@@ -85,9 +85,9 @@ export default function Footer() {
           <div>
             <h4>Connect With Us</h4>
             <div className={styles.socials}>
-              {socials.map(([key, icon, label]) => (
+              {socials.map(([key, iconKey, label]) => (
                 <a key={key} href={settings[key]} target="_blank" rel="noreferrer" aria-label={label}>
-                  <Icon name={icon} size={17} />
+                  <Icon name={settings[iconKey] || key.replace("social_", "")} size={17} />
                 </a>
               ))}
             </div>

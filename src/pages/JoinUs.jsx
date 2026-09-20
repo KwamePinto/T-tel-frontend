@@ -2,6 +2,8 @@ import CmsHero from "../components/CmsHero";
 import Seo from "../components/Seo";
 import SectionIntro from "../components/SectionIntro";
 import Icon from "../components/Icon";
+import { cms } from "../lib/cms";
+import { useCms } from "../hooks/useCms";
 import styles from "./JoinUs.module.css";
 
 const VALUES = [
@@ -43,6 +45,17 @@ const ROLES = {
 const TINTS = ["mint", "blue", "cream", "mintDeep"];
 
 export default function JoinUs() {
+  const { data: page } = useCms(() => cms.page("join-us"), []);
+  const sections = page?.sections || [];
+  const sectionData = (type) => sections.find((section) => section.type === type)?.data || {};
+  const intro = sectionData("joinIntro");
+  const values = sectionData("joinValues").items?.length ? sectionData("joinValues").items : VALUES;
+  const roleGroups = sectionData("joinRoles").groups?.length
+    ? sectionData("joinRoles").groups
+    : Object.entries(ROLES).map(([group, roles]) => ({ group, roles }));
+  const safeguarding = sectionData("joinSafeguarding");
+  const cta = sectionData("joinCta");
+
   return (
     <>
       <Seo title="Join Us" description="Work with T-TEL: current opportunities and what it is like to be part of a Ghanaian technical assistance team." />
@@ -55,17 +68,17 @@ export default function JoinUs() {
       />
 
       <SectionIntro
-        eyebrow="Careers"
-        title="Build the"
-        accent="Future"
-        lead="Join a nationally-led team dedicated to bridging the gap between high-level policy and classroom reality."
+        eyebrow={intro.eyebrow || "Careers"}
+        title={intro.title || "Build the"}
+        accent={intro.accent || "Future"}
+        lead={intro.lead || "Join a nationally-led team dedicated to bridging the gap between high-level policy and classroom reality."}
         rule={false}
       />
 
       <section className="section">
         <div className="container">
           <div className={styles.values}>
-            {VALUES.map((v, i) => (
+            {values.map((v, i) => (
               <div
                 key={v.n}
                 className={`${styles.value} ${styles[v.accent]} reveal`}
@@ -88,7 +101,7 @@ export default function JoinUs() {
             <h2>Available Positions</h2>
           </div>
 
-          {Object.entries(ROLES).map(([group, roles]) => (
+          {roleGroups.map(({ group, roles }) => (
             <div key={group} className={styles.group}>
               <h3 className={`${styles.groupTitle} reveal`}>{group}</h3>
               <div className={styles.roleGrid}>
@@ -119,20 +132,13 @@ export default function JoinUs() {
             </div>
           ))}
 
-          <p className={styles.spec}>
-            Don&rsquo;t see a matching role? Send a speculative application &mdash; we&rsquo;re
-            always looking for good people.
-          </p>
+          <p className={styles.spec}>{cta.spec || "Don’t see a matching role? Send a speculative application — we’re always looking for good people."}</p>
 
           <div className={`${styles.safeguard} reveal`}>
             <div>
               <span className={styles.safeEyebrow}>Safeguarding</span>
-              <h3>Our Commitment</h3>
-              <p>
-                T-TEL is committed to safeguarding children and vulnerable adults. All appointments
-                are subject to background checks and to our Child &amp; Youth Safeguarding Policy,
-                and every member of staff is trained on their responsibilities.
-              </p>
+              <h3>{safeguarding.title || "Our Commitment"}</h3>
+              <p>{safeguarding.body || "T-TEL is committed to safeguarding children and vulnerable adults. All appointments are subject to background checks and to our Child & Youth Safeguarding Policy, and every member of staff is trained on their responsibilities."}</p>
             </div>
             <svg viewBox="0 0 24 24" className={styles.shield} aria-hidden="true">
               <path

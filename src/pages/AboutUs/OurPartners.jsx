@@ -10,7 +10,7 @@ import styles from "./OurPartners.module.css";
 
 /** Keep the content groups from the CMS, while omitting the reference page's
  * principal Mastercard block as requested for this page. */
-const GROUPS = [
+const FALLBACK_GROUPS = [
   { key: "government", title: "Government Partners" },
   { key: "university", title: "Universities" },
   { key: "funder", title: "Funding & Project Partners" },
@@ -50,7 +50,14 @@ export default function OurPartners() {
   const [selected, setSelected] = useState(null);
   const page = useCms(() => cms.page("about-us/our-partners"), []);
   const partners = useCms(() => cms.partners(), []);
+  const partnerGroups = useCms(() => cms.partnerGroups(), []);
   const all = partners.data?.items ?? [];
+  const intro = (page.data?.sections || []).find((section) => section.type === "partnerIntro")?.data || {};
+  const configuredGroups = (page.data?.sections || []).find((section) => section.type === "partnerGroups")?.data?.items;
+  const groups = configuredGroups?.length
+    ? configuredGroups
+    : (partnerGroups.data?.items || []).map((group) => ({ key: group.slug, title: group.name }));
+  const visibleGroups = groups.length ? groups : FALLBACK_GROUPS;
 
   const loading = page.loading || partners.loading;
   const error = page.error || partners.error;
@@ -70,11 +77,9 @@ export default function OurPartners() {
 
       <section className={styles.intro}>
         <div className="container">
-          <span className="eyebrow eyebrow-plain">Working Together</span>
+          <span className="eyebrow eyebrow-plain">{intro.eyebrow || "Working Together"}</span>
           <p>
-            T-TEL works with a wide range of government, university, funding and
-            implementation partners across Ghana, bringing together specialist
-            expertise to strengthen teaching, education and learning.
+            {intro.body || "T-TEL works with a wide range of government, university, funding and implementation partners across Ghana, bringing together specialist expertise to strengthen teaching, education and learning."}
           </p>
         </div>
       </section>
@@ -93,7 +98,7 @@ export default function OurPartners() {
         <section className="section"><div className="container"><EmptyState>No partners listed yet.</EmptyState></div></section>
       )}
 
-      {GROUPS.map(({ key, title }) => {
+      {visibleGroups.map(({ key, title }) => {
         const items = all.filter(
           (p) => p.group === key && p.name !== "Mastercard Foundation",
         );

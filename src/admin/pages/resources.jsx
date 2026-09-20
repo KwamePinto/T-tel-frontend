@@ -102,13 +102,7 @@ export const Partners = () => (
       filters: [{
         key: "group",
         label: "All groups",
-        options: [
-          { value: "funder", label: "Funder" },
-          { value: "government", label: "Government" },
-          { value: "university", label: "University" },
-          { value: "implementing", label: "Implementing" },
-          { value: "research", label: "Research" },
-        ],
+        source: "partnerGroups", sourceValue: "slug",
       }],
       columns: [
         { key: "logo", label: "", render: col.image("logo") },
@@ -120,14 +114,7 @@ export const Partners = () => (
       fields: [
         { name: "name", label: "Name", required: true },
         {
-          name: "group", label: "Group", type: "select",
-          options: [
-            { value: "funder", label: "Funder" },
-            { value: "government", label: "Government" },
-            { value: "university", label: "University" },
-            { value: "implementing", label: "Implementing" },
-            { value: "research", label: "Research" },
-          ],
+          name: "group", label: "Group", type: "ref", source: "partnerGroups", sourceValue: "slug",
         },
         { name: "logo", label: "Logo", type: "media", hint: "A transparent PNG or SVG works best." },
         { name: "description", label: "Description", type: "textarea", rows: 3 },
@@ -137,6 +124,28 @@ export const Partners = () => (
         { name: "sortOrder", label: "Sort order", type: "number" },
       ],
       defaults: { group: "funder", showOnHome: true },
+    }}
+  />
+);
+
+export const PartnerGroups = () => (
+  <ResourceManager
+    config={{
+      title: "Partner Groups",
+      subtitle: "The sections used to organize partners on the website.",
+      singular: "Partner group",
+      resource: api.partnerGroups,
+      columns: [
+        { key: "name", label: "Name", render: col.title("name", "slug") },
+        { key: "description", label: "Description", render: col.text("description") },
+        { key: "sortOrder", label: "Order" },
+      ],
+      fields: [
+        { name: "name", label: "Name", required: true },
+        { name: "description", label: "Description", type: "textarea", rows: 3 },
+        { name: "sortOrder", label: "Sort order", type: "number" },
+      ],
+      defaults: { sortOrder: 0 },
     }}
   />
 );

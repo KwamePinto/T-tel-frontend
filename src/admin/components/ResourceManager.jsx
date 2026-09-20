@@ -39,15 +39,22 @@ export default function ResourceManager({ config }) {
     () => [...filters, ...fields].filter((f) => f.source).map((f) => f.source),
     [filters, fields],
   );
+  const sourceValueByKey = useMemo(
+    () => Object.fromEntries([...filters, ...fields].filter((f) => f.source).map((f) => [f.source, f.sourceValue])),
+    [filters, fields],
+  );
   const { data: sources } = useAsync(async () => {
     const entries = await Promise.all(
       [...new Set(sourceKeys)].map(async (key) => {
         const res = await api[key].list({ limit: 200 });
-        return [key, (res.items || []).map((i) => ({ value: i._id, label: i.name || i.title }))];
+        return [key, (res.items || []).map((i) => ({
+          value: sourceValueByKey[key] ? i[sourceValueByKey[key]] : i._id,
+          label: i.name || i.title,
+        }))];
       }),
     );
     return Object.fromEntries(entries);
-  }, [sourceKeys.join("|")]);
+  }, [sourceKeys.join("|"), JSON.stringify(sourceValueByKey)]);
 
   const optionsFor = (f) => f.options || sources?.[f.source] || [];
 

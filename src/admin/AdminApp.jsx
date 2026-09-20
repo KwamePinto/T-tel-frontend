@@ -16,7 +16,7 @@ import Users, { Profile } from "./pages/Users";
 import { Forms, FormEditor, Submissions } from "./pages/Forms";
 import { Theme, Authentication } from "./pages/Settings";
 import {
-  ContentTypes, People, PersonGroups, Partners, Documents, DocumentCategories,
+  ContentTypes, People, PersonGroups, Partners, PartnerGroups, Documents, DocumentCategories,
   Events, EventCategories,
 } from "./pages/resources";
 import "./admin.css";
@@ -63,6 +63,7 @@ export default function AdminApp() {
               <Route path="people" element={<People />} />
               <Route path="people/groups" element={<PersonGroups />} />
               <Route path="partners" element={<Partners />} />
+              <Route path="partner-groups" element={<PartnerGroups />} />
               <Route path="documents" element={<Documents />} />
               <Route path="documents/collections" element={<DocumentCategories />} />
 
