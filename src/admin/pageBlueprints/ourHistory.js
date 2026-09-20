@@ -8,7 +8,7 @@ const story = {
   key: "story",
   type: "group",
   label: "Opening account",
-  hint: "The heading stays pinned on the left while this text scrolls past it.",
+  hint: "The opening account appears above the dark, horizontally scrollable timeline.",
   fields: [
     { key: "eyebrow", type: "text", label: "Small line above the heading" },
     { key: "heading", type: "text", label: "Heading", placeholder: "The Journey So Far" },
@@ -62,7 +62,7 @@ export default {
           type: "list",
           label: "Phases",
           itemNoun: "phase",
-          hint: "Phases alternate sides down the line. One given a year is set across the full width as the closing moment.",
+          hint: "Phases appear as animated cards in the horizontally scrollable roadmap. Add, remove, reorder, and edit each phase here.",
           itemTitle: (item, i) => item.title || item.year || `Phase ${i + 1}`,
           blank: () => ({ title: "", image: null, paras: [""] }),
           fields: [
@@ -82,7 +82,7 @@ export default {
               key: "image",
               type: "image",
               label: "Image",
-              hint: "Sits opposite the text. A phase without one leaves that side empty.",
+              hint: "Shown beside the phase text. If left empty, the timeline uses the first phase image as a shared placeholder.",
             },
             { key: "paras", type: "textlist", label: "Text", rows: 5 },
           ],
