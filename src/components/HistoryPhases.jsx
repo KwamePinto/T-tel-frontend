@@ -62,7 +62,7 @@ export default function HistoryPhases({ data }) {
     <section className={styles.wrap}>
       <div className={styles.headingWrap}>
         <span>{data?.timelineEyebrow || "The roadmap"}</span>
-        <h2>{data?.timelineHeading || data?.milestonesHeading || "From programme to institution"}</h2>
+        <h2>{data?.timelineHeading || data?.milestonesHeading || "From project to national institution"}</h2>
       </div>
 
       <div className={styles.timelineShell}>
