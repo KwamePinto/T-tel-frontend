@@ -114,15 +114,16 @@
 .controls {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 24px;
-  padding: 26px var(--gutter) 0;
+  padding: 42px var(--gutter) 0;
   background: #fff;
+  position: relative;
 }
 
-/* the progress bar takes the room that is left, the arrows sit at the end */
-.controls > :first-child { flex: 1; min-width: 0; }
+.controls > :first-child { flex: 0 0 auto; }
 
-.nav { display: flex; gap: 13px; flex-shrink: 0; }
+.nav { display: flex; gap: 13px; flex-shrink: 0; position: absolute; right: var(--gutter); }
 
 /* same circular control as the articles and funders rows, in the dark ink
    this section's white background calls for */
