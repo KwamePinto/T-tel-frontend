@@ -130,18 +130,21 @@ export default function Home() {
       {/* ---------------- WHO WE ARE ---------------- */}
       {flag("show_who") && (
       <section className={styles.who}>
-        <div className={`${styles.wrap} ${styles.whoGrid}`}>
-          <div className={`${styles.whoCopy} reveal`}>
-            <h2>{settings.home_who_heading}</h2>
-            <p>{settings.home_who_body}</p>
-            <Link to={settings.home_who_button_url || "/about-us"} className={styles.redBtn}>
-              {settings.home_who_button_label || "Learn More"}
-            </Link>
-          </div>
-          <div className={`${styles.whoMedia} reveal`} data-delay="1">
-            {mediaUrl(settings.home_who_image) && (
-              <img src={mediaUrl(settings.home_who_image)} alt={settings.home_who_image_alt || ""} />
-            )}
+        <div className={styles.wrap}>
+          {/* the panel the copy sits on — its own tone against the section */}
+          <div className={styles.whoGrid}>
+            <div className={`${styles.whoCopy} reveal`}>
+              <h2>{settings.home_who_heading}</h2>
+              <p>{settings.home_who_body}</p>
+              <Link to={settings.home_who_button_url || "/about-us"} className={styles.redBtn}>
+                {settings.home_who_button_label || "Learn More"}
+              </Link>
+            </div>
+            <div className={`${styles.whoMedia} reveal`} data-delay="1">
+              {mediaUrl(settings.home_who_image) && (
+                <img src={mediaUrl(settings.home_who_image)} alt={settings.home_who_image_alt || ""} />
+              )}
+            </div>
           </div>
         </div>
       </section>
