@@ -47,7 +47,9 @@ const defaults = {
  *  nobody hunts for the cards on the wrong screen. */
 const listing = (label, { of, to, summary }) => ({
   label,
-  summary: summary || `The hero at the top of the page. ${of} are edited in their own section.`,
+  summary:
+    summary ||
+    `This page only controls the page shell: the hero, heading, SEO and top-level layout. The actual ${of.toLowerCase()} are edited in Posts and must be created/updated there.`,
   managedIn: [{ label: of, to }],
 });
 
