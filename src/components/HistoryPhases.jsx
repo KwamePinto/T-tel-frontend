@@ -45,17 +45,42 @@ export default function HistoryPhases({ data }) {
   const phases = data?.milestones || [];
   const fallbackImage = phases.find((phase) => phase.image)?.image || data?.heroImage || PLACEHOLDER_IMAGE;
 
+  // The active card is whichever one is nearest the track's centre — measuring
+  // real positions (rather than assuming a fixed card width) is what keeps
+  // every phase, including the last few, highlighting correctly.
   useEffect(() => {
     const element = track.current;
     if (!element) return undefined;
-    const onScroll = () => {
-      const card = element.querySelector(`.${styles.phase}`);
-      const gap = parseFloat(getComputedStyle(element).gap) || 0;
-      const page = card ? Math.round(element.scrollLeft / (card.getBoundingClientRect().width + gap)) : 0;
-      setActiveIndex(Math.max(0, Math.min(phases.length - 1, page)));
+    let frame = 0;
+    const updateActive = () => {
+      frame = 0;
+      const cards = element.querySelectorAll(`.${styles.phase}`);
+      if (!cards.length) return;
+      const containerRect = element.getBoundingClientRect();
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      let closest = 0;
+      let closestDistance = Infinity;
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const distance = Math.abs(rect.left + rect.width / 2 - containerCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closest = index;
+        }
+      });
+      setActiveIndex(closest);
     };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActive);
+    };
+    updateActive();
     element.addEventListener("scroll", onScroll, { passive: true });
-    return () => element.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      element.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, [phases.length]);
 
   if (!phases.length) return null;
@@ -63,10 +88,11 @@ export default function HistoryPhases({ data }) {
   const go = useCallback((index) => {
     const element = track.current;
     if (!element) return;
-    const card = element.querySelector(`.${styles.phase}`);
-    const gap = parseFloat(getComputedStyle(element).gap) || 0;
+    const cards = element.querySelectorAll(`.${styles.phase}`);
+    const card = cards[index];
     if (!card) return;
-    element.scrollTo({ left: index * (card.getBoundingClientRect().width + gap), behavior: "smooth" });
+    const target = card.offsetLeft - (element.clientWidth - card.clientWidth) / 2;
+    element.scrollTo({ left: target, behavior: "smooth" });
     setActiveIndex(index);
   }, []);
 
@@ -82,10 +108,6 @@ export default function HistoryPhases({ data }) {
           {phases.map((phase, index) => (
             <Phase key={`${phase.year || "phase"}-${index}`} phase={{ ...phase, onReadMore: (item, itemIndex) => setSelected({ phase: item, index: itemIndex }) }} index={index} image={phase.image || fallbackImage} active={index === activeIndex} />
           ))}
-        </div>
-        <div className={styles.rail} aria-hidden="true">
-          <span style={{ width: `${((activeIndex + 1) / phases.length) * 100}%` }} />
-          <b className={styles.railMarker} style={{ left: `${(activeIndex / Math.max(phases.length - 1, 1)) * 100}%` }}>{String(activeIndex + 1).padStart(2, "0")}</b>
         </div>
       </div>
 
