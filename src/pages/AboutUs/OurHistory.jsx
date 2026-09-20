@@ -21,6 +21,8 @@ export default function OurHistory() {
   const story = data?.story || {};
   const intro = story.lead || data?.intro?.[0] || "Transforming Teaching, Education and Learning grew from a nationally owned teacher education programme into an independent Ghanaian institution.";
   const resources = data?.links || [];
+  const quoteText = story.quote || data?.quote?.text || "Created to serve as a trusted technical partner, supporting national leadership to own reforms and drive innovations that move Ghana's education system to greater heights.";
+  const quoteAttribution = story.quoteAttrib || data?.quote?.attribution || "T-TEL's founding principle";
 
   return (
     <>
@@ -64,15 +66,13 @@ export default function OurHistory() {
             </div>
           </section>
 
-          {(story.quote || data.quote?.text) && (
-            <section className={styles.quoteBand}>
+          <section className={styles.quoteBand}>
               <div className={styles.quoteInner}>
                 <span className={styles.quoteMark}>“</span>
-                <blockquote>{story.quote || data.quote.text}</blockquote>
-                <cite>{story.quoteAttrib || data.quote.attribution}</cite>
+                <blockquote>{quoteText}</blockquote>
+                <cite>{quoteAttribution}</cite>
               </div>
-            </section>
-          )}
+          </section>
 
           <HistoryPhases data={data} />
 
