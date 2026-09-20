@@ -15,6 +15,7 @@ function Phase({ phase, index, image, active }) {
   const heading = /^\s*phase\s*\d+\s*$/i.test(phase.title || "") ? "" : phase.title;
   return (
     <article className={`${styles.phase} ${active ? styles.active : ""}`}>
+      <span className={styles.phaseNumber}>{String(index + 1).padStart(2, "0")}</span>
       <figure className={styles.phaseMedia}>
         <img src={mediaUrl(image)} alt={phase.title || `History phase ${index + 1}`} loading={index < 2 ? "eager" : "lazy"} />
       </figure>
