@@ -59,6 +59,18 @@
   display: block;
 }
 
+.media.contain {
+  background: var(--bg);
+  padding: clamp(24px, 3vw, 48px);
+}
+
+.media.contain img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.modal.partner .body { background: var(--bg-alt); }
+
 .initials {
   position: absolute;
   inset: 0;
