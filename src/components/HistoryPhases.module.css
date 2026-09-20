@@ -100,8 +100,8 @@
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: var(--green, #34b55e);
-  box-shadow: 0 0 14px rgba(52, 181, 94, 0.72);
+  background: #eaf2e9;
+  box-shadow: 0 0 14px rgba(234, 242, 233, 0.72);
   transform-origin: top;
   transition: transform 0.35s var(--ease-out);
 }
@@ -138,10 +138,10 @@
 }
 
 .phase.active::before {
-  border-color: var(--green, #34b55e);
-  background: var(--green, #34b55e);
+  border-color: #eaf2e9;
+  background: #eaf2e9;
   transform: scale(1);
-  box-shadow: 0 0 0 5px rgba(52, 181, 94, 0.16), 0 0 18px rgba(52, 181, 94, 0.58);
+  box-shadow: 0 0 0 5px rgba(234, 242, 233, 0.16), 0 0 18px rgba(234, 242, 233, 0.58);
 }
 
 .phase:first-child { border-top: 0; padding-top: 0; }
@@ -168,7 +168,7 @@
 
 .phase.active .numeral {
   color: rgba(255, 255, 255, 0.12);
-  -webkit-text-stroke-color: var(--green, #34b55e);
+  -webkit-text-stroke-color: #eaf2e9;
 }
 
 /* the text beside the numeral */
@@ -180,7 +180,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--green, #159b5a);
+  color: #eaf2e9;
   margin-bottom: 12px;
 }
 
@@ -214,7 +214,7 @@
 /* The arrival: a year in place of a number, filled rather than outlined, and
    set larger so the sequence lands instead of simply stopping. */
 .arrival .numeral {
-  color: var(--green, #159b5a);
+  color: #eaf2e9;
   -webkit-text-stroke: 0;
   text-stroke: 0;
   font-size: clamp(30px, 3.4vw, 46px);
@@ -224,6 +224,8 @@
   font-size: clamp(19px, 1.45vw, 22px);
   color: rgba(255, 255, 255, 0.92);
 }
+
+.phase.active .title { color: #eaf2e9; }
 
 @media (min-width: 960px) {
   .grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); }
