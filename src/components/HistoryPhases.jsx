@@ -3,11 +3,18 @@ import { mediaUrl } from "../lib/cms";
 import styles from "./HistoryPhases.module.css";
 
 const PLACEHOLDER_IMAGE = "/images/history/2014-programme-launch.jpg";
+const EXCERPT_LENGTH = 150;
 
 function phaseText(phase) {
   if (Array.isArray(phase.paras)) return phase.paras;
   if (Array.isArray(phase.body)) return phase.body;
   return phase.body ? [phase.body] : [];
+}
+
+// The card shows a short taste of the story; the rest opens in the modal.
+function excerpt(text) {
+  if (text.length <= EXCERPT_LENGTH) return text;
+  return `${text.slice(0, EXCERPT_LENGTH).trimEnd()}…`;
 }
 
 function Phase({ phase, index, image, active }) {
@@ -22,7 +29,7 @@ function Phase({ phase, index, image, active }) {
       <div className={styles.phaseCopy}>
         <span className={styles.step}>Phase {String(index + 1).padStart(2, "0")}</span>
         <h3>{heading || phase.year || `Phase ${index + 1}`}</h3>
-        <p>{text[0] || ""}</p>
+        <p>{excerpt(text[0] || "")}</p>
         <button type="button" className={styles.readMore} onClick={() => phase.onReadMore(phase, index)}>
           Read more <span>→</span>
         </button>

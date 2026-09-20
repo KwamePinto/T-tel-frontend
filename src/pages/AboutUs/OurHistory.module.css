@@ -217,36 +217,36 @@
 .resources h2 { font-size: clamp(36px, 3.8vw, 52px); }
 .resourceCard strong { font-size: 16px; }
 
-/* Exact three-band treatment from the supplied Our History reference. */
+/* Three-band treatment, scaled to fill the page the way the roadmap does. */
 .intro {
   position: relative;
   background: #f3f6f3;
-  padding: 47px 0 39px;
-  border-top: 2px solid transparent;
+  padding: clamp(64px, 8vw, 110px) 0 clamp(52px, 6vw, 82px);
+  border-top: 4px solid transparent;
   border-image: linear-gradient(90deg, #159b5a 0 34%, #f0b323 34% 68%, #e2574c 68%) 1;
 }
-.introGrid { width: min(620px, calc(100% - 104px)); grid-template-columns: 1fr; gap: 22px; }
-.intro h2 { max-width: 620px; font-size: 27px; line-height: 1.08; letter-spacing: -.035em; }
-.intro .eyebrow { margin-bottom: 11px; color: #159b5a; font-size: 8px; letter-spacing: .1em; }
-.introLead { max-width: 470px; font-size: 10px; line-height: 1.45; font-weight: 400; color: #6c756f; }
-.stats { grid-template-columns: repeat(3, 1fr); gap: 44px; margin-top: 21px; padding-top: 9px; border-top: 1px solid #d8e2da; }
-.stats strong { font-size: 17px; color: #159b5a; }
-.stats span { margin-top: 6px; font-size: 7px; letter-spacing: .04em; color: #89938c; }
-.quoteBand { padding: 36px 0 38px; background: #dfeae3; border-left: 6px solid #f4d01b; }
-.quoteInner { width: min(620px, calc(100% - 104px)); padding-left: 35px; }
-.quoteMark { top: -8px; font-size: 44px; color: #dda928; }
-.quoteInner blockquote { max-width: 550px; font-size: 14px; line-height: 1.45; color: #3d4741; }
-.quoteInner cite { font-size: 9px; color: #159b5a; }
-.resources { padding: 31px 0 43px; background: #f4f6f4; }
-.resourcesInner { width: min(620px, calc(100% - 104px)); }
-.resources .eyebrow { margin-bottom: 9px; font-size: 8px; color: #d99f15; }
-.resources h2 { margin-bottom: 3px; font-size: 24px; }
-.resourceGrid { gap: 16px; }
-.resourceCard { min-height: 121px; padding: 15px 19px; border: 1px solid #d5a01d; background: #07382f; color: #fff; }
-.resourceCard strong { max-width: 220px; font-size: 12px; line-height: 1.2; }
-.resourceCard span { color: #eab327; font-size: 15px; }
+.introGrid { width: min(1320px, calc(100% - 80px)); grid-template-columns: 1fr; gap: 28px; }
+.intro h2 { max-width: 22ch; font-size: clamp(42px, 5vw, 68px); line-height: 1.05; letter-spacing: -.03em; }
+.intro .eyebrow { margin-bottom: 18px; color: #159b5a; font-size: 14px; letter-spacing: .16em; }
+.stats { grid-template-columns: repeat(3, 1fr); gap: clamp(36px, 5vw, 72px); margin-top: 44px; padding-top: 26px; border-top: 2px solid #d8e2da; }
+.stats strong { font-size: clamp(28px, 3vw, 42px); color: #159b5a; }
+.stats span { margin-top: 10px; font-size: 15px; line-height: 1.45; letter-spacing: 0; color: #4c554e; text-transform: none; font-weight: 500; }
+.quoteBand { padding: clamp(52px, 6vw, 88px) 0; background: #dfeae3; border-left: 8px solid #f4d01b; }
+.quoteInner { width: min(1320px, calc(100% - 80px)); padding-left: clamp(48px, 5vw, 76px); }
+.quoteMark { top: -18px; font-size: clamp(64px, 6vw, 92px); color: #dda928; }
+.quoteInner blockquote { max-width: 940px; font-size: clamp(24px, 2.6vw, 38px); line-height: 1.35; color: #17392c; font-weight: 700; }
+.quoteInner cite { margin-top: 20px; font-size: 15px; color: #159b5a; }
+.resources { padding: clamp(60px, 7vw, 100px) 0; background: #f4f6f4; }
+.resourcesInner { width: min(1320px, calc(100% - 80px)); }
+.resources .eyebrow { margin-bottom: 16px; font-size: 14px; color: #d99f15; }
+.resources h2 { margin-bottom: 10px; font-size: clamp(38px, 4vw, 56px); }
+.resourceGrid { gap: 28px; }
+.resourceCard { min-height: 168px; padding: clamp(26px, 3vw, 38px); border: 1px solid #d5a01d; background: #07382f; color: #fff; }
+.resourceCard strong { max-width: 320px; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.3; }
+.resourceCard span { color: #eab327; font-size: 24px; }
 @media (max-width: 780px) {
   .introGrid, .quoteInner, .resourcesInner { width: calc(100% - 42px); }
-  .introGrid { gap: 22px; }
-  .stats { gap: 18px; }
+  .introGrid { gap: 26px; }
+  .stats { gap: 24px; }
+  .quoteInner { padding-left: 30px; }
 }
