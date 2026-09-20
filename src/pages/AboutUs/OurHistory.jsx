@@ -1,4 +1,5 @@
 import Seo from "../../components/Seo";
+import PageHero from "../../components/PageHero";
 import HistoryPhases from "../../components/HistoryPhases";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
@@ -26,6 +27,12 @@ export default function OurHistory() {
   return (
     <>
       <Seo title={page?.meta?.title || "Our History"} description={page?.meta?.description || "How T-TEL grew from a six-year teacher education programme into an independent Ghanaian not-for-profit."} image={page?.heroImage} noindex={page?.meta?.noindex} />
+      <PageHero
+        title={page?.meta?.heroTitle || page?.title || "Our History"}
+        crumb="Our History"
+        subtitle={page?.meta?.heroDescription ?? "From an externally funded programme to a Ghanaian-owned institution."}
+        image={mediaUrl(page?.heroImage) || "/images/photos/team-group.jpg"}
+      />
       {loading && <div className="container" style={{ padding: "80px 30px" }}><Loading rows={8} /></div>}
       {error && (
         <div className="container" style={{ padding: "80px 30px" }}>

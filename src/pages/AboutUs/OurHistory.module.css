@@ -210,6 +210,13 @@
   .resourceGrid { grid-template-columns: 1fr; }
 }
 
+.intro h2 { font-size: clamp(37px, 4vw, 57px); }
+.stats strong { font-size: 25px; }
+.stats span { font-size: 10px; line-height: 1.35; letter-spacing: .02em; text-transform: none; }
+.quoteInner blockquote { font-size: clamp(18px, 1.8vw, 25px); }
+.resources h2 { font-size: clamp(36px, 3.8vw, 52px); }
+.resourceCard strong { font-size: 16px; }
+
 /* Exact three-band treatment from the supplied Our History reference. */
 .intro {
   position: relative;

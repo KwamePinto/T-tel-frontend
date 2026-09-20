@@ -261,3 +261,52 @@
   .phase { flex-basis: 82vw; }
   .timelineShell::before { left: 18px; right: 18px; }
 }
+
+/* visible milestone markers from the reference timeline */
+.wrap { background: linear-gradient(116deg, #000 0%, #001b17 55%, #005346 100%); }
+.headingWrap h2 { max-width: 12ch; font-size: clamp(38px, 4.6vw, 64px); }
+.phase { position: relative; margin-top: 0; }
+.phaseNumber {
+  position: absolute;
+  z-index: 3;
+  top: -35px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border: 2px solid #f0c23c;
+  border-radius: 50%;
+  background: #d99f15;
+  color: #10251e;
+  font-size: 11px;
+  font-weight: 800;
+  transform: translateX(-50%) scale(.82);
+  opacity: .65;
+  transition: transform .45s cubic-bezier(.22,.61,.36,1), box-shadow .45s ease, opacity .45s ease;
+}
+.phaseNumber::after {
+  content: "";
+  position: absolute;
+  top: 27px;
+  width: 2px;
+  height: 34px;
+  background: #f0c23c;
+}
+.phase.active .phaseNumber {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.08);
+  box-shadow: 0 0 0 5px rgba(240,194,60,.12), 0 0 18px rgba(240,194,60,.5);
+  animation: markerPulse 2.4s ease-in-out infinite;
+}
+@keyframes markerPulse {
+  0%, 100% { box-shadow: 0 0 0 5px rgba(240,194,60,.12), 0 0 18px rgba(240,194,60,.5); }
+  50% { box-shadow: 0 0 0 8px rgba(240,194,60,.04), 0 0 24px rgba(240,194,60,.72); }
+}
+.phaseCopy h3 { font-size: 18px; }
+.phaseCopy p { font-size: 11px; line-height: 1.5; }
+.phaseMedia img { aspect-ratio: 1.7 / 1; }
+.headingWrap span { font-size: 10px; }
+@media (prefers-reduced-motion: reduce) {
+  .phase.active .phaseNumber { animation: none; }
+}
