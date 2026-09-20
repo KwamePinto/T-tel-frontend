@@ -195,6 +195,34 @@
   .rail { margin: 0 18px; }
 }
 
+/* final readable scale and modal treatment */
+.wrap { padding: clamp(78px, 8vw, 128px) 0 62px; }
+.headingWrap { width: min(1186px, calc(100% - 60px)); margin-bottom: 58px; }
+.headingWrap span { font-size: 13px; }
+.headingWrap h2 { max-width: 13ch; font-size: clamp(44px, 5vw, 74px); }
+.track { gap: 24px; padding: 52px max(30px, calc((100vw - 1186px) / 2)) 42px; }
+.phase { flex-basis: clamp(290px, 26vw, 370px); }
+.phaseCopy { padding: 24px 24px 28px; }
+.phaseCopy h3 { min-height: 2.2em; font-size: clamp(21px, 1.8vw, 28px); }
+.phaseCopy p { min-height: 7em; font-size: clamp(13px, 1.05vw, 16px); line-height: 1.55; }
+.step { font-size: 11px; }
+.readMore { margin-top: 20px; padding: 0; border: 0; background: none; color: #f0c23c; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.readMore span { margin-left: 6px; }
+.rail { margin: 3px max(30px, calc((100vw - 1186px) / 2)) 0; height: 4px; position: relative; }
+.railMarker { position: absolute; top: -52px; display: grid; place-items: center; width: 42px; height: 42px; border: 2px solid #f5c43d; border-radius: 50%; background: #d99f15; color: #11231e; font-size: 14px; transform: translateX(-50%); transition: left .7s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease; box-shadow: 0 0 0 6px rgba(240,194,60,.12), 0 0 22px rgba(240,194,60,.55); }
+.modalBackdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; background: rgba(0, 18, 14, .78); backdrop-filter: blur(8px); }
+.modal { position: relative; width: min(720px, 100%); max-height: min(80vh, 720px); overflow: auto; padding: 46px clamp(28px, 5vw, 60px) 44px; border: 1px solid rgba(53,196,106,.5); background: linear-gradient(135deg, #092c25, #001613); color: #fff; box-shadow: 0 24px 80px rgba(0,0,0,.42); }
+.modalClose { position: absolute; top: 14px; right: 18px; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; background: transparent; color: #fff; font-size: 24px; line-height: 1; cursor: pointer; }
+.modalNumber { color: #f0c23c; font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.modal h3 { margin: 12px 0 22px; color: #fff; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; }
+.modal p { margin: 0 0 17px; color: rgba(255,255,255,.78); font-size: 17px; line-height: 1.65; }
+@media (max-width: 720px) {
+  .headingWrap { width: calc(100% - 42px); }
+  .track { padding-left: 21px; padding-right: 21px; }
+  .phase { flex-basis: min(82vw, 350px); }
+  .rail { margin-left: 21px; margin-right: 21px; }
+}
+
 /* screenshot proportions: the journey is a compact dark gallery, not a full
    viewport slide. */
 .wrap { padding: 48px 0 33px; background: linear-gradient(112deg, #020f0d 0%, #001b17 65%, #004439 100%); }
@@ -309,4 +337,26 @@
 .headingWrap span { font-size: 10px; }
 @media (prefers-reduced-motion: reduce) {
   .phase.active .phaseNumber { animation: none; }
+}
+
+/* final cascade: keep the page readable after the legacy compact calibration */
+.wrap { padding: clamp(78px, 8vw, 128px) 0 62px; }
+.headingWrap { width: min(1186px, calc(100% - 60px)); margin-bottom: 58px; }
+.headingWrap span { margin-bottom: 17px; font-size: 13px; letter-spacing: .16em; }
+.headingWrap h2 { max-width: 13ch; font-size: clamp(44px, 5vw, 74px); }
+.track { gap: 24px; padding: 52px max(30px, calc((100vw - 1186px) / 2)) 42px; }
+.phase { flex: 0 0 clamp(290px, 26vw, 370px); }
+.phaseCopy { padding: 24px 24px 28px; }
+.phaseCopy h3 { font-size: clamp(21px, 1.8vw, 28px); }
+.phaseCopy p { min-height: 7em; font-size: clamp(13px, 1.05vw, 16px); line-height: 1.55; }
+.step { font-size: 11px; }
+.readMore { margin-top: 20px; padding: 0; border: 0; background: none; color: #f0c23c; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.readMore span { margin-left: 6px; }
+.rail { margin: 3px max(30px, calc((100vw - 1186px) / 2)) 0; height: 4px; position: relative; }
+.railMarker { top: -52px; width: 42px; height: 42px; font-size: 14px; }
+@media (max-width: 720px) {
+  .headingWrap { width: calc(100% - 42px); }
+  .track { padding-left: 21px; padding-right: 21px; }
+  .phase { flex-basis: min(82vw, 350px); }
+  .rail { margin-left: 21px; margin-right: 21px; }
 }
