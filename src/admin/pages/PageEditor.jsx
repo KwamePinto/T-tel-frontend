@@ -14,17 +14,23 @@ import {
 import s from "./PageEditor.module.css";
 
 const EMPTY = {
-  title: "", slug: "", kind: "custom", body: "", template: "default", status: "draft",
+  title: "", slug: "", kind: "custom", section: "", body: "", template: "default", status: "draft",
   publishedAt: "", showInNav: false, sortOrder: 0, heroImage: null, sections: [],
+  keyInfo: { label: "", title: "", html: "", linkLabel: "", linkUrl: "" },
   meta: { heroLabel: "", heroTitle: "", heroDescription: "", title: "", description: "", canonical: "", noindex: false },
 };
 
-const TEMPLATES = [
-  { value: "default", label: "Default" },
-  { value: "full-width", label: "Full width" },
-  { value: "landing", label: "Landing" },
-  { value: "inner", label: "Inner" },
-  { value: "contact", label: "Contact" },
+/**
+ * The menu a page is filed under also decides its shape, so this is the one
+ * choice that changes what a custom page looks like. The descriptions say what
+ * each one does rather than just naming it, because the difference is not
+ * guessable from the menu name alone.
+ */
+const SECTIONS = [
+  { value: "", label: "Standalone — hero and text" },
+  { value: "about-us", label: "About Us — heading beside the text" },
+  { value: "focus-areas", label: "Focus Areas — text with a pinned panel" },
+  { value: "programmes", label: "Programmes — banded, with a figures panel" },
 ];
 
 function toLocalInput(iso) {
@@ -58,12 +64,14 @@ export default function PageEditor() {
       publishedAt: toLocalInput(page.publishedAt),
       heroImage: page.heroImage || null,
       sections: page.sections || [],
+      keyInfo: { ...EMPTY.keyInfo, ...(page.keyInfo || {}) },
     });
     setDirty(false);
   }, [page]);
 
   const set = (patch) => { setForm((f) => ({ ...f, ...patch })); setDirty(true); };
   const setMeta = (patch) => { setForm((f) => ({ ...f, meta: { ...f.meta, ...patch } })); setDirty(true); };
+  const setKeyInfo = (patch) => { setForm((f) => ({ ...f, keyInfo: { ...f.keyInfo, ...patch } })); setDirty(true); };
 
   // A special page is one with a component of its own; its blueprint says which
   // of that component's fields are editable here. Anything created in the admin
@@ -108,7 +116,11 @@ export default function PageEditor() {
       };
       // a special page's slug is bound to its route, so it is never sent; the
       // API drops it too, this just keeps the request honest
-      if (!isSpecial) payload.slug = form.slug || undefined;
+      if (!isSpecial) {
+        payload.slug = form.slug || undefined;
+        payload.section = form.section;
+        payload.keyInfo = form.keyInfo;
+      }
       if (blueprint?.sections?.length) payload.sections = form.sections;
 
       const saved = isNew ? await api.pages.create(payload) : await api.pages.update(id, payload);
@@ -159,8 +171,15 @@ export default function PageEditor() {
               <Input type="datetime-local" value={form.publishedAt} onChange={(e) => set({ publishedAt: e.target.value })} />
             </Field>
             {!isSpecial && (
-              <Field label="Template" hint="Controls how the page is laid out on the site.">
-                <Select value={form.template} onChange={(e) => set({ template: e.target.value })} options={TEMPLATES} />
+              <Field
+                label="Menu section"
+                hint="Where the page sits, and how it is laid out. Its address moves under the menu you choose."
+              >
+                <Select
+                  value={form.section}
+                  onChange={(e) => set({ section: e.target.value })}
+                  options={SECTIONS}
+                />
               </Field>
             )}
             <Toggle
@@ -191,6 +210,60 @@ export default function PageEditor() {
               <Field label="Hero description">
                 <Textarea rows={3} value={form.meta.heroDescription || ""} onChange={(e) => setMeta({ heroDescription: e.target.value })} />
               </Field>
+            </RailSection>
+          )}
+
+          {/* Only the two layouts that have somewhere to put it. On the others
+              the fields would save and show nowhere, which is the confusion
+              the special/custom split exists to end. */}
+          {!isSpecial && (form.section === "focus-areas" || form.section === "programmes") && (
+            <RailSection title="Key information">
+              <Field
+                label="Small line above the heading"
+                hint={
+                  form.section === "focus-areas"
+                    ? "The panel that stays beside the text as the reader scrolls. Leave the heading empty and no panel is shown."
+                    : "The figures band below the text — amount, duration, partners. Leave the heading empty and no band is shown."
+                }
+              >
+                <Input
+                  value={form.keyInfo.label || ""}
+                  onChange={(e) => setKeyInfo({ label: e.target.value })}
+                  placeholder="Institutional Links"
+                />
+              </Field>
+              <Field label="Heading">
+                <Input
+                  value={form.keyInfo.title || ""}
+                  onChange={(e) => setKeyInfo({ title: e.target.value })}
+                  placeholder="Delivery Partners"
+                />
+              </Field>
+              <Field label="Text" hint="Start a line with a bold label to set it as a caption above its value.">
+                <Textarea
+                  rows={5}
+                  value={form.keyInfo.html || ""}
+                  onChange={(e) => setKeyInfo({ html: e.target.value })}
+                />
+              </Field>
+              {form.section === "focus-areas" && (
+                <>
+                  <Field label="Link text">
+                    <Input
+                      value={form.keyInfo.linkLabel || ""}
+                      onChange={(e) => setKeyInfo({ linkLabel: e.target.value })}
+                      placeholder="All partners"
+                    />
+                  </Field>
+                  <Field label="Link address">
+                    <Input
+                      value={form.keyInfo.linkUrl || ""}
+                      onChange={(e) => setKeyInfo({ linkUrl: e.target.value })}
+                      placeholder="/about-us/our-partners"
+                    />
+                  </Field>
+                </>
+              )}
             </RailSection>
           )}
 

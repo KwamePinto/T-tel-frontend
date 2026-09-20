@@ -4,6 +4,7 @@ import Icon from "../../components/Icon";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
+import CustomPage from "../CustomPage";
 import PageSections from "../../components/PageSections";
 import prose from "../ArticleDetail.module.css";
 import e from "../../styles/editorial.module.css";
@@ -34,6 +35,11 @@ export default function ProgrammeDetail() {
     );
   }
   if (item.error) {
+    // This route also covers custom pages filed under this menu, because a
+    // dynamic segment outranks the catch-all and would otherwise swallow
+    // them. Nothing here by that name means it is a page, not a programme — and
+    // if it is neither, CustomPage renders the 404 itself.
+    if (item.error.status === 404) return <CustomPage />;
     return (
       <section className="section">
         <div className="container">

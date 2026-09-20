@@ -21,3 +21,6 @@
   color: var(--a-muted);
   vertical-align: middle;
 }
+
+/* a page with no menu of its own */
+.dash { color: var(--a-muted); }
