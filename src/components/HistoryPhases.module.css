@@ -69,7 +69,7 @@
 /* The rail sits on the black end of the band, so its links are set on white
    rather than the page's ink: the default dark grey disappears against it. */
 .links a {
-  font-size: 17px;
+  font-size: calc(17px * var(--ts));
   line-height: 1.55;
   color: #fff;
   border-bottom: 1px solid transparent;
@@ -153,7 +153,7 @@
    the column without competing with the text for attention. */
 .numeral {
   font-family: var(--font-display);
-  font-size: clamp(46px, 5vw, 76px);
+  font-size: clamp(calc(46px * var(--ts)), calc(5vw * var(--ts)), calc(76px * var(--ts)));
   font-weight: 700;
   line-height: 0.9;
   letter-spacing: -0.02em;
@@ -178,7 +178,7 @@
 
 .step {
   display: block;
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -192,7 +192,7 @@
 }
 
 .para {
-  font-size: clamp(18px, 1.3vw, 21px);
+  font-size: clamp(calc(18px * var(--ts)), calc(1.3vw * var(--ts)), calc(21px * var(--ts)));
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.76);
   margin: 0 0 16px;
@@ -219,11 +219,11 @@
   color: #eaf2e9;
   -webkit-text-stroke: 0;
   text-stroke: 0;
-  font-size: clamp(30px, 3.4vw, 46px);
+  font-size: clamp(calc(30px * var(--ts)), calc(3.4vw * var(--ts)), calc(46px * var(--ts)));
 }
 
 .arrival .para {
-  font-size: clamp(19px, 1.45vw, 22px);
+  font-size: clamp(calc(19px * var(--ts)), calc(1.45vw * var(--ts)), calc(22px * var(--ts)));
   color: rgba(255, 255, 255, 0.92);
 }
 

@@ -5,13 +5,13 @@
 }
 
 .body p {
-  font-size: clamp(18.5px, 1.3vw, 21.3px);
+  font-size: clamp(calc(18.5px * var(--ts)), calc(1.3vw * var(--ts)), calc(21.3px * var(--ts)));
   color: var(--text-soft);
   margin-bottom: 26px;
 }
 
 .intro {
-  font-size: clamp(20.2px, 1.6vw, 24.6px) !important;
+  font-size: clamp(calc(20.2px * var(--ts)), calc(1.6vw * var(--ts)), calc(24.6px * var(--ts)));
   color: var(--ink) !important;
   font-weight: 500;
 }
@@ -33,7 +33,7 @@
   margin-top: 14px;
   padding: 14px 18px;
   background: var(--bg-alt);
-  font-size: 15.1px;
+  font-size: calc(15.1px * var(--ts));
   font-style: italic;
   color: var(--text-soft);
 }
@@ -55,7 +55,7 @@
 
 .asideEyebrow {
   display: block;
-  font-size: 13.4px;
+  font-size: calc(13.4px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.17em;
   text-transform: uppercase;
@@ -63,7 +63,7 @@
   margin-bottom: 12px;
 }
 
-.asideCard h3 { color: #fff; font-size: 29.1px; margin-bottom: 16px; }
+.asideCard h3 { color: #fff; font-size: calc(29.1px * var(--ts)); margin-bottom: 16px; }
 
 .asideRule {
   display: block;
@@ -74,7 +74,7 @@
 }
 
 .asideCard p {
-  font-size: 17.4px;
+  font-size: calc(17.4px * var(--ts));
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 22px;
 }
@@ -82,7 +82,7 @@
 /* the panel's text is authored in the admin, so it arrives as markup and may
    be a bare run of text rather than wrapped paragraphs */
 .asideBody {
-  font-size: 17.4px;
+  font-size: calc(17.4px * var(--ts));
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 22px;
@@ -95,7 +95,7 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 14.6px;
+  font-size: calc(14.6px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -108,7 +108,7 @@
   align-items: center;
   gap: 10px;
   margin-top: 24px;
-  font-size: 14.6px;
+  font-size: calc(14.6px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -161,14 +161,14 @@
 .otherNum {
   display: block;
   font-family: var(--font-display);
-  font-size: 15.7px;
+  font-size: calc(15.7px * var(--ts));
   font-weight: 700;
   margin-bottom: 8px;
 }
 
 .otherTag {
   display: block;
-  font-size: 12.3px;
+  font-size: calc(12.3px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -176,7 +176,7 @@
   margin-bottom: 10px;
 }
 
-.otherCard h3 { font-size: 21.3px; margin-bottom: 18px; }
+.otherCard h3 { font-size: calc(21.3px * var(--ts)); margin-bottom: 18px; }
 
 @media (min-width: 700px) { .othersGrid { grid-template-columns: repeat(2, 1fr); } }
 

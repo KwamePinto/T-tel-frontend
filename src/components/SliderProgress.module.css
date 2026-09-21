@@ -18,7 +18,7 @@
 
 .bar {
   width: 26px;
-  background-color: #e2e2de;
+  background-color: var(--track);
 }
 
 /* the active bar is a translucent track that a solid fill sweeps across */

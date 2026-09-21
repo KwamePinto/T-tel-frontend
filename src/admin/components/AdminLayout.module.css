@@ -29,7 +29,7 @@
 .brand img { height: 30px; width: auto; }
 
 .brand span {
-  font-size: 15px;
+  font-size: calc(15px * var(--ts));
   font-weight: 600;
   color: #fff;
   letter-spacing: -0.01em;
@@ -42,7 +42,7 @@
 .groupLabel {
   display: block;
   padding: 0 10px 8px;
-  font-size: 10.5px;
+  font-size: calc(10.5px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -55,7 +55,7 @@
   gap: 11px;
   padding: 9px 10px;
   border-radius: 7px;
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
   font-weight: 500;
   color: var(--a-sidebar-soft);
   transition: background 0.15s ease, color 0.15s ease;
@@ -78,7 +78,7 @@
   color: #fff;
   border-radius: 999px;
   padding: 1px 7px;
-  font-size: 11px;
+  font-size: calc(11px * var(--ts));
   font-weight: 600;
 }
 
@@ -112,7 +112,7 @@
   border-radius: 8px;
   background: var(--a-surface);
   color: var(--a-muted);
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   cursor: pointer;
   text-align: left;
 }
@@ -121,7 +121,7 @@
 .cmdBtn span { flex: 1; }
 
 .kbd {
-  font-size: 11px;
+  font-size: calc(11px * var(--ts));
   font-weight: 600;
   padding: 2px 6px;
   border-radius: 4px;
@@ -138,7 +138,7 @@
   gap: 7px;
   padding: 7px 12px;
   border-radius: 7px;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   font-weight: 600;
   color: var(--a-text);
 }
@@ -169,12 +169,12 @@
   color: #fff;
   display: grid;
   place-items: center;
-  font-size: 13px;
+  font-size: calc(13px * var(--ts));
   font-weight: 700;
 }
 
-.avatarName { font-size: 13.5px; font-weight: 600; line-height: 1.2; }
-.avatarRole { font-size: 11.5px; color: var(--a-muted); text-transform: capitalize; }
+.avatarName { font-size: calc(13.5px * var(--ts)); font-weight: 600; line-height: 1.2; }
+.avatarRole { font-size: calc(11.5px * var(--ts)); color: var(--a-muted); text-transform: capitalize; }
 
 .menu {
   position: absolute;
@@ -198,7 +198,7 @@
   border: 0;
   background: transparent;
   border-radius: 6px;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   color: var(--a-text);
   cursor: pointer;
   text-align: left;
@@ -247,7 +247,7 @@
   border: 0;
   outline: none;
   font-family: inherit;
-  font-size: 15.5px;
+  font-size: calc(15.5px * var(--ts));
   color: var(--a-ink);
   background: transparent;
 }
@@ -263,15 +263,15 @@
   border: 0;
   background: transparent;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
   color: var(--a-text);
   cursor: pointer;
   text-align: left;
 }
 
 .cmdItemOn { background: var(--a-brand-soft); color: var(--a-brand); }
-.cmdGroup { margin-left: auto; font-size: 11.5px; color: var(--a-muted); }
-.cmdEmpty { padding: 30px; text-align: center; color: var(--a-muted); font-size: 14px; }
+.cmdGroup { margin-left: auto; font-size: calc(11.5px * var(--ts)); color: var(--a-muted); }
+.cmdEmpty { padding: 30px; text-align: center; color: var(--a-muted); font-size: calc(14px * var(--ts)); }
 
 @media (max-width: 1080px) {
   .shell { grid-template-columns: 1fr; }

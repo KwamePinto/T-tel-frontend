@@ -7,7 +7,7 @@
 }
 
 .title {
-  font-size: clamp(35.8px, 4.7vw, 67.2px);
+  font-size: clamp(calc(35.8px * var(--ts)), calc(4.7vw * var(--ts)), calc(67.2px * var(--ts)));
   font-weight: 700;
   margin: 0;
 }
@@ -18,7 +18,7 @@
 }
 
 .lead {
-  font-size: clamp(20.2px, 1.6vw, 24.6px);
+  font-size: clamp(calc(20.2px * var(--ts)), calc(1.6vw * var(--ts)), calc(24.6px * var(--ts)));
   font-weight: 600;
   color: var(--ink);
   margin-bottom: 20px;

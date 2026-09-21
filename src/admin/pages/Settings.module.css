@@ -23,7 +23,7 @@
   border-radius: 7px;
   background: transparent;
   font-family: inherit;
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
   font-weight: 500;
   color: var(--a-text);
   cursor: pointer;
@@ -33,7 +33,7 @@
 .tab:hover { background: var(--a-line-soft); }
 .tabOn { background: var(--a-brand-soft); color: var(--a-brand); font-weight: 600; }
 
-.tabCount { font-size: 11.5px; color: var(--a-muted); }
+.tabCount { font-size: calc(11.5px * var(--ts)); color: var(--a-muted); }
 .tabOn .tabCount { color: var(--a-brand); }
 
 .panel {
@@ -45,7 +45,7 @@
 
 .dirty {
   align-self: center;
-  font-size: 12.5px;
+  font-size: calc(12.5px * var(--ts));
   font-weight: 600;
   color: var(--a-amber);
 }

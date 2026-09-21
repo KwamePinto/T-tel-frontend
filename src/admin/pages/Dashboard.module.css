@@ -32,13 +32,13 @@
 
 .statValue {
   display: block;
-  font-size: 27px;
+  font-size: calc(27px * var(--ts));
   font-weight: 700;
   color: var(--a-ink);
   line-height: 1.1;
 }
 
-.statLabel { display: block; font-size: 13px; color: var(--a-muted); margin-top: 4px; }
+.statLabel { display: block; font-size: calc(13px * var(--ts)); color: var(--a-muted); margin-top: 4px; }
 
 .cols { display: grid; gap: 18px; align-items: start; }
 .side { display: grid; gap: 18px; }
@@ -54,7 +54,7 @@
   gap: 11px;
   padding: 10px 12px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
   font-weight: 500;
   color: var(--a-text);
 }
@@ -69,14 +69,14 @@
   align-items: center;
   padding: 10px 12px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
   color: var(--a-text);
 }
 
 .typeRow:hover { background: var(--a-line-soft); color: var(--a-ink); }
 .typeRow strong { color: var(--a-ink); }
 
-.muted { padding: 10px 12px; color: var(--a-muted); font-size: 14px; }
+.muted { padding: 10px 12px; color: var(--a-muted); font-size: calc(14px * var(--ts)); }
 
 @media (min-width: 1100px) {
   .cols { grid-template-columns: 1fr 340px; }

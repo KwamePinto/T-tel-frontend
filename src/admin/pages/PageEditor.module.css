@@ -10,14 +10,14 @@
 
 .noticeLead {
   margin: 0;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   line-height: 1.65;
   color: var(--a-text);
 }
 
 .noticeBody {
   margin: 8px 0 0;
-  font-size: 13px;
+  font-size: calc(13px * var(--ts));
   line-height: 1.65;
   color: var(--a-muted);
 }
@@ -33,14 +33,14 @@
   border-radius: 4px;
   background: var(--a-surface);
   border: 1px solid var(--a-line);
-  font-size: 12.5px;
+  font-size: calc(12.5px * var(--ts));
 }
 
 .sectionBody { display: flex; flex-direction: column; gap: 18px; }
 
 .sectionHint {
   margin: 0;
-  font-size: 12.5px;
+  font-size: calc(12.5px * var(--ts));
   line-height: 1.55;
   color: var(--a-muted);
 }

@@ -18,12 +18,12 @@
 
 .logo { height: 44px; width: auto; margin-bottom: 26px; }
 
-.card h1 { font-size: 26px; margin-bottom: 6px; color: #1f2421; }
-.sub { color: #6b7280; font-size: 15px; margin-bottom: 26px; }
+.card h1 { font-size: calc(26px * var(--ts)); margin-bottom: 6px; color: #1f2421; }
+.sub { color: #6b7280; font-size: calc(15px * var(--ts)); margin-bottom: 26px; }
 
 .card label {
   display: block;
-  font-size: 13px;
+  font-size: calc(13px * var(--ts));
   font-weight: 600;
   color: #374151;
   margin-bottom: 7px;
@@ -36,7 +36,7 @@
   border: 1px solid #d9dde5;
   border-radius: 8px;
   font-family: inherit;
-  font-size: 15px;
+  font-size: calc(15px * var(--ts));
   background: #fff;
   color: #111827;
 }
@@ -55,7 +55,7 @@
   background: #4f46e5;
   color: #fff;
   font-family: inherit;
-  font-size: 15px;
+  font-size: calc(15px * var(--ts));
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s ease;
@@ -70,5 +70,5 @@
   border-radius: 8px;
   background: #fef2f2;
   color: #b91c1c;
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
 }

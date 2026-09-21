@@ -3,7 +3,7 @@
 .empty {
   margin: 0;
   padding: 16px 18px;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   line-height: 1.6;
   color: var(--a-muted);
   background: var(--a-bg);
@@ -50,10 +50,10 @@
   color: var(--a-text);
 }
 
-.kind { font-size: 13.5px; font-weight: 600; flex-shrink: 0; }
+.kind { font-size: calc(13.5px * var(--ts)); font-weight: 600; flex-shrink: 0; }
 
 .summary {
-  font-size: 12.5px;
+  font-size: calc(12.5px * var(--ts));
   color: var(--a-muted);
   /* a long block summary must not push the row controls off the card */
   overflow: hidden;
@@ -102,7 +102,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   color: var(--a-text);
   padding-bottom: 9px;
   cursor: pointer;
@@ -111,13 +111,13 @@
 .sub { display: flex; flex-direction: column; gap: 6px; }
 
 .subLabel {
-  font-size: 12px;
+  font-size: calc(12px * var(--ts));
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--a-muted);
 }
 
-.subHint { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--a-muted); }
+.subHint { margin: 0; font-size: calc(12.5px * var(--ts)); line-height: 1.55; color: var(--a-muted); }
 
 .add { display: flex; flex-wrap: wrap; gap: 8px; }

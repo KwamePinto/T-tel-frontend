@@ -60,21 +60,12 @@ export default function AccessibilityPanel({ onClose }) {
         </button>
       </div>
 
-      <div className={styles.row}>
-        <span className={styles.label}>Language</span>
-        <div className={styles.langs}>
-          {["EN", "FR"].map((l) => (
-            <button
-              key={l}
-              onClick={() => setPref("lang", l)}
-              className={prefs.lang === l ? styles.langOn : styles.lang}
-              aria-pressed={prefs.lang === l}
-            >
-              {l}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* There was a language switch here. It set `lang="fr"` on the document
+          and nothing else: the site has no French content and no locale layer,
+          and a client-side translator is not an option — the website-translator
+          widget was retired in 2019 and rewrites the DOM, which React
+          immediately overwrites. French means French content, so the control
+          comes out until there is something for it to switch to. */}
 
       <button className={styles.reset} onClick={reset}>
         Reset to defaults

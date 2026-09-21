@@ -13,7 +13,7 @@
 
 .footer h4 {
   color: #fff;
-  font-size: 19px;
+  font-size: calc(19px * var(--ts));
   font-weight: 700;
   margin-bottom: 22px;
 }
@@ -22,7 +22,7 @@
 
 .links a,
 .contact a {
-  font-size: 17.4px;
+  font-size: calc(17.4px * var(--ts));
   color: rgba(255, 255, 255, 0.72);
   transition: color 0.25s var(--ease);
 }
@@ -35,7 +35,7 @@
   align-items: flex-start;
   gap: 11px;
   margin-bottom: 18px;
-  font-size: 17.4px;
+  font-size: calc(17.4px * var(--ts));
   line-height: 1.55;
 }
 
@@ -85,7 +85,7 @@
 
 .bottom p {
   margin: 0;
-  font-size: 15.1px;
+  font-size: calc(15.1px * var(--ts));
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -97,7 +97,7 @@
   background: transparent;
   color: var(--green);
   font-family: var(--font-display);
-  font-size: 15.7px;
+  font-size: calc(15.7px * var(--ts));
   font-weight: 600;
   cursor: pointer;
   transition: gap 0.25s var(--ease);

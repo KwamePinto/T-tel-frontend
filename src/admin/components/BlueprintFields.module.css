@@ -43,7 +43,7 @@
 }
 
 .kind {
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   font-weight: 600;
   /* a long phase title must not push the row controls off the card */
   overflow: hidden;
@@ -83,14 +83,14 @@
 .sub { display: flex; flex-direction: column; gap: 6px; }
 
 .subLabel {
-  font-size: 12px;
+  font-size: calc(12px * var(--ts));
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--a-muted);
 }
 
-.subHint { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--a-muted); }
+.subHint { margin: 0; font-size: calc(12.5px * var(--ts)); line-height: 1.55; color: var(--a-muted); }
 
 /* a paragraph box and its remove button on one line, the button holding its
    width so the boxes all end at the same edge */
@@ -130,7 +130,7 @@
 .groupLabel {
   padding: 0 8px;
   margin-left: -8px;
-  font-size: 12px;
+  font-size: calc(12px * var(--ts));
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
