@@ -1,10 +1,13 @@
-import Seo from "../../components/Seo";
 import PageHero from "../../components/PageHero";
+import Seo from "../../components/Seo";
+import HistoryStory from "../../components/HistoryStory";
 import HistoryPhases from "../../components/HistoryPhases";
 import { Loading, ErrorState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
-import styles from "./OurHistory.module.css";
+import prose from "../ArticleDetail.module.css";
+import styles from "./AboutUs.module.css";
+import historyStyles from "./OurHistory.module.css";
 
 export default function OurHistory() {
   const { data: page, loading, error, reload } = useCms(
@@ -18,10 +21,7 @@ export default function OurHistory() {
     (s) => s.type === "milestones" && s.enabled !== false,
   );
   const data = milestones?.data;
-  const story = data?.story || {};
   const resources = data?.links || [];
-  const quoteText = story.quote || data?.quote?.text || "Created to serve as a trusted technical partner, supporting national leadership to own reforms and drive innovations that move Ghana's education system to greater heights.";
-  const quoteAttribution = story.quoteAttrib || data?.quote?.attribution || "T-TEL's founding principle";
 
   return (
     <>
@@ -29,9 +29,15 @@ export default function OurHistory() {
       <PageHero
         title={page?.meta?.heroTitle || page?.title || "Our History"}
         crumb="Our History"
-        subtitle={page?.meta?.heroDescription ?? "From an externally funded programme to a Ghanaian-owned institution."}
+        /* ?? not ||: an editor who clears this field means "no subtitle",
+           and an empty string would otherwise fall back to the default. */
+        subtitle={
+          page?.meta?.heroDescription ??
+          "From a decade-long bilateral aid programme to an independent Ghanaian institution."
+        }
         image={mediaUrl(page?.heroImage) || "/images/photos/team-group.jpg"}
       />
+
       {loading && <div className="container" style={{ padding: "80px 30px" }}><Loading rows={8} /></div>}
       {error && (
         <div className="container" style={{ padding: "80px 30px" }}>
@@ -39,54 +45,36 @@ export default function OurHistory() {
         </div>
       )}
 
-      {data && (
-        <>
-          <section className={styles.intro}>
-            <div className={styles.introGrid}>
-              <div>
-                <span className={styles.eyebrow}>{story.eyebrow || "Institutional origins"}</span>
-                <h2>{story.heading || "From an externally funded programme to a Ghanaian-owned institution."}</h2>
-              </div>
-              <div>
-                <div className={styles.stats}>
-                  {(story.stats?.length ? story.stats : [
-                    { value: "$34m", label: "Programme value" },
-                    { value: "7 years", label: "Founding programme" },
-                    { value: "2020", label: "Established" },
-                  ]).map((stat, index) => (
-                    <div key={index}><strong>{stat.value}</strong><span>{stat.label}</span></div>
-                  ))}
-                </div>
-              </div>
+      {/* Both halves run full-bleed and carry their own vertical rhythm, so
+          they sit outside the shared .section padding. */}
+      {data && <HistoryStory data={data.story} />}
+      {data && <HistoryPhases data={data} />}
+
+      {resources.length > 0 && (
+        <section className={historyStyles.resources}>
+          <div className={historyStyles.resourcesInner}>
+            <span className={historyStyles.eyebrow}>Explore the full record</span>
+            <h2>Explore the full record</h2>
+            <div className={historyStyles.resourceGrid}>
+              {resources.map((link, index) => (
+                <a href={link.url} key={index} className={historyStyles.resourceCard}>
+                  <strong>{link.label}</strong><span>↗</span>
+                </a>
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
+      )}
 
-          <section className={styles.quoteBand}>
-              <div className={styles.quoteInner}>
-                <span className={styles.quoteMark}>“</span>
-                <blockquote>{quoteText}</blockquote>
-                <cite>{quoteAttribution}</cite>
-              </div>
-          </section>
-
-          <HistoryPhases data={data} />
-
-          {resources.length > 0 && (
-            <section className={styles.resources}>
-              <div className={styles.resourcesInner}>
-                <span className={styles.eyebrow}>Explore the full record</span>
-                <h2>Explore the full record</h2>
-                <div className={styles.resourceGrid}>
-                  {resources.map((link, index) => (
-                    <a href={link.url} key={index} className={styles.resourceCard}>
-                      <strong>{link.label}</strong><span>↗</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </section>
-          )}
-        </>
+      {page && !data && (
+        <section className="section">
+          <div className="container">
+            <div
+              className={`${prose.prose} ${styles.pageBody} reveal`}
+              dangerouslySetInnerHTML={{ __html: page.body }}
+            />
+          </div>
+        </section>
       )}
     </>
   );
