@@ -361,27 +361,39 @@
 .fundersRow {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 30px;
 }
 
+/* A flex row of the marks themselves, not of equal columns. The gap is then
+   the space between two logos rather than the space between two slots, so a
+   page holding two of them stays close together instead of stranding them at
+   either end of the row, and each page sits centred. */
 .fundersTrack {
   flex: 1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  gap: 28px 44px;
   opacity: 1;
   transition: opacity 0.18s ease;
 }
 
 .fundersTrackOut { opacity: 0; }
 
-.fundersTrack li { display: flex; justify-content: center; }
+.fundersTrack li { display: flex; align-items: center; justify-content: center; }
 
+/* Each logo is given its own width and height inline, sized to hold the same
+   area as every other mark — see FundersLogo in Home.jsx. These are the bounds
+   it may grow within, and the whole of the sizing for a logo that has not
+   reported its shape yet. They are deliberately generous: a bound tighter than
+   the area a logo is owed would quietly undo the equal sizing, which is what a
+   200px cap did to Prevail Fund's very wide wordmark. */
 .fundersTrack img {
-  max-height: 78px;
-  max-width: 190px;
+  display: block;
+  max-width: 260px;
+  max-height: 96px;
   width: auto;
   object-fit: contain;
   transition: transform 0.4s var(--ease-out);
@@ -407,12 +419,12 @@
 .fundersNav:hover { background: var(--deep); border-color: var(--deep); color: #fff; }
 
 @media (max-width: 999px) {
-  .fundersTrack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fundersTrack { gap: 24px 32px; }
 }
 
 @media (max-width: 639px) {
-  .fundersTrack { grid-template-columns: minmax(0, 1fr); }
-  .fundersTrack img { max-height: 72px; max-width: 220px; }
+  .fundersTrack { gap: 20px; }
+  .fundersTrack img { max-height: 84px; max-width: 220px; }
 }
 
 

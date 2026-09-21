@@ -10,6 +10,58 @@ import { useSite } from "../context/SiteContext";
 import { CardsLoading, ErrorState } from "../components/States";
 import styles from "./Home.module.css";
 
+/**
+ * The funders' logos arrive in wildly different shapes — a 1796×632 wordmark
+ * beside a 162×128 crest. Forcing them all into one box makes the wordmark
+ * fill it while the crest shrinks to a thumbnail, which is why the carousel's
+ * second page read as a row of stamps: every logo on it happens to be the
+ * squarish kind.
+ *
+ * Matching them on *area* instead gives each mark the same visual weight, so
+ * the figure to work out is the one that keeps width × height constant —
+ * h = √(area ÷ ratio) — rather than a height they all share.
+ */
+const LOGO_AREA = 10000; // the drawn area, in px², the funders row is built around
+const LOGO_MAX_H = 96;   // so the tallest crest doesn't set the band's height
+
+function logoBox(ratio) {
+  if (!ratio || !Number.isFinite(ratio)) return null;
+  const height = Math.min(Math.sqrt(LOGO_AREA / ratio), LOGO_MAX_H);
+  return { width: Math.round(height * ratio), height: Math.round(height) };
+}
+
+/**
+ * One funder's logo, sized by area.
+ *
+ * The shape is taken from the media record where it was saved, and measured
+ * off the loaded file where it wasn't — two of these logos were uploaded
+ * before the dimensions were being stored, and the row should not look
+ * different because of that.
+ */
+function FundersLogo({ partner }) {
+  const [measured, setMeasured] = useState(null);
+  const stored = partner.logo?.width && partner.logo?.height
+    ? partner.logo.width / partner.logo.height
+    : null;
+
+  const measure = (el) => {
+    if (stored || !el?.naturalWidth || !el?.naturalHeight) return;
+    setMeasured(el.naturalWidth / el.naturalHeight);
+  };
+
+  return (
+    <img
+      src={mediaUrl(partner.logo)}
+      alt={partner.name}
+      loading="eager"
+      decoding="async"
+      style={logoBox(stored ?? measured) || undefined}
+      onLoad={(e) => measure(e.currentTarget)}
+      ref={measure}
+    />
+  );
+}
+
 export default function Home() {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(true);
@@ -66,7 +118,9 @@ export default function Home() {
   const { settings, flag } = useSite();
 
   const articles = useCms(() => cms.posts({ type: "blog", limit: 12 }), []);
-  const partners = useCms(() => cms.partners(), []);
+  // Funders only — the row at the foot of the page is a funders strip, so the
+  // group is asked for here rather than filtered after everything has arrived.
+  const partners = useCms(() => cms.partners({ group: "funder" }), []);
 
   const posts = articles.data?.items ?? [];
   const partnerList = partners.data?.items ?? [];
@@ -306,17 +360,16 @@ export default function Home() {
             )}
 
             <ul className={`${styles.fundersTrack} ${partnerTransitioning ? styles.fundersTrackOut : ""}`}>
-              {visiblePartners.map((partner) => (
-                <li key={partner._id || partner.slug}>
-                  {partner.url ? (
-                    <a href={partner.url} target="_blank" rel="noreferrer" title={partner.name}>
-                      <img src={mediaUrl(partner.logo)} alt={partner.name} loading="eager" decoding="async" />
-                    </a>
-                  ) : (
-                    <img src={mediaUrl(partner.logo)} alt={partner.name} loading="eager" decoding="async" />
-                  )}
-                </li>
-              ))}
+              {visiblePartners.map((partner) => {
+                const logo = <FundersLogo partner={partner} />;
+                return (
+                  <li key={partner._id || partner.slug}>
+                    {partner.url ? (
+                      <a href={partner.url} target="_blank" rel="noreferrer" title={partner.name}>{logo}</a>
+                    ) : logo}
+                  </li>
+                );
+              })}
             </ul>
 
             {partnerPages > 1 && (
