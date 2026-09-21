@@ -7,6 +7,7 @@ import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import styles from "./OurPolicies.module.css";
+import { t } from "../../i18n";
 
 const formatSize = (bytes) => {
   if (!bytes) return "";
@@ -36,14 +37,14 @@ export default function OurPolicies() {
 
   return (
     <>
-      <Seo title="Our Policies" description="T-TEL's governing policies on safeguarding, harassment, conflict of interest, intellectual property and inclusion." />
-      <CmsHero slug="about-us/our-policies" title="Our Policies" crumb="Our Policies" image="/images/focus/library-review.jpg" />
+      <Seo title={t("Our Policies")} description="T-TEL's governing policies on safeguarding, harassment, conflict of interest, intellectual property and inclusion." />
+      <CmsHero slug="about-us/our-policies" title={t("Our Policies")} crumb={t("Our Policies")} image="/images/focus/library-review.jpg" />
 
       <section className="section">
         <div className="container">
           <div className={`${styles.intro} reveal`}>
-            <span className="eyebrow">Governance</span>
-            <h2>Our governing policies</h2>
+            <span className="eyebrow">{t("Governance")}</span>
+            <h2>{t("Our governing policies")}</h2>
             <p className="lede">
               The protocols and standards that ensure our work is transparent, safe and accountable.
               These are reviewed regularly by the T-TEL Board.
@@ -51,9 +52,9 @@ export default function OurPolicies() {
           </div>
 
           {loading && <CardsLoading count={6} />}
-          {error && <ErrorState error={error} onRetry={reload} label="policies" />}
+          {error && <ErrorState error={error} onRetry={reload} label={t("policies")} />}
           {!loading && !error && !items.length && (
-            <EmptyState>Policy documents will appear here once they are published.</EmptyState>
+            <EmptyState>{t("Policy documents will appear here once they are published.")}</EmptyState>
           )}
 
           <div className={styles.grid}>
@@ -85,7 +86,7 @@ export default function OurPolicies() {
                       disabled={!policy.file?.url}
                     >
                       <Icon name="eye" size={15} />
-                      Read
+                      {t("Read")}
                     </button>
                     <button
                       type="button"
@@ -94,7 +95,7 @@ export default function OurPolicies() {
                       disabled={!policy.file?.url}
                     >
                       <Icon name="download" size={15} />
-                      Download
+                      {t("Download")}
                     </button>
                   </div>
                 </div>

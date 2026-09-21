@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Icon from "./Icon";
 import { useSite } from "../context/SiteContext";
 import styles from "./Footer.module.css";
+import { t } from "../i18n";
 
 const SOCIALS = [
   ["social_facebook", "social_facebook_icon", "Facebook"],
@@ -17,11 +18,11 @@ function FooterLink({ item }) {
   if (external) {
     return (
       <a href={item.url} target="_blank" rel="noreferrer">
-        {item.label}
+        {t(item.label)}
       </a>
     );
   }
-  return <Link to={item.url || "/"}>{item.label}</Link>;
+  return <Link to={item.url || "/"}>{t(item.label)}</Link>;
 }
 
 export default function Footer() {
@@ -52,7 +53,7 @@ export default function Footer() {
         ))}
 
         <div>
-          <h4>Contact Us</h4>
+          <h4>{t("Contact Us")}</h4>
           <ul className={styles.contact}>
             {settings.contact_email && (
               <li>
@@ -83,7 +84,7 @@ export default function Footer() {
 
         {socials.length > 0 && (
           <div>
-            <h4>Connect With Us</h4>
+            <h4>{t("Connect With Us")}</h4>
             <div className={styles.socials}>
               {socials.map(([key, iconKey, label]) => (
                 <a key={key} href={settings[key]} target="_blank" rel="noreferrer" aria-label={label}>
@@ -105,7 +106,7 @@ export default function Footer() {
               className={styles.toTop}
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              Back to top <Icon name="arrowUp" size={15} />
+              {t("Back to top")} <Icon name="arrowUp" size={15} />
             </button>
           )}
         </div>

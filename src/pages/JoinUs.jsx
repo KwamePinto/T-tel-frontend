@@ -5,6 +5,7 @@ import Icon from "../components/Icon";
 import { cms } from "../lib/cms";
 import { useCms } from "../hooks/useCms";
 import styles from "./JoinUs.module.css";
+import { t } from "../i18n";
 
 const VALUES = [
   {
@@ -58,11 +59,11 @@ export default function JoinUs() {
 
   return (
     <>
-      <Seo title="Join Us" description="Work with T-TEL: current opportunities and what it is like to be part of a Ghanaian technical assistance team." />
+      <Seo title={t("Join Us")} description="Work with T-TEL: current opportunities and what it is like to be part of a Ghanaian technical assistance team." />
       <CmsHero
         slug="join-us"
-        title="Join Our Team"
-        crumb="Careers"
+        title={t("Join Our Team")}
+        crumb={t("Careers")}
         subtitle="Build your career with a Ghanaian organisation transforming teaching, education and learning."
         image="/images/photos/team-group.jpg"
       />
@@ -97,8 +98,8 @@ export default function JoinUs() {
       <section className={`section ${styles.positions}`}>
         <div className="container">
           <div className="reveal">
-            <span className={styles.plainEyebrow}>Opportunity</span>
-            <h2>Available Positions</h2>
+            <span className={styles.plainEyebrow}>{t("Opportunity")}</span>
+            <h2>{t("Available Positions")}</h2>
           </div>
 
           {roleGroups.map(({ group, roles }) => (
@@ -113,7 +114,7 @@ export default function JoinUs() {
                   >
                     <div className={`${styles.roleTile} ${styles[TINTS[i % TINTS.length]]}`}>
                       <Icon name="people" size={44} />
-                      <span className={styles.openBadge}>Open Role</span>
+                      <span className={styles.openBadge}>{t("Open Role")}</span>
                     </div>
                     <h4>{role}</h4>
                     <a
@@ -122,7 +123,7 @@ export default function JoinUs() {
                       rel="noreferrer"
                       className="link-arrow"
                     >
-                      Apply now
+                      {t("Apply now")}
                       <Icon name="arrowRight" size={15} />
                     </a>
                     <span className={styles.roleRule} />
@@ -136,7 +137,7 @@ export default function JoinUs() {
 
           <div className={`${styles.safeguard} reveal`}>
             <div>
-              <span className={styles.safeEyebrow}>Safeguarding</span>
+              <span className={styles.safeEyebrow}>{t("Safeguarding")}</span>
               <h3>{safeguarding.title || "Our Commitment"}</h3>
               <p>{safeguarding.body || "T-TEL is committed to safeguarding children and vulnerable adults. All appointments are subject to background checks and to our Child & Youth Safeguarding Policy, and every member of staff is trained on their responsibilities."}</p>
             </div>
@@ -157,7 +158,7 @@ export default function JoinUs() {
               rel="noreferrer"
               className="btn"
             >
-              View all current openings
+              {t("View all current openings")}
               <Icon name="arrowRight" size={18} />
             </a>
           </div>

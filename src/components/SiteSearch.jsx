@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Icon from "./Icon";
 import { cms } from "../lib/cms";
 import styles from "./SiteSearch.module.css";
+import { t } from "../i18n";
 
 /** Order the grouped results appear in, most-used first. */
 const SECTION_ORDER = [
@@ -89,19 +90,19 @@ export default function SiteSearch({ onClose }) {
             value={term}
             onChange={(e) => setTerm(e.target.value)}
             onKeyDown={onKeyDown}
-            placeholder="Search T-TEL — reports, programmes, people…"
-            aria-label="Search the site"
+            placeholder={t("Search T-TEL — reports, programmes, people…")}
+            aria-label={t("Search the site")}
             aria-expanded={flat.length > 0}
             autoFocus
           />
-          <button type="button" onClick={onClose} aria-label="Close search">
+          <button type="button" onClick={onClose} aria-label={t("Close search")}>
             <Icon name="close" size={20} />
           </button>
         </div>
 
         {q.length >= 2 && (
           <div className={styles.results} role="listbox">
-            {loading && flat.length === 0 && <p className={styles.hint}>Searching…</p>}
+            {loading && flat.length === 0 && <p className={styles.hint}>{t("Searching…")}</p>}
 
             {!loading && flat.length === 0 && (
               <p className={styles.hint}>No matches for “{q}”.</p>
@@ -142,7 +143,7 @@ export default function SiteSearch({ onClose }) {
 
             {flat.length > 0 && (
               <p className={styles.footHint}>
-                <kbd>↑</kbd><kbd>↓</kbd> to move · <kbd>Enter</kbd> to open · <kbd>Esc</kbd> to close
+                <kbd>↑</kbd><kbd>↓</kbd> to move · <kbd>{t("Enter")}</kbd> to open · <kbd>{t("Esc")}</kbd> to close
               </p>
             )}
           </div>

@@ -6,6 +6,7 @@ import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import styles from "./Programmes.module.css";
+import { t } from "../../i18n";
 
 export default function Programmes() {
   const { data, loading, error, reload } = useCms(
@@ -16,11 +17,11 @@ export default function Programmes() {
 
   return (
     <>
-      <Seo title="Programmes" description="T-TEL's programmes with the Ministry of Education and its agencies, from secondary education reform to district-level change." />
+      <Seo title={t("Programmes")} description="T-TEL's programmes with the Ministry of Education and its agencies, from secondary education reform to district-level change." />
       <CmsHero
         slug="programmes"
-        title="Programmes"
-        crumb="Programmes"
+        title={t("Programmes")}
+        crumb={t("Programmes")}
         subtitle="The projects through which T-TEL delivers technical advice, project management, research and implementation support across Ghana."
         image="/images/focus/students-laptops.jpg"
       />
@@ -28,8 +29,8 @@ export default function Programmes() {
       <section className="section">
         <div className="container">
           <div className={`${styles.intro} reveal`}>
-            <span className="eyebrow">How we work</span>
-            <h2>Delivered in partnership with government</h2>
+            <span className="eyebrow">{t("How we work")}</span>
+            <h2>{t("Delivered in partnership with government")}</h2>
             <p className="lede">
               We work closely with the Ministry of Education and its agencies &mdash; GES, GTEC,
               NaCCA, NTC and NaSIA &mdash; convening the institutions, funders and researchers
@@ -38,8 +39,8 @@ export default function Programmes() {
           </div>
 
           {loading && <CardsLoading count={4} />}
-          {error && <ErrorState error={error} onRetry={reload} label="programmes" />}
-          {!loading && !error && !items.length && <EmptyState>No programmes published yet.</EmptyState>}
+          {error && <ErrorState error={error} onRetry={reload} label={t("programmes")} />}
+          {!loading && !error && !items.length && <EmptyState>{t("No programmes published yet.")}</EmptyState>}
 
           <div className={styles.list}>
             {items.map((p, i) => (
@@ -54,7 +55,7 @@ export default function Programmes() {
                   <h3>{p.title}</h3>
                   <p>{p.excerpt}</p>
                   <Link to={`/programmes/${p.slug}`} className="link-arrow">
-                    Learn more
+                    {t("Learn more")}
                     <Icon name="arrowRight" size={17} />
                   </Link>
                 </div>

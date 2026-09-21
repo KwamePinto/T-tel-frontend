@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Icon from "./Icon";
 import { cms } from "../lib/cms";
 import styles from "./PdfPreview.module.css";
+import { t } from "../i18n";
 
 /**
  * Reads a published PDF without leaving the site.
@@ -88,7 +89,7 @@ export default function PdfPreview({ doc, onClose, onDownload }) {
               onClick={() => onDownload?.(doc)}
             >
               <Icon name="download" size={16} />
-              <span>Download</span>
+              <span>{t("Download")}</span>
             </button>
             <a
               className={styles.action}
@@ -97,13 +98,13 @@ export default function PdfPreview({ doc, onClose, onDownload }) {
               rel="noreferrer"
             >
               <Icon name="external" size={16} />
-              <span>New tab</span>
+              <span>{t("New tab")}</span>
             </a>
             <button
               type="button"
               className={styles.close}
               onClick={onClose}
-              aria-label="Close preview"
+              aria-label={t("Close preview")}
             >
               <Icon name="close" size={20} />
             </button>
@@ -114,7 +115,7 @@ export default function PdfPreview({ doc, onClose, onDownload }) {
           {!ready && (
             <div className={styles.loading} aria-live="polite">
               <span className={styles.spinner} aria-hidden="true" />
-              Loading document…
+              {t("Loading document…")}
             </div>
           )}
           <iframe

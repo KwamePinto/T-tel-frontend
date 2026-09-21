@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
 import styles from "./PageHero.module.css";
+import { t } from "../i18n";
 
 export default function PageHero({ title, subtitle, image, crumb, band }) {
   return (
@@ -10,8 +11,8 @@ export default function PageHero({ title, subtitle, image, crumb, band }) {
         style={image ? { backgroundImage: `url(${image})` } : undefined}
       >
         <div className={`container ${styles.inner}`}>
-          <nav className={styles.crumbs} aria-label="Breadcrumb">
-            <Link to="/">Home</Link>
+          <nav className={styles.crumbs} aria-label={t("Breadcrumb")}>
+            <Link to="/">{t("Home")}</Link>
             <Icon name="chevronRight" size={14} />
             <span>{crumb || title}</span>
           </nav>

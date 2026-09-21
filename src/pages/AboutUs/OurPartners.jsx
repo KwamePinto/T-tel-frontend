@@ -7,6 +7,7 @@ import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import styles from "./OurPartners.module.css";
+import { t } from "../../i18n";
 
 /** Keep the content groups from the CMS, while omitting the reference page's
  * principal Mastercard block as requested for this page. */
@@ -48,7 +49,7 @@ function PartnerCard({ partner }) {
         <h3>{partner.name}</h3>
         {partner.description && <p>{partner.description}</p>}
         <span className={styles.readMore}>
-          Read more <Icon name="arrowRight" size={13} />
+          {t("Read more")} <Icon name="arrowRight" size={13} />
         </span>
       </div>
     </button>
@@ -74,13 +75,13 @@ export default function OurPartners() {
   return (
     <>
       <Seo
-        title="Our Partners"
+        title={t("Our Partners")}
         description="The government agencies, universities and funding partners T-TEL works alongside."
         image={page.data?.heroImage}
       />
       <PageHero
-        title="Our Partners"
-        crumb="Our Partners"
+        title={t("Our Partners")}
+        crumb={t("Our Partners")}
         image={mediaUrl(page.data?.heroImage) || "/images/photos/team-group.jpg"}
       />
 
@@ -99,12 +100,12 @@ export default function OurPartners() {
       {error && (
         <section className="section">
           <div className="container">
-            <ErrorState error={error} onRetry={() => { page.reload(); partners.reload(); }} label="partners" />
+            <ErrorState error={error} onRetry={() => { page.reload(); partners.reload(); }} label={t("partners")} />
           </div>
         </section>
       )}
       {!loading && !error && !all.length && (
-        <section className="section"><div className="container"><EmptyState>No partners listed yet.</EmptyState></div></section>
+        <section className="section"><div className="container"><EmptyState>{t("No partners listed yet.")}</EmptyState></div></section>
       )}
 
       {visibleGroups.map(({ key, title }) => {

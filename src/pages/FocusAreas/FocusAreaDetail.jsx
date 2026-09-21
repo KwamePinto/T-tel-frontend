@@ -8,6 +8,7 @@ import { useCms } from "../../hooks/useCms";
 import CustomPage from "../CustomPage";
 import prose from "../ArticleDetail.module.css";
 import styles from "./FocusAreaDetail.module.css";
+import { t } from "../../i18n";
 
 export default function FocusAreaDetail() {
   const { slug } = useParams();
@@ -30,10 +31,10 @@ export default function FocusAreaDetail() {
     return (
       <section className="section">
         <div className="container">
-          <ErrorState error={area.error} onRetry={area.reload} label="focus area" />
+          <ErrorState error={area.error} onRetry={area.reload} label={t("focus area")} />
           <Link to="/focus-areas" className="link-arrow">
             <Icon name="arrowRight" size={16} style={{ transform: "rotate(180deg)" }} />
-            All focus areas
+            {t("All focus areas")}
           </Link>
         </div>
       </section>
@@ -95,7 +96,7 @@ export default function FocusAreaDetail() {
 
             <Link to="/focus-areas" className={styles.backLink}>
               <Icon name="arrowRight" size={16} style={{ transform: "rotate(180deg)" }} />
-              All focus areas
+              {t("All focus areas")}
             </Link>
           </aside>
         </div>
@@ -104,7 +105,7 @@ export default function FocusAreaDetail() {
       {others.length > 0 && (
         <section className={`section ${styles.others}`}>
           <div className="container">
-            <h2 className={`${styles.othersTitle} reveal`}>Explore other areas</h2>
+            <h2 className={`${styles.othersTitle} reveal`}>{t("Explore other areas")}</h2>
             <div className={styles.othersGrid}>
               {others.map((o, i) => (
                 <Link
@@ -118,7 +119,7 @@ export default function FocusAreaDetail() {
                   {o.tags?.[0] && <span className={styles.otherTag}>{o.tags[0].name}</span>}
                   <h3>{o.title}</h3>
                   <span className="link-arrow">
-                    View profile
+                    {t("View profile")}
                     <Icon name="arrowRight" size={16} />
                   </span>
                 </Link>

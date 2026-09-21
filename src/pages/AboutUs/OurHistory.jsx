@@ -8,6 +8,7 @@ import { useCms } from "../../hooks/useCms";
 import prose from "../ArticleDetail.module.css";
 import styles from "./AboutUs.module.css";
 import historyStyles from "./OurHistory.module.css";
+import { t } from "../../i18n";
 
 export default function OurHistory() {
   const { data: page, loading, error, reload } = useCms(
@@ -28,7 +29,7 @@ export default function OurHistory() {
       <Seo title={page?.meta?.title || "Our History"} description={page?.meta?.description || "How T-TEL grew from a six-year teacher education programme into an independent Ghanaian not-for-profit."} image={page?.heroImage} noindex={page?.meta?.noindex} />
       <PageHero
         title={page?.meta?.heroTitle || page?.title || "Our History"}
-        crumb="Our History"
+        crumb={t("Our History")}
         /* ?? not ||: an editor who clears this field means "no subtitle",
            and an empty string would otherwise fall back to the default. */
         subtitle={
@@ -41,7 +42,7 @@ export default function OurHistory() {
       {loading && <div className="container" style={{ padding: "80px 30px" }}><Loading rows={8} /></div>}
       {error && (
         <div className="container" style={{ padding: "80px 30px" }}>
-          <ErrorState error={error} onRetry={reload} label="page" />
+          <ErrorState error={error} onRetry={reload} label={t("page")} />
         </div>
       )}
 
@@ -53,8 +54,8 @@ export default function OurHistory() {
       {resources.length > 0 && (
         <section className={historyStyles.resources}>
           <div className={historyStyles.resourcesInner}>
-            <span className={historyStyles.eyebrow}>Explore the full record</span>
-            <h2>Explore the full record</h2>
+            <span className={historyStyles.eyebrow}>{t("Explore the full record")}</span>
+            <h2>{t("Explore the full record")}</h2>
             <div className={historyStyles.resourceGrid}>
               {resources.map((link, index) => (
                 <a href={link.url} key={index} className={historyStyles.resourceCard}>

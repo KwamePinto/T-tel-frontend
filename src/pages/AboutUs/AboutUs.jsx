@@ -5,6 +5,7 @@ import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import prose from "../ArticleDetail.module.css";
 import styles from "./AboutUs.module.css";
+import { t } from "../../i18n";
 
 /** Renders the heading with one word picked out in the accent colour. */
 function Heading({ text, highlight }) {
@@ -116,7 +117,7 @@ export default function AboutUs() {
       <Seo title={page?.meta?.title || "Who We Are"} description={page?.meta?.description || identity?.data?.lead} image={page?.heroImage} noindex={page?.meta?.noindex} />
       <PageHero
         title={page?.meta?.heroTitle || page?.title || "Who We Are"}
-        crumb="Who We Are"
+        crumb={t("Who We Are")}
         subtitle={page?.meta?.heroDescription}
         image={mediaUrl(page?.heroImage) || "/images/photos/team-group.jpg"}
       />
@@ -124,7 +125,7 @@ export default function AboutUs() {
       {loading && <div className="container"><Loading rows={8} /></div>}
       {error && (
         <div className="container">
-          <ErrorState error={error} onRetry={reload} label="page" />
+          <ErrorState error={error} onRetry={reload} label={t("page")} />
         </div>
       )}
 

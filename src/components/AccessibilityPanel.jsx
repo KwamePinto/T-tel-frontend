@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import useSitePrefs from "../hooks/useSitePrefs";
+import { LANGS, useT } from "../i18n";
 import Icon from "./Icon";
 import styles from "./AccessibilityPanel.module.css";
 
@@ -11,6 +12,7 @@ const SIZES = [
 
 export default function AccessibilityPanel({ onClose }) {
   const { prefs, setPref, reset } = useSitePrefs();
+  const t = useT();
   const ref = useRef(null);
 
   useEffect(() => {
@@ -29,9 +31,9 @@ export default function AccessibilityPanel({ onClose }) {
   }, [onClose]);
 
   return (
-    <div className={styles.panel} ref={ref} role="dialog" aria-label="Display settings">
+    <div className={styles.panel} ref={ref} role="dialog" aria-label={t("Display settings")}>
       <div className={styles.row}>
-        <span className={styles.label}>Text size</span>
+        <span className={styles.label}>{t("Text size")}</span>
         <div className={styles.sizes}>
           {SIZES.map((s) => (
             <button
@@ -49,26 +51,36 @@ export default function AccessibilityPanel({ onClose }) {
       </div>
 
       <div className={styles.row}>
-        <span className={styles.label}>Theme</span>
+        <span className={styles.label}>{t("Theme")}</span>
         <button
           className={styles.themeBtn}
           onClick={() => setPref("theme", prefs.theme === "dark" ? "light" : "dark")}
           aria-pressed={prefs.theme === "dark"}
-          aria-label="Toggle dark mode"
+          aria-label={t("Toggle dark mode")}
         >
           <Icon name={prefs.theme === "dark" ? "sun" : "moon"} size={20} />
         </button>
       </div>
 
-      {/* There was a language switch here. It set `lang="fr"` on the document
-          and nothing else: the site has no French content and no locale layer,
-          and a client-side translator is not an option — the website-translator
-          widget was retired in 2019 and rewrites the DOM, which React
-          immediately overwrites. French means French content, so the control
-          comes out until there is something for it to switch to. */}
+      <div className={styles.row}>
+        <span className={styles.label}>{t("Language")}</span>
+        <div className={styles.langs}>
+          {LANGS.map((l) => (
+            <button
+              key={l.code}
+              onClick={() => setPref("lang", l.code)}
+              className={prefs.lang === l.code ? styles.langOn : styles.lang}
+              aria-pressed={prefs.lang === l.code}
+              lang={l.code}
+            >
+              {l.short}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <button className={styles.reset} onClick={reset}>
-        Reset to defaults
+        {t("Reset to defaults")}
       </button>
     </div>
   );
