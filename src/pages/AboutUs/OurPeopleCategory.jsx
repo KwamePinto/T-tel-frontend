@@ -35,6 +35,7 @@ export default function OurPeopleCategory() {
         eyebrow="Governance"
         title={(group?.name || "").toUpperCase()}
         lead={group?.description}
+        stacked
       />
 
       <section className="section">

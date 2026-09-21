@@ -25,6 +25,7 @@ export default function OurPeopleIndex() {
         title="The People"
         accent="Behind the Work"
         lead="From our founding Subscribers to the technical specialists working in colleges and districts — here is the team making reform possible."
+        stacked
       />
 
       <section className="section">
