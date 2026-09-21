@@ -232,7 +232,7 @@ export default function Header({ transparent = false, onHero = "gradient" }) {
           </button>
           )}
 
-          <div className={`${styles.a11yWrap} ${styles.settingsHidden}`}>
+          <div className={styles.a11yWrap}>
             <button
               className={`${styles.iconBtn} ${a11yOpen ? styles.gearOn : ""}`}
               onClick={() => setA11yOpen((v) => !v)}

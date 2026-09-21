@@ -216,10 +216,6 @@
   position: relative;
 }
 
-.settingsHidden {
-  display: none;
-}
-
 .gearOn {
   background: var(--accent) !important;
   color: #fff !important;
