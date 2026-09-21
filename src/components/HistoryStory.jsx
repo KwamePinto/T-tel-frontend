@@ -49,9 +49,11 @@ export default function HistoryStory({ data }) {
 
           <div className={e.body}>
             {paras.map((para, i) => (
-              // the drop cap goes on the first paragraph only, and only when
-              // it is long enough to wrap past it
-              <p key={i} className={i === 0 && para.length > 160 ? e.dropCap : undefined}>
+              // The drop cap goes on the opening paragraph only, and only once
+              // it runs past a line — a one-line paragraph would leave the cap
+              // hanging over nothing. The bar is set at roughly two lines for
+              // this column, so the account's own opening line gets it.
+              <p key={i} className={i === 0 && para.length > 100 ? e.dropCap : undefined}>
                 {para}
               </p>
             ))}

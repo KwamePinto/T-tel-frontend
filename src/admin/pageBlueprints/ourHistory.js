@@ -8,7 +8,7 @@ const story = {
   key: "story",
   type: "group",
   label: "Opening account",
-  hint: "The opening account appears above the dark, horizontally scrollable timeline.",
+  hint: "The heading stays pinned on the left while this text scrolls past it.",
   fields: [
     { key: "eyebrow", type: "text", label: "Small line above the heading" },
     { key: "heading", type: "text", label: "Heading", placeholder: "The Journey So Far" },
@@ -62,7 +62,7 @@ export default {
           type: "list",
           label: "Phases",
           itemNoun: "phase",
-          hint: "Phases appear as animated cards in the horizontally scrollable roadmap. Add, remove, reorder, and edit each phase here.",
+          hint: "Phases run as one column of numbered entries. The first phase with a picture also supplies the single photograph shown beside them. A phase given a year is set larger, as the closing moment.",
           itemTitle: (item, i) => item.title || item.year || `Phase ${i + 1}`,
           blank: () => ({ title: "", image: null, paras: [""] }),
           fields: [
@@ -76,13 +76,13 @@ export default {
               key: "year",
               type: "text",
               label: "Year",
-              hint: "Fill this in only for the closing phase. It is set large and green, across the full width.",
+              hint: "Fill this in only for the closing phase. It replaces the number and is set large.",
             },
             {
               key: "image",
               type: "image",
               label: "Image",
-              hint: "Shown beside the phase text. If left empty, the timeline uses the first phase image as a shared placeholder.",
+              hint: "Only the first phase with a picture is used: it becomes the photograph beside the list. Leave this empty on the other phases.",
             },
             { key: "paras", type: "textlist", label: "Text", rows: 5 },
           ],

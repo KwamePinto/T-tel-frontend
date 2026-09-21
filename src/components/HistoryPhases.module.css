@@ -1,11 +1,11 @@
-/* The roadmap runs on the deep green rather than a neutral dark, so the band
-   belongs to this site rather than to any timeline, and the numerals have a
-   brand colour to be cut out of. */
+/* The roadmap runs from black into the deep green, so the band belongs to
+   this site rather than to any timeline, and the numerals have a brand colour
+   to be cut out of. */
 .wrap {
   position: relative;
   isolation: isolate;
   overflow: visible;
-  background: linear-gradient(90deg, #ffffff 0%, #000000 100%);
+  background: linear-gradient(90deg, #000000 0%, var(--green-deep) 100%);
   padding: clamp(38px, 5vw, 68px) 0 clamp(42px, 6vw, 76px);
 }
 
@@ -66,15 +66,17 @@
   border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
+/* The rail sits on the black end of the band, so its links are set on white
+   rather than the page's ink: the default dark grey disappears against it. */
 .links a {
   font-size: 17px;
   line-height: 1.55;
-  color: var(--ink-soft);
+  color: #fff;
   border-bottom: 1px solid transparent;
   transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 
-.links a:hover { color: var(--ink); border-bottom-color: var(--green, #159b5a); }
+.links a:hover { color: #fff; border-bottom-color: var(--green, #159b5a); }
 
 /* ---- the phases ---- */
 .phases {
