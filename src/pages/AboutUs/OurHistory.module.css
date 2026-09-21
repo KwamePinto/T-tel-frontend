@@ -188,7 +188,7 @@
 .resources h2 { margin: 0 0 25px; color: #151515; font-size: clamp(30px, 3vw, 44px); letter-spacing: -.04em; }
 .resourceGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .resourceCard { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 88px; padding: 20px 24px; border: 1px solid #dbe5dd; background: #edf4ef; color: #164533; transition: transform .25s ease, background .25s ease; }
-.resourceCard:hover { background: #dcebe1; transform: translateY(-3px); }
+.resourceCard:hover { background: #0c4237; transform: translateY(-3px); }
 .resourceCard strong { font-size: 15px; line-height: 1.35; }
 .resourceCard span { flex: 0 0 auto; color: #159b5a; font-size: 22px; }
 @media (max-width: 780px) {
