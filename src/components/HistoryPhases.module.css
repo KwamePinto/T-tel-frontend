@@ -1,287 +1,257 @@
+/* The roadmap runs on the deep green rather than a neutral dark, so the band
+   belongs to this site rather than to any timeline, and the numerals have a
+   brand colour to be cut out of. */
 .wrap {
   position: relative;
-  background: linear-gradient(120deg, #000000 0%, #001f19 45%, #00544a 100%);
-  padding: clamp(80px, 9vw, 140px) 0 clamp(60px, 7vw, 110px);
-  overflow: hidden;
-  color: #fff;
+  isolation: isolate;
+  overflow: visible;
+  background: linear-gradient(90deg, #ffffff 0%, #000000 100%);
+  padding: clamp(38px, 5vw, 68px) 0 clamp(42px, 6vw, 76px);
 }
 
-.headingWrap {
-  width: 100%;
-  padding: 0 clamp(28px, 4vw, 64px);
-  margin-bottom: clamp(56px, 6vw, 96px);
+.wrap::before,
+.wrap::after { display: none; }
+
+.grid {
+  display: grid;
+  gap: clamp(44px, 5vw, 72px);
+  align-items: start;
 }
 
-.headingWrap span {
-  display: block;
-  margin-bottom: 16px;
-  color: #35c46a;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
+.head {
+  margin-bottom: 10px;
+  color: var(--green-dark);
 }
 
-.headingWrap h2 {
-  max-width: 13ch;
+.headTitle {
+  color: var(--ink);
+  max-width: 15ch;
+  margin-bottom: clamp(26px, 3vw, 38px);
+}
+
+/* ---- the rail ---- */
+/* the column itself; min-width lets the sticky child shrink with the grid
+   rather than forcing the track wider than its share */
+/* stretch, not the grid's start: a sticky child can only travel inside a
+   parent taller than itself, and align-items: start would shrink this column
+   to exactly the height of what it holds */
+.rail { min-width: 0; align-self: stretch; }
+
+/* One photograph for five phases. Rather than give it to a single phase and
+   leave the rest short, it anchors the whole sequence from a column that
+   holds its place while the phases move. */
+.railMedia {
   margin: 0;
-  color: #fff;
-  font-size: clamp(46px, 5.4vw, 80px);
-  line-height: .98;
-  letter-spacing: -.04em;
+  overflow: hidden;
+  border-radius: 3px;
 }
 
-.timelineShell {
-  position: relative;
+.railMedia img {
+  display: block;
   width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center top;
+  /* the band is dark; the photograph meets it rather than sitting on it */
+  filter: saturate(1.02) contrast(1.02);
 }
 
-/* the thin gold guideline every numbered marker sits on */
-.timelineShell::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: clamp(28px, 4vw, 64px);
-  right: clamp(28px, 4vw, 64px);
-  height: 1px;
-  background: linear-gradient(90deg, rgba(240, 194, 60, 0) 0%, #f0c23c 8%, #f0c23c 92%, rgba(240, 194, 60, 0) 100%);
-}
-
-.track {
-  position: relative;
-  z-index: 1;
+.links {
   display: flex;
-  gap: clamp(20px, 2.2vw, 32px);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-  padding: 64px clamp(28px, 4vw, 64px) 20px;
-  overscroll-behavior-x: contain;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  margin: clamp(28px, 3.4vw, 40px) 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-.track::-webkit-scrollbar { display: none; }
-.track:focus-visible { outline: 2px solid #35c46a; outline-offset: -2px; }
+.links a {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.links a:hover { color: var(--ink); border-bottom-color: var(--green, #159b5a); }
+
+/* ---- the phases ---- */
+.phases {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.progressTrack {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 11px;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  transform-origin: top;
+}
+
+.progressFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: #eaf2e9;
+  box-shadow: 0 0 14px rgba(234, 242, 233, 0.72);
+  transform-origin: top;
+  transition: transform 0.35s var(--ease-out);
+}
 
 .phase {
   position: relative;
-  flex: 0 0 clamp(300px, 22vw, 420px);
-  display: flex;
-  flex-direction: column;
-  scroll-snap-align: center;
-  background: #132420;
-  border: 1px solid rgba(255, 255, 255, .12);
-  border-radius: 6px;
-  opacity: .5;
-  transform: translateY(6px) scale(.97);
-  transition: opacity .28s ease, transform .32s cubic-bezier(.22, .61, .36, 1), border-color .28s ease;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(18px, 2.4vw, 34px);
+  padding: clamp(26px, 3.2vw, 40px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  opacity: 0.74;
+  transform: translateX(8px);
+  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
 }
 
 .phase.active {
   opacity: 1;
   transform: none;
-  border-color: #35c46a;
 }
 
-/* the numbered marker floating above the card, on the guideline */
-.phaseNumber {
-  position: absolute;
-  z-index: 3;
-  top: -58px;
-  left: 50%;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border: 2px solid #f0c23c;
-  border-radius: 50%;
-  background: #d99f15;
-  color: #10251e;
-  font-size: 12px;
-  font-weight: 800;
-  transform: translateX(-50%) scale(.8);
-  opacity: .55;
-  transition: transform .28s cubic-bezier(.22, .61, .36, 1), box-shadow .28s ease, opacity .28s ease;
-}
-
-/* the stem connecting the marker down to the top of the card, above the image */
-.phaseNumber::after {
+.phase::before {
   content: "";
   position: absolute;
-  top: 100%;
-  left: 50%;
-  width: 2px;
-  height: 24px;
-  background: #f0c23c;
-  opacity: .55;
-  transform: translateX(-50%);
-  transition: opacity .45s ease;
+  left: 5px;
+  top: clamp(26px, 3.2vw, 40px);
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  background: rgba(3, 20, 18, 0.9);
+  transform: scale(0.78);
+  transition: background 0.45s var(--ease), border-color 0.45s var(--ease), transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
 }
 
-.phase.active .phaseNumber {
-  opacity: 1;
-  transform: translateX(-50%) scale(1.1);
-  box-shadow: 0 0 0 6px rgba(240, 194, 60, .15), 0 0 22px rgba(240, 194, 60, .6);
-  animation: markerPulse 2.4s ease-in-out infinite;
-}
-.phase.active .phaseNumber::after { opacity: 1; }
-
-@keyframes markerPulse {
-  0%, 100% { box-shadow: 0 0 0 6px rgba(240, 194, 60, .15), 0 0 22px rgba(240, 194, 60, .6); }
-  50% { box-shadow: 0 0 0 9px rgba(240, 194, 60, .05), 0 0 30px rgba(240, 194, 60, .8); }
+.phase.active::before {
+  border-color: #eaf2e9;
+  background: #eaf2e9;
+  transform: scale(1);
+  box-shadow: 0 0 0 5px rgba(234, 242, 233, 0.16), 0 0 18px rgba(234, 242, 233, 0.58);
 }
 
-.phaseMedia {
-  margin: 0;
-  overflow: hidden;
-  border-radius: 6px 6px 0 0;
+.phase:first-child { border-top: 0; padding-top: 0; }
+.phase:last-child { padding-bottom: 0; }
+
+/* Outlined, not filled: the numerals are a structure the eye can follow down
+   the column without competing with the text for attention. */
+.numeral {
+  font-family: var(--font-display);
+  font-size: clamp(46px, 5vw, 76px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.42);
+  text-stroke: 1px rgba(255, 255, 255, 0.42);
+  transition: color 0.4s var(--ease), -webkit-text-stroke-color 0.4s var(--ease);
 }
 
-.phaseMedia img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  filter: saturate(.75) contrast(1.05);
-  transition: filter .6s ease;
+.phase:hover .numeral {
+  color: rgba(255, 255, 255, 0.07);
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.72);
 }
 
-.phase.active .phaseMedia img { filter: saturate(1) contrast(1.05); }
+.phase.active .numeral {
+  color: rgba(255, 255, 255, 0.12);
+  -webkit-text-stroke-color: #eaf2e9;
+}
 
-.phaseCopy { padding: 26px 26px 30px; }
+/* the text beside the numeral */
+.body { min-width: 0; }
 
 .step {
   display: block;
-  margin-bottom: 12px;
-  color: #77736c;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-}
-
-.phaseCopy h3 {
-  margin: 0 0 14px;
-  color: #fff;
-  font-size: clamp(22px, 1.9vw, 30px);
-  line-height: 1.1;
-  letter-spacing: -.02em;
-}
-
-.phaseCopy p {
-  margin: 0;
-  min-height: 6.5em;
-  color: rgba(255, 255, 255, .7);
-  font-size: clamp(14px, 1.1vw, 17px);
-  line-height: 1.55;
-}
-
-.readMore {
-  margin-top: 22px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: #f0c23c;
-  font: inherit;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
-  cursor: pointer;
-}
-.readMore span { margin-left: 6px; }
-.readMore:hover { color: #ffd863; }
-
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-  margin-top: 32px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #eaf2e9;
+  margin-bottom: 12px;
 }
 
-.controls button {
-  width: 44px;
-  height: 44px;
-  border: 1px solid #464646;
-  border-radius: 50%;
-  background: transparent;
+.title {
   color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background .25s ease, border-color .25s ease;
+  margin: 0 0 14px;
 }
 
-.controls button:hover { background: #35c46a; border-color: #35c46a; }
-.dots { display: flex; gap: 8px; align-items: center; }
-.dots button { width: 8px; height: 8px; border: 0; padding: 0; border-radius: 50%; background: #555; }
-.dots button.dotActive { width: 28px; border-radius: 5px; background: #35c46a; }
-
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px 28px;
-  padding: 24px clamp(28px, 4vw, 64px) 0;
-  margin: 44px 0 0;
-  border-top: 1px solid #333;
-  list-style: none;
+.para {
+  font-size: clamp(18px, 1.3vw, 21px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.76);
+  margin: 0 0 16px;
 }
 
-.links a { color: #35c46a; font-size: 15px; text-decoration: underline; text-underline-offset: 5px; }
-.links a span { text-decoration: none; }
-.links a:hover { color: #f2c744; }
+.para:last-child { margin-bottom: 0; }
 
-/* details modal opened from "Read more" */
-.modalBackdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  background: rgba(0, 18, 14, .78);
-  backdrop-filter: blur(8px);
+.inlineMedia {
+  margin: 26px 0 0;
+  overflow: hidden;
+  border-radius: 3px;
 }
 
-.modal {
-  position: relative;
-  width: min(720px, 100%);
-  max-height: min(80vh, 720px);
-  overflow: auto;
-  padding: 46px clamp(28px, 5vw, 60px) 44px;
-  border: 1px solid rgba(53, 196, 106, .5);
-  background: linear-gradient(135deg, #092c25, #001613);
-  color: #fff;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, .42);
+.inlineMedia img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
-.modalClose {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(255, 255, 255, .3);
-  border-radius: 50%;
-  background: transparent;
-  color: #fff;
-  font-size: 24px;
-  line-height: 1;
-  cursor: pointer;
+/* The arrival: a year in place of a number, filled rather than outlined, and
+   set larger so the sequence lands instead of simply stopping. */
+.arrival .numeral {
+  color: #eaf2e9;
+  -webkit-text-stroke: 0;
+  text-stroke: 0;
+  font-size: clamp(30px, 3.4vw, 46px);
 }
 
-.modalNumber { color: #f0c23c; font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.modal h3 { margin: 12px 0 22px; color: #fff; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; }
-.modal p { margin: 0 0 17px; color: rgba(255, 255, 255, .78); font-size: 17px; line-height: 1.65; }
+.arrival .para {
+  font-size: clamp(19px, 1.45vw, 22px);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.phase.active .title { color: #eaf2e9; }
+
+@media (min-width: 960px) {
+  .grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); }
+
+  .rail {
+    position: sticky;
+    top: calc(var(--header-h) + 24px);
+    align-self: start;
+  }
+
+  .railInner { position: static; }
+
+  .phases {
+    align-self: stretch;
+    padding-left: 26px;
+    padding-right: clamp(0px, 2vw, 30px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+  }
+
+  .progressTrack { left: 10px; }
+  .phase::before { left: 4px; }
+
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .phase.active .phaseNumber { animation: none; }
+  .railInner { position: static; }
+  .progressFill { transition: none; }
 }
-
-@media (max-width: 720px) {
-  .headingWrap { padding: 0 20px; }
-  .track { padding-left: 20px; padding-right: 20px; }
-  .phase { flex-basis: min(82vw, 340px); }
-  .rail { margin-left: 20px; margin-right: 20px; }
-  .timelineShell::before { left: 20px; right: 20px; }
-}
-
-/* final readable scale and modal treatment */
