@@ -6,6 +6,7 @@ import { getBlueprint } from "../pageBlueprints";
 import EditorShell, { Rail, RailSection, TitleField } from "../components/EditorShell";
 import RichText from "../components/RichText";
 import BlueprintFields from "../components/BlueprintFields";
+import TranslationPanel from "../components/TranslationPanel";
 import { MediaField } from "../components/MediaPicker";
 import {
   Button, Card, CardBody, CardHead, ErrorBox, Field, Input, Select, TableSkeleton,
@@ -17,6 +18,7 @@ const EMPTY = {
   title: "", slug: "", kind: "custom", section: "", body: "", template: "default", status: "draft",
   publishedAt: "", showInNav: false, sortOrder: 0, heroImage: null, sections: [],
   keyInfo: { label: "", title: "", html: "", linkLabel: "", linkUrl: "" },
+  translations: {},
   meta: { heroLabel: "", heroTitle: "", heroDescription: "", title: "", description: "", canonical: "", noindex: false },
 };
 
@@ -65,6 +67,7 @@ export default function PageEditor() {
       heroImage: page.heroImage || null,
       sections: page.sections || [],
       keyInfo: { ...EMPTY.keyInfo, ...(page.keyInfo || {}) },
+      translations: page.translations || {},
     });
     setDirty(false);
   }, [page]);
@@ -113,6 +116,7 @@ export default function PageEditor() {
         sortOrder: Number(form.sortOrder) || 0,
         heroImage: form.heroImage?._id || form.heroImage || null,
         meta: form.meta,
+        translations: form.translations,
       };
       // a special page's slug is bound to its route, so it is never sent; the
       // API drops it too, this just keeps the request honest
@@ -266,6 +270,17 @@ export default function PageEditor() {
               )}
             </RailSection>
           )}
+
+          <RailSection title="Français" defaultOpen={false}>
+            <TranslationPanel
+              value={form.translations}
+              onChange={(translations) => set({ translations })}
+              fields={[
+                { key: "title", label: "Titre", source: form.title },
+                { key: "body", label: "Contenu", type: "richtext", source: form.body },
+              ]}
+            />
+          </RailSection>
 
           <RailSection title="Search Engines" defaultOpen={false}>
             <Field label="Meta title" hint="Shown in search results. Leave blank to use the page title.">
