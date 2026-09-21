@@ -90,7 +90,12 @@ export function MediaPickerModal({ onSelect, onClose, accept = "image/*" }) {
 }
 
 /** Field wrapper: shows the current selection with Select / Remove actions. */
-export function MediaField({ label = "Featured Image", value, onChange, hint }) {
+export function MediaField({ label = "Featured Image", value, onChange, hint, variant }) {
+  // "contain" is for a mark that must be shown whole — a partner's logo, a
+  // funder's wordmark — never cropped to fill the box the way a photograph
+  // legitimately is. Default stays "cover" so every existing caller (hero and
+  // featured images) is unaffected.
+  const marklike = variant === "contain";
   const [open, setOpen] = useState(false);
   const url = value ? mediaUrl(value) : null;
 
@@ -99,7 +104,7 @@ export function MediaField({ label = "Featured Image", value, onChange, hint }) 
       <span className={s.fieldLabel}>{label}</span>
 
       {url ? (
-        <div className={s.preview}>
+        <div className={`${s.preview} ${marklike ? s.previewContain : ""}`}>
           <img src={url} alt="" />
           <div className={s.previewActions}>
             <Button size="sm" onClick={() => setOpen(true)}>Replace</Button>

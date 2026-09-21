@@ -79,3 +79,34 @@
 @media (min-width: 900px) {
   .layout { grid-template-columns: 220px minmax(0, 1fr); }
 }
+
+/* the French box under a translatable field — a footnote to the field above
+   it, not a field of equal weight, so it stays visually subordinate */
+.fieldGroup { display: flex; flex-direction: column; gap: 0; }
+
+.frRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 6px;
+  padding-left: 2px;
+}
+
+.frTag {
+  flex-shrink: 0;
+  margin-top: 9px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--a-bg);
+  border: 1px solid var(--a-line);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--a-muted);
+}
+
+.frRow input,
+.frRow textarea {
+  flex: 1;
+  font-size: 13.5px;
+}

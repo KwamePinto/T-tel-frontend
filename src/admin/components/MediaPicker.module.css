@@ -80,3 +80,17 @@
   background: var(--a-surface);
   border-top: 1px solid var(--a-line);
 }
+
+/* A logo or wordmark shown whole, on a plain ground, rather than cropped to
+   fill a photo's 16:9 box — the same distinction the public site draws
+   between a hero image and a partner's mark. */
+.previewContain {
+  background: #fff;
+}
+
+.previewContain img {
+  aspect-ratio: auto;
+  max-height: 160px;
+  object-fit: contain;
+  padding: 16px;
+}
