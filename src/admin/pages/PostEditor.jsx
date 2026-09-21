@@ -7,6 +7,7 @@ import RichText from "../components/RichText";
 import { MediaField } from "../components/MediaPicker";
 import SectionsEditor from "../components/SectionsEditor";
 import { Button, Card, CardHead, ErrorBox, Field, Input, Select, TableSkeleton, Textarea, useToast } from "../components/ui";
+import TranslationPanel from "../components/TranslationPanel";
 
 const EMPTY = {
   title: "",
@@ -20,6 +21,7 @@ const EMPTY = {
   featuredImage: null,
   sections: [],
   keyInfo: { label: "", title: "", html: "", linkLabel: "", linkUrl: "" },
+  translations: {},
 };
 
 /** <input type="datetime-local"> needs `YYYY-MM-DDTHH:mm` in local time. */
@@ -56,6 +58,7 @@ export default function PostEditor() {
       featuredImage: post.featuredImage || null,
       sections: post.sections || [],
       keyInfo: { ...EMPTY.keyInfo, ...(post.keyInfo || {}) },
+      translations: post.translations || {},
       publishedAt: toLocalInput(post.publishedAt),
       tags: post.tags || [],
     });
@@ -98,6 +101,7 @@ export default function PostEditor() {
           image: sec.image?._id || sec.image || null,
         })),
         keyInfo: form.keyInfo,
+        translations: form.translations,
         tagNames: tagInput.split(",").map((t) => t.trim()).filter(Boolean),
       };
 
@@ -200,6 +204,18 @@ export default function PostEditor() {
                 placeholder="teacher education, policy"
               />
             </Field>
+          </RailSection>
+
+          <RailSection title="Français" defaultOpen={false}>
+            <TranslationPanel
+              value={form.translations}
+              onChange={(translations) => set({ translations })}
+              fields={[
+                { key: "title", label: "Titre", source: form.title },
+                { key: "excerpt", label: "Résumé", type: "textarea", rows: 4, source: form.excerpt },
+                { key: "body", label: "Contenu", type: "richtext", source: form.body },
+              ]}
+            />
           </RailSection>
 
           <RailSection title="Key information" defaultOpen={false}>
