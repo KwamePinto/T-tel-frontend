@@ -24,6 +24,12 @@
   margin-bottom: 20px;
 }
 
+/* One column: the lead sits under the heading rather than beside it, tightened
+   up so the two read as one statement. It keeps a measure of its own so it
+   doesn't run the full width of a wide screen. */
+.stacked { grid-template-columns: 1fr; gap: 18px; }
+.stacked .lead { max-width: 62ch; }
+
 .wrap p:not(.lead) { color: var(--text-soft); }
 
 .rule {
@@ -35,4 +41,7 @@
 
 @media (min-width: 900px) {
   .grid { grid-template-columns: 1fr 1fr; gap: 72px; }
+  /* after .grid, so a stacked intro stays one column once the breakpoint
+     would otherwise split it back into two */
+  .stacked { grid-template-columns: 1fr; gap: 20px; }
 }
