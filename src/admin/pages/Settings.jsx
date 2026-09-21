@@ -8,8 +8,40 @@ import {
 } from "../components/ui";
 import s from "./Settings.module.css";
 
+/** Types that hold words rather than a colour, a reference or a toggle — the
+ *  ones worth offering a French counterpart for. */
+const TRANSLATABLE = new Set(["text", "textarea", "email", "tel", undefined]);
+
+/** The compact French box shown under a translatable field. Kept out of the
+ *  Field component's own label/hint chrome so a screen of eighty settings
+ *  does not double in height — this is a footnote to the English field
+ *  above it, not a field of equal weight. */
+function FrenchField({ multiline, value, onChange }) {
+  const Comp = multiline ? Textarea : Input;
+  return (
+    <div className={s.frRow}>
+      <span className={s.frTag}>FR</span>
+      <Comp
+        rows={multiline ? 3 : undefined}
+        value={value ?? ""}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Not yet translated — the English is shown until it is."
+        lang="fr"
+      />
+    </div>
+  );
+}
+
 /** One settings field, rendered from the `type` stored alongside it. */
-function SettingField({ field, value, onChange, menus, forms }) {
+function SettingField({ field, value, onChange, frValue, onFrChange, menus, forms }) {
+  const withFrench = (node, multiline) =>
+    TRANSLATABLE.has(field.type) ? (
+      <div className={s.fieldGroup}>
+        {node}
+        <FrenchField multiline={multiline} value={frValue} onChange={onFrChange} />
+      </div>
+    ) : node;
+
   const [picking, setPicking] = useState(false);
 
   switch (field.type) {
@@ -19,10 +51,11 @@ function SettingField({ field, value, onChange, menus, forms }) {
       );
 
     case "textarea":
-      return (
+      return withFrench(
         <Field label={field.label} hint={field.hint}>
           <Textarea rows={4} value={value ?? ""} onChange={(e) => onChange(e.target.value)} />
-        </Field>
+        </Field>,
+        true,
       );
 
     case "number":
@@ -94,10 +127,11 @@ function SettingField({ field, value, onChange, menus, forms }) {
       );
 
     default:
-      return (
+      return withFrench(
         <Field label={field.label} hint={field.hint}>
           <Input value={value ?? ""} onChange={(e) => onChange(e.target.value)} />
-        </Field>
+        </Field>,
+        false,
       );
   }
 }
@@ -109,6 +143,7 @@ function SettingsScreen({ group, title, subtitle }) {
   const { data: forms } = useAsync(() => api.forms.list({ limit: 50 }), []);
 
   const [values, setValues] = useState({});
+  const [frValues, setFrValues] = useState({});
   const [dirty, setDirty] = useState(false);
   const [saving, setSaving] = useState(false);
   const [tab, setTab] = useState(null);
@@ -118,6 +153,9 @@ function SettingsScreen({ group, title, subtitle }) {
   useEffect(() => {
     if (!fields.length) return;
     setValues(Object.fromEntries(fields.map((f) => [f.key, f.value])));
+    // `schemaFor` returns full rows, translations included — read straight off
+    // the row rather than a second request
+    setFrValues(Object.fromEntries(fields.map((f) => [f.key, f.translations?.fr ?? ""])));
     setDirty(false);
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -136,7 +174,7 @@ function SettingsScreen({ group, title, subtitle }) {
   async function save() {
     setSaving(true);
     try {
-      await api.settings.save(group, values);
+      await api.settings.save(group, { values, translations: { fr: frValues } });
       setDirty(false);
       toast.success("Settings saved");
       reload();
@@ -181,10 +219,15 @@ function SettingsScreen({ group, title, subtitle }) {
                 key={f.key}
                 field={f}
                 value={values[f.key]}
+                frValue={frValues[f.key]}
                 menus={menus?.items}
                 forms={forms?.items}
                 onChange={(v) => {
                   setValues((prev) => ({ ...prev, [f.key]: v }));
+                  setDirty(true);
+                }}
+                onFrChange={(v) => {
+                  setFrValues((prev) => ({ ...prev, [f.key]: v }));
                   setDirty(true);
                 }}
               />

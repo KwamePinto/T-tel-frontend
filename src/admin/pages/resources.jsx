@@ -123,7 +123,10 @@ export const Partners = () => (
           required: true,
           hint: "Tick every section this partner belongs to — one partner can appear under several.",
         },
-        { name: "logo", label: "Logo", type: "media", hint: "A transparent PNG or SVG works best." },
+        {
+          name: "logo", label: "Logo", type: "media", mediaVariant: "contain",
+          hint: "A transparent PNG or SVG works best.",
+        },
         { name: "description", label: "Description", type: "textarea", rows: 3 },
         { name: "url", label: "Website", type: "url", placeholder: "https://" },
         { name: "isPrincipal", label: "Principal partner", type: "toggle", hint: "Shown larger, ahead of the others." },

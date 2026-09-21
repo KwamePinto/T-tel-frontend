@@ -270,6 +270,7 @@ function ResourceForm({ config, item, sources, defaults, onClose, onSaved }) {
                 key={f.name}
                 label={f.label}
                 hint={f.hint}
+                variant={f.mediaVariant}
                 value={item && item[f.name]?._id === value ? item[f.name] : value || null}
                 onChange={(m) => set(f.name, m?._id || null)}
               />
@@ -291,7 +292,10 @@ function ResourceForm({ config, item, sources, defaults, onClose, onSaved }) {
                 label={f.label}
                 hint={f.hint}
                 required={f.required}
-                options={optionsFor(f)}
+                // same fallback as the select/ref case below — `optionsFor`
+                // is a helper on the list screen (ResourceManager), out of
+                // scope here in the modal's own component (ResourceForm)
+                options={f.options || sources?.[f.source] || []}
                 value={Array.isArray(value) ? value : []}
                 onChange={(next) => set(f.name, next)}
               />
