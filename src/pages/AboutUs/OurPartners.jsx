@@ -16,6 +16,15 @@ const FALLBACK_GROUPS = [
   { key: "funder", title: "Funding & Project Partners" },
 ];
 
+/**
+ * A partner belongs to a list of groups now, and is listed under each of them
+ * — the Ministry of Education is both a government partner and a funder. The
+ * single `group` is still read as a fallback so a record saved before the list
+ * existed is never dropped from the page.
+ */
+const inGroup = (partner, key) =>
+  (partner.groups?.length ? partner.groups : [partner.group]).includes(key);
+
 function PartnerCard({ partner }) {
   return (
     <button
@@ -100,7 +109,7 @@ export default function OurPartners() {
 
       {visibleGroups.map(({ key, title }) => {
         const items = all.filter(
-          (p) => p.group === key && p.name !== "Mastercard Foundation",
+          (p) => inGroup(p, key) && p.name !== "Mastercard Foundation",
         );
         if (!items.length) return null;
         return (

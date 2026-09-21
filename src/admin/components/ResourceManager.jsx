@@ -5,9 +5,9 @@ import { useAsync, useList } from "../hooks/useResource";
 import { MediaField } from "./MediaPicker";
 import RichText from "./RichText";
 import {
-  Button, Card, Chip, ConfirmDialog, EmptyState, ErrorBox, Field, FilterPills, Input, Modal,
-  PageHead, Pager, RowActions, RowTitle, SearchInput, Select, Spacer, Table, TableSkeleton,
-  Textarea, Toggle, Toolbar, Thumb, useToast,
+  Button, Card, CheckboxGroup, Chip, ChipRow, ConfirmDialog, EmptyState, ErrorBox, Field, FilterPills,
+  Input, Modal, PageHead, Pager, RowActions, RowTitle, SearchInput, Select, Spacer, Table,
+  TableSkeleton, Textarea, Toggle, Toolbar, Thumb, useToast,
 } from "./ui";
 
 /**
@@ -22,6 +22,11 @@ import {
  *   filters: [{ key, label, options|source }],
  *   defaults, pageSize, orderable
  * }
+ *
+ * `type: "checkboxes"` is the one field that holds a list — several groups,
+ * several tags — and takes an optional `legacy` key naming the single-value
+ * field it used to be stored in, so records written before the list existed
+ * still open with their choice ticked.
  */
 export default function ResourceManager({ config }) {
   const toast = useToast();
@@ -162,7 +167,13 @@ function ResourceForm({ config, item, sources, defaults, onClose, onSaved }) {
 
   const blank = useMemo(() => {
     const base = {};
-    for (const f of fields) base[f.name] = f.type === "toggle" ? false : f.type === "number" ? 0 : "";
+    for (const f of fields) {
+      base[f.name] =
+        f.type === "toggle" ? false
+        : f.type === "checkboxes" ? []
+        : f.type === "number" ? 0
+        : "";
+    }
     return { ...base, ...defaults };
   }, [fields, defaults]);
 
@@ -174,9 +185,17 @@ function ResourceForm({ config, item, sources, defaults, onClose, onSaved }) {
     const next = { ...blank };
     for (const f of fields) {
       const value = item[f.name];
-      next[f.name] = f.type === "ref" || f.type === "media"
-        ? (value?._id || value || "")
-        : value ?? next[f.name];
+      if (f.type === "ref" || f.type === "media") {
+        next[f.name] = value?._id || value || "";
+      } else if (f.type === "checkboxes") {
+        const list = Array.isArray(value) ? value : [];
+        // fall back to the single-value field this replaced, so an editor
+        // opening an older record sees the choice it already carries
+        const legacy = f.legacy ? item[f.legacy] : null;
+        next[f.name] = list.length || !legacy ? list : [legacy];
+      } else {
+        next[f.name] = value ?? next[f.name];
+      }
     }
     setForm(next);
   }, [item, blank, fields]);
@@ -186,9 +205,10 @@ function ResourceForm({ config, item, sources, defaults, onClose, onSaved }) {
   async function submit(e) {
     e.preventDefault();
     for (const f of fields) {
-      if (f.required && !String(form[f.name] ?? "").trim()) {
-        return toast.error(`${f.label} is required.`);
-      }
+      if (!f.required) continue;
+      const value = form[f.name];
+      const empty = Array.isArray(value) ? !value.length : !String(value ?? "").trim();
+      if (empty) return toast.error(`${f.label} is required.`);
     }
     setSaving(true);
     try {
@@ -197,6 +217,7 @@ function ResourceForm({ config, item, sources, defaults, onClose, onSaved }) {
         let value = form[f.name];
         if (f.type === "number") value = Number(value) || 0;
         if ((f.type === "ref" || f.type === "media") && !value) value = null;
+        if (f.type === "checkboxes") value = Array.isArray(value) ? value : [];
         payload[f.name] = value;
       }
       if (item) await resource.update(item._id, payload);
@@ -263,6 +284,20 @@ function ResourceForm({ config, item, sources, defaults, onClose, onSaved }) {
             );
           }
 
+          if (f.type === "checkboxes") {
+            return (
+              <CheckboxGroup
+                key={f.name}
+                label={f.label}
+                hint={f.hint}
+                required={f.required}
+                options={optionsFor(f)}
+                value={Array.isArray(value) ? value : []}
+                onChange={(next) => set(f.name, next)}
+              />
+            );
+          }
+
           return (
             <Field key={f.name} label={f.label} hint={f.hint} required={f.required}>
               {f.type === "textarea" ? (
@@ -296,6 +331,12 @@ export const col = {
   status: (key = "status") => (item) => <Chip>{item[key]}</Chip>,
   bool: (key, yes = "Yes", no = "No") => (item) =>
     item[key] ? <Chip tone="chipGreen">{yes}</Chip> : <Chip tone="chipGrey">{no}</Chip>,
+  /** A list-valued field, shown as one chip per membership. */
+  list: (key) => (item) => {
+    const values = item[key];
+    if (!Array.isArray(values) || !values.length) return "—";
+    return <ChipRow>{values.map((v) => <Chip key={v}>{v}</Chip>)}</ChipRow>;
+  },
   ref: (key, field = "name") => (item) => item[key]?.[field] || "—",
   image: (key) => (item) => (item[key] ? <Thumb src={mediaUrl(item[key])} /> : "—"),
   date: (key) => (item) =>

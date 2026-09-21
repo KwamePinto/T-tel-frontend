@@ -132,6 +132,35 @@
 
 .textarea { resize: vertical; min-height: 92px; line-height: 1.6; }
 
+/* a field whose value is a list — see CheckboxGroup */
+.checkList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--a-line);
+  border-radius: 8px;
+  background: var(--a-surface);
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px 5px 9px;
+  border: 1px solid var(--a-line);
+  border-radius: 999px;
+  font-size: 13.5px;
+  color: var(--a-ink);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.check:hover { border-color: var(--a-brand); }
+.check input { accent-color: var(--a-brand); margin: 0; cursor: pointer; }
+.checkOn { border-color: var(--a-brand); background: rgba(79, 70, 229, 0.08); }
+
 .select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
