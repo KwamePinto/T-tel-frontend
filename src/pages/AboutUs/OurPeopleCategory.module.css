@@ -23,9 +23,14 @@
   box-shadow: 0 22px 46px rgba(20, 18, 16, 0.14);
 }
 
+/* Portraits, not squares. The photographs in the directory are cut 4:5
+   (480×600, 400×516), so a square frame was cropping a fifth off every head
+   and pair of shoulders. The frame now takes the photograph's own shape, and
+   `contain` finishes the job: anything cut to a different ratio — the odd
+   near-square upload — is letterboxed onto its tint instead of cropped. */
 .media {
   position: relative;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +45,7 @@
 .media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.7s var(--ease-out);
 }
 
@@ -84,5 +89,7 @@
   line-height: 1.45;
 }
 
+/* Three across at the widest, not four: at four the portraits came out around
+   260px wide and read as thumbnails. Three gives each face room without the
+   directory turning into a wall of cards. */
 @media (min-width: 760px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1060px) { .grid { grid-template-columns: repeat(4, 1fr); } }
