@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14.6px;
+  font-size: calc(14.6px * var(--ts));
   letter-spacing: 0.04em;
   margin-bottom: 18px;
   color: rgba(255, 255, 255, 0.7);
@@ -53,7 +53,7 @@
 .subtitle {
   margin: 20px 0 0;
   max-width: 56ch;
-  font-size: clamp(17.9px, 1.3vw, 21.3px);
+  font-size: clamp(calc(17.9px * var(--ts)), calc(1.3vw * var(--ts)), calc(21.3px * var(--ts)));
   color: rgba(255, 255, 255, 0.86);
 }
 

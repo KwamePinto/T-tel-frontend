@@ -14,7 +14,7 @@
 
 .standfirst {
   margin: 20px 0 0;
-  font-size: 17px;
+  font-size: calc(17px * var(--ts));
   line-height: 1.6;
   color: var(--text-soft);
 }

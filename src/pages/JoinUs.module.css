@@ -10,7 +10,7 @@
 .valueNum {
   display: block;
   font-family: var(--font-display);
-  font-size: 16.8px;
+  font-size: calc(16.8px * var(--ts));
   font-weight: 700;
   margin-bottom: 16px;
 }
@@ -19,8 +19,8 @@
 .blue .valueNum { color: var(--blue); }
 .gold .valueNum { color: #b8801f; }
 
-.value h3 { font-size: 26.9px; margin-bottom: 10px; }
-.value p { font-size: 17.4px; color: var(--text-soft); margin-bottom: 22px; }
+.value h3 { font-size: calc(26.9px * var(--ts)); margin-bottom: 10px; }
+.value p { font-size: calc(17.4px * var(--ts)); color: var(--text-soft); margin-bottom: 22px; }
 
 .valueRule { display: block; width: 26px; height: 2px; background: var(--line); }
 
@@ -29,7 +29,7 @@
 
 .plainEyebrow {
   display: block;
-  font-size: 17.9px;
+  font-size: calc(17.9px * var(--ts));
   color: var(--text-soft);
   margin-bottom: 8px;
 }
@@ -38,7 +38,7 @@
 
 .groupTitle {
   display: inline-block;
-  font-size: 14.6px;
+  font-size: calc(14.6px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.17em;
   text-transform: uppercase;
@@ -66,10 +66,10 @@
   margin-bottom: 18px;
 }
 
-.mint { background: #eaf5ed; color: #7bbd93; }
-.blue { background: #e9eef5; color: #8aa7c4; }
-.cream { background: #faf4e8; color: #d3b578; }
-.mintDeep { background: #e3f0e7; color: #6fae86; }
+.mint { background: var(--tint-mint); color: #7bbd93; }
+.blue { background: var(--tint-blue); color: #8aa7c4; }
+.cream { background: var(--tint-cream); color: #d3b578; }
+.mintDeep { background: var(--tint-mint-deep); color: #6fae86; }
 
 .openBadge {
   position: absolute;
@@ -78,7 +78,7 @@
   padding: 6px 14px;
   background: var(--green-dark);
   color: #fff;
-  font-size: 11.8px;
+  font-size: calc(11.8px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -89,7 +89,7 @@
 .mintDeep .openBadge { background: var(--green-deep); }
 
 .role h4 {
-  font-size: 19.6px;
+  font-size: calc(19.6px * var(--ts));
   padding: 0 22px;
   margin-bottom: 14px;
   min-height: 2.6em;
@@ -107,7 +107,7 @@
 
 .spec {
   margin-top: clamp(44px, 5vw, 64px);
-  font-size: clamp(19px, 1.5vw, 21.3px);
+  font-size: clamp(calc(19px * var(--ts)), calc(1.5vw * var(--ts)), calc(21.3px * var(--ts)));
   color: var(--text-soft);
 }
 
@@ -127,7 +127,7 @@
 
 .safeEyebrow {
   display: block;
-  font-size: 13.4px;
+  font-size: calc(13.4px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -135,8 +135,8 @@
   margin-bottom: 12px;
 }
 
-.safeguard h3 { color: #fff; font-size: clamp(29.1px, 2.9vw, 44.8px); margin-bottom: 14px; }
-.safeguard p { margin: 0; max-width: 62ch; font-size: 17.9px; }
+.safeguard h3 { color: #fff; font-size: clamp(calc(29.1px * var(--ts)), calc(2.9vw * var(--ts)), calc(44.8px * var(--ts))); margin-bottom: 14px; }
+.safeguard p { margin: 0; max-width: 62ch; font-size: calc(17.9px * var(--ts)); }
 
 .shield {
   width: 110px;

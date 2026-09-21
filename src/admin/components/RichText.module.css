@@ -24,7 +24,7 @@
   border-radius: 6px;
   background: transparent;
   color: var(--a-text);
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
@@ -44,7 +44,7 @@
   border-radius: 6px;
   background: var(--a-surface);
   font-family: inherit;
-  font-size: 13px;
+  font-size: calc(13px * var(--ts));
   color: var(--a-text);
   padding: 0 6px;
   cursor: pointer;
@@ -65,7 +65,7 @@
   min-height: 320px;
   max-height: 68vh;
   overflow-y: auto;
-  font-size: 15.5px;
+  font-size: calc(15.5px * var(--ts));
   line-height: 1.75;
   color: var(--a-ink);
   outline: none;
@@ -77,9 +77,9 @@
 }
 
 .editor > *:first-child { margin-top: 0; }
-.editor h1 { font-size: 30px; margin: 26px 0 12px; font-weight: 700; }
-.editor h2 { font-size: 24px; margin: 24px 0 11px; font-weight: 700; }
-.editor h3 { font-size: 19.5px; margin: 20px 0 9px; font-weight: 700; }
+.editor h1 { font-size: calc(30px * var(--ts)); margin: 26px 0 12px; font-weight: 700; }
+.editor h2 { font-size: calc(24px * var(--ts)); margin: 24px 0 11px; font-weight: 700; }
+.editor h3 { font-size: calc(19.5px * var(--ts)); margin: 20px 0 9px; font-weight: 700; }
 .editor p { margin: 0 0 14px; }
 .editor ul, .editor ol { margin: 0 0 16px; padding-left: 26px; list-style: revert; }
 .editor li { margin-bottom: 6px; }
@@ -98,7 +98,7 @@
   padding: 16px 18px;
   border-radius: 8px;
   overflow-x: auto;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   margin: 0 0 16px;
 }
 
@@ -118,7 +118,7 @@
   padding: 8px 14px;
   border-top: 1px solid var(--a-line);
   background: var(--a-line-soft);
-  font-size: 12px;
+  font-size: calc(12px * var(--ts));
   color: var(--a-muted);
 }
 
@@ -129,7 +129,7 @@
   outline: none;
   padding: 16px 18px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 13px;
+  font-size: calc(13px * var(--ts));
   line-height: 1.65;
   resize: vertical;
   color: var(--a-ink);

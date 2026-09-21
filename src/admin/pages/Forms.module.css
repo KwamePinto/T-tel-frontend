@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   font-weight: 600;
   color: var(--a-brand);
 }
@@ -35,15 +35,15 @@
   border-radius: 999px;
   background: var(--a-brand-soft);
   color: var(--a-brand);
-  font-size: 11.5px;
+  font-size: calc(11.5px * var(--ts));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .fieldLabel { flex: 1; min-width: 0; }
-.fieldLabel strong { display: block; font-size: 14px; color: var(--a-ink); }
-.fieldLabel em { display: block; font-style: normal; font-size: 12.5px; color: var(--a-muted); margin-top: 2px; }
+.fieldLabel strong { display: block; font-size: calc(14px * var(--ts)); color: var(--a-ink); }
+.fieldLabel em { display: block; font-style: normal; font-size: calc(12.5px * var(--ts)); color: var(--a-muted); margin-top: 2px; }
 
 .fieldActions { display: flex; gap: 5px; align-items: center; }
 
@@ -53,5 +53,5 @@
 .summary { color: var(--a-muted); max-width: 380px; }
 
 .payload { margin: 0; display: grid; gap: 14px; }
-.payload dt { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--a-muted); margin-bottom: 4px; }
-.payload dd { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--a-ink); white-space: pre-wrap; }
+.payload dt { font-size: calc(12px * var(--ts)); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--a-muted); margin-bottom: 4px; }
+.payload dd { margin: 0; font-size: calc(14.5px * var(--ts)); line-height: 1.65; color: var(--a-ink); white-space: pre-wrap; }

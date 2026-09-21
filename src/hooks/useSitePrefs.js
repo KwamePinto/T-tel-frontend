@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-const DEFAULTS = { textsize: "md", theme: "light", lang: "EN" };
+const DEFAULTS = { textsize: "md", theme: "light" };
 const KEY = "ttel-prefs";
 
 function read() {
@@ -16,7 +16,6 @@ function apply(prefs) {
   const root = document.documentElement;
   root.dataset.textsize = prefs.textsize;
   root.dataset.theme = prefs.theme;
-  root.lang = prefs.lang.toLowerCase();
 }
 
 export default function useSitePrefs() {

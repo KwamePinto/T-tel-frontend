@@ -28,7 +28,7 @@
 
 .label {
   font-family: var(--font-display);
-  font-size: 17.9px;
+  font-size: calc(17.9px * var(--ts));
   font-weight: 500;
   color: var(--ink);
 }
@@ -84,7 +84,7 @@
   border: none;
   background: transparent;
   font-family: var(--font-display);
-  font-size: 15.7px;
+  font-size: calc(15.7px * var(--ts));
   font-weight: 600;
   color: var(--text-soft);
   cursor: pointer;
@@ -106,7 +106,7 @@
   border: none;
   background: transparent;
   font-family: var(--font-display);
-  font-size: 15.7px;
+  font-size: calc(15.7px * var(--ts));
   color: var(--text-soft);
   cursor: pointer;
   transition: color 0.25s var(--ease);

@@ -70,11 +70,11 @@
   font-family: var(--font-display);
   /* the site-wide type bump made six items overflow the bar and wrap onto
      two lines; chrome stays compact and labels never break mid-item */
-  font-size: 16.6px;
+  font-size: calc(16.6px * var(--ts));
   white-space: nowrap;
   font-weight: 500;
   letter-spacing: normal;
-  color: #1f2421;
+  color: var(--ink);
   padding: 9px 13px;
   line-height: 1.2;
   border-bottom: 2px solid transparent;
@@ -152,7 +152,7 @@
   justify-content: space-between;
   gap: 14px;
   padding: 13px 26px;
-  font-size: 17.9px;
+  font-size: calc(17.9px * var(--ts));
   font-weight: 500;
   color: var(--ink);
   line-height: 1.35;
@@ -260,7 +260,7 @@
   border: none;
   background: transparent;
   font-family: var(--font-display);
-  font-size: 22.4px;
+  font-size: calc(22.4px * var(--ts));
   color: var(--ink);
   outline: none;
 }
@@ -304,7 +304,7 @@
   width: 100%;
   padding: 16px 0;
   font-family: var(--font-display);
-  font-size: 21.3px;
+  font-size: calc(21.3px * var(--ts));
   font-weight: 600;
   color: var(--ink);
   border: none;
@@ -321,7 +321,7 @@
 .mSubLink {
   display: block;
   padding: 12px 0;
-  font-size: 17.9px;
+  font-size: calc(17.9px * var(--ts));
   font-weight: 500;
   color: var(--text-soft);
   border-bottom: 1px solid var(--line-soft);
@@ -330,7 +330,7 @@
 .mLeafLink {
   display: block;
   padding: 10px 0 10px 16px;
-  font-size: 16.8px;
+  font-size: calc(16.8px * var(--ts));
   color: var(--text-soft);
 }
 

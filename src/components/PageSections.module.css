@@ -61,7 +61,7 @@
   border-left: 3px solid var(--accent);
   border-radius: 0 4px 4px 0;
   padding: clamp(20px, 2.2vw, 28px);
-  font-size: 16px;
+  font-size: calc(16px * var(--ts));
   line-height: 1.66;
   color: var(--text-soft);
 }
@@ -73,7 +73,7 @@
 .factsPanel strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 12.5px;
+  font-size: calc(12.5px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -109,7 +109,7 @@
   margin-top: 12px;
   padding-left: 14px;
   border-left: 3px solid var(--green);
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
   font-style: italic;
   line-height: 1.5;
   color: var(--text-soft);

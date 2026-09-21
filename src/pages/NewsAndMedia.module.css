@@ -7,7 +7,7 @@
   gap: 12px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
-  font-size: 15.1px;
+  font-size: calc(15.1px * var(--ts));
   color: var(--text-soft);
 }
 
@@ -26,7 +26,7 @@
   border: none;
   background: transparent;
   font-family: var(--font-display);
-  font-size: 19px;
+  font-size: calc(19px * var(--ts));
   font-weight: 500;
   color: var(--text-soft);
   cursor: pointer;
@@ -70,7 +70,7 @@
   padding: 6px 15px;
   border-radius: 999px;
   color: #fff;
-  font-size: 12.9px;
+  font-size: calc(12.9px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -78,12 +78,12 @@
 
 .date {
   display: block;
-  font-size: 15.1px;
+  font-size: calc(15.1px * var(--ts));
   color: var(--text-soft);
   margin-bottom: 12px;
 }
 
-.featuredCopy h2 { font-size: clamp(29.1px, 2.9vw, 44.8px); margin-bottom: 14px; }
+.featuredCopy h2 { font-size: clamp(calc(29.1px * var(--ts)), calc(2.9vw * var(--ts)), calc(44.8px * var(--ts))); margin-bottom: 14px; }
 .featuredCopy p { color: var(--text-soft); margin-bottom: 22px; }
 
 /* grid */
@@ -100,7 +100,7 @@
 .cardMeta {
   display: flex;
   gap: 8px;
-  font-size: 14px;
+  font-size: calc(14px * var(--ts));
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -108,14 +108,14 @@
   margin-bottom: 10px;
 }
 
-.card h3 { font-size: 23.5px; margin-bottom: 10px; }
-.card p { font-size: 16.8px; color: var(--text-soft); margin: 0; }
+.card h3 { font-size: calc(23.5px * var(--ts)); margin-bottom: 10px; }
+.card p { font-size: calc(16.8px * var(--ts)); color: var(--text-soft); margin: 0; }
 
 .empty { color: var(--text-soft); }
 
 /* sidebar */
 .sidebarTitle {
-  font-size: 15.7px;
+  font-size: calc(15.7px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -134,14 +134,14 @@
 .ord {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 15.7px;
+  font-size: calc(15.7px * var(--ts));
   color: var(--text-soft);
   flex-shrink: 0;
 }
 
 .briefing span {
   display: block;
-  font-size: 12.9px;
+  font-size: calc(12.9px * var(--ts));
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -150,7 +150,7 @@
 
 .briefing p {
   margin: 0;
-  font-size: 17.4px;
+  font-size: calc(17.4px * var(--ts));
   font-weight: 600;
   color: var(--ink);
   line-height: 1.4;
@@ -164,14 +164,14 @@
   border-radius: 4px;
 }
 
-.press h4 { font-size: 22.4px; margin-bottom: 10px; }
-.press p { font-size: 16.8px; color: var(--text-soft); margin-bottom: 16px; }
+.press h4 { font-size: calc(22.4px * var(--ts)); margin-bottom: 10px; }
+.press p { font-size: calc(16.8px * var(--ts)); color: var(--text-soft); margin-bottom: 16px; }
 
 .pressLink {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 15.7px;
+  font-size: calc(15.7px * var(--ts));
   font-weight: 600;
   color: var(--green-dark);
   border-bottom: 1px solid currentColor;
@@ -241,7 +241,7 @@
 }
 
 .pagination span {
-  font-size: 16.2px;
+  font-size: calc(16.2px * var(--ts));
   font-weight: 600;
   color: var(--text-soft);
   min-width: 108px;

@@ -15,9 +15,9 @@
   box-shadow: 0 24px 48px rgba(20, 18, 16, 0.1);
 }
 
-.mint { background: #eaf5ed; }
-.blue { background: #e9eef5; }
-.cream { background: #faf4e8; }
+.mint { background: var(--tint-mint); }
+.blue { background: var(--tint-blue); }
+.cream { background: var(--tint-cream); }
 
 .mint .num, .mint svg, .mint .link-arrow { color: var(--green-dark); }
 .blue .num, .blue svg { color: var(--blue); }
@@ -32,12 +32,12 @@
 
 .num {
   font-family: var(--font-display);
-  font-size: 16.8px;
+  font-size: calc(16.8px * var(--ts));
   font-weight: 700;
 }
 
-.card h3 { font-size: 26.9px; margin-bottom: 12px; }
-.card p { font-size: 17.4px; color: var(--text-soft); margin-bottom: 22px; }
+.card h3 { font-size: calc(26.9px * var(--ts)); margin-bottom: 12px; }
+.card p { font-size: calc(17.4px * var(--ts)); color: var(--text-soft); margin-bottom: 22px; }
 
 .underscore {
   display: block;
@@ -50,7 +50,7 @@
 
 .note {
   margin-top: 40px;
-  font-size: 16.2px;
+  font-size: calc(16.2px * var(--ts));
   color: var(--text-soft);
 }
 
@@ -72,7 +72,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 7px 0;
-  font-size: 15px;
+  font-size: calc(15px * var(--ts));
   color: var(--text-soft);
   transition: color 0.25s var(--ease);
 }
@@ -80,7 +80,7 @@
 .subList a:hover { color: var(--green-dark); }
 
 .subCount {
-  font-size: 13px;
+  font-size: calc(13px * var(--ts));
   font-weight: 700;
   color: var(--text-soft);
   background: var(--bg);

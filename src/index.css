@@ -25,17 +25,56 @@
   --line: rgba(34, 31, 26, 0.12);
   --line-soft: rgba(34, 31, 26, 0.06);
 
-  /* type */
+  /* What to write on an inverted surface. `--ink` flips with the theme, so
+     anything painted with it as a background — the ink button, the skip link —
+     needs a foreground of its own rather than a hardcoded white. `--on-light`
+     is for surfaces that stay light whatever the theme, like the light button
+     that sits on a dark band. */
+  --on-ink: #ffffff;
+  --on-light: #141210;
+
+  /* Bands stepped off the page: `--surface-2` is one step away from it,
+     `--surface-3` one step further again — the home page uses the pair for a
+     section and the panel inside it. The light values are the greys the
+     design already used, so nothing shifts in the light theme; the dark theme
+     walks the same two steps in the other direction. */
+  --surface-2: #e9e9e7;
+  --surface-3: #e0e0e0;
+
+  /* Loading placeholders and the unfilled half of a progress control. Both
+     are light greys that would glare on a dark page. */
+  --skeleton: #ececec;
+  --skeleton-hi: #f6f6f6;
+  --track: #e2e2de;
+
+  /* Soft brand tints for card faces. Light theme they are a pastel wash; dark
+     theme the same hue taken down to something light text can sit on. */
+  --tint-mint: #eaf5ed;
+  --tint-mint-deep: #e3f0e7;
+  --tint-sage: #eef6f0;
+  --tint-blue: #e9eef5;
+  --tint-cream: #faf4e8;
+  --tint-orange: #fdf4ef;
+  --tint-teal: #eef6f3;
+
+  /* type
+     Every size in the site — token or literal — is a multiple of --ts, which
+     is the one thing the text-size setting moves. At the default `md` the
+     multiplier is 1, so the type renders exactly as it was designed; `sm` and
+     `lg` scale all of it together. Sizes written directly in a stylesheet
+     carry the same `* var(--ts)`; see scripts/scale-type.mjs, which applied
+     it, for why the vw term inside each clamp is scaled too. */
+  --ts: 1;
   --font-display: "Outfit", "Poppins", sans-serif;
   --font-body: "Outfit", "Poppins", sans-serif;
-  --fs-h1: clamp(43px, 5.8vw, 69px);
-  --fs-h2: clamp(34px, 3.8vw, 49px);
-  --fs-h3: clamp(24px, 1.9vw, 29px);
-  --fs-h4: 21px;
-  --fs-base: 20px;
-  --fs-sm: 18px;
-  --fs-xs: 16px;
-  --fs-eyebrow: 14px;
+  --fs-h1: clamp(calc(43px * var(--ts)), calc(5.8vw * var(--ts)), calc(69px * var(--ts)));
+  --fs-h2: clamp(calc(34px * var(--ts)), calc(3.8vw * var(--ts)), calc(49px * var(--ts)));
+  --fs-h3: clamp(calc(24px * var(--ts)), calc(1.9vw * var(--ts)), calc(29px * var(--ts)));
+  --fs-h4: calc(21px * var(--ts));
+  --fs-base: calc(20px * var(--ts));
+  --fs-sm: calc(18px * var(--ts));
+  --fs-xs: calc(16px * var(--ts));
+  --fs-eyebrow: calc(14px * var(--ts));
   --lh-head: 1.12;
   --lh-body: 1.65;
   --ls-body: -0.005em;
@@ -51,8 +90,8 @@
 }
 
 /* accessibility: user-controlled text scale */
-:root[data-textsize="sm"] { --fs-base: 18px; --fs-sm: 16px; }
-:root[data-textsize="lg"] { --fs-base: 22px; --fs-sm: 20px; --fs-h3: clamp(26px, 2.1vw, 32px); }
+:root[data-textsize="sm"] { --ts: 0.9; }
+:root[data-textsize="lg"] { --ts: 1.15; }
 
 :root[data-theme="dark"] {
   --bg: #141210;
@@ -64,6 +103,19 @@
   --text-soft: #a8a297;
   --line: rgba(245, 243, 238, 0.14);
   --line-soft: rgba(245, 243, 238, 0.07);
+  --on-ink: #141210;
+  --surface-2: #1d1a16;
+  --surface-3: #272320;
+  --skeleton: #23201b;
+  --skeleton-hi: #2e2a24;
+  --track: #3b362e;
+  --tint-mint: #16281e;
+  --tint-mint-deep: #12241a;
+  --tint-sage: #16281e;
+  --tint-blue: #161f2b;
+  --tint-cream: #2a2317;
+  --tint-orange: #2b1c14;
+  --tint-teal: #14241f;
 }
 
 * { box-sizing: border-box; }
@@ -186,17 +238,17 @@ p { margin: 0 0 18px; }
 .btn svg { transition: transform 0.35s var(--ease); }
 .btn:hover svg { transform: translateX(4px); }
 
-.btn-ink { background: var(--ink); border-color: var(--ink); }
-.btn-ink:hover { background: #000; border-color: #000; }
+.btn-ink { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.btn-ink:hover { background: #000; border-color: #000; color: var(--on-ink); }
 
 .btn-outline { background: transparent; color: var(--accent); border-color: var(--accent); }
 .btn-outline:hover { background: var(--accent); color: #fff; }
 
-.btn-light { background: #fff; border-color: #fff; color: var(--ink); }
-.btn-light:hover { background: var(--bg-alt); border-color: var(--bg-alt); color: var(--ink); }
+.btn-light { background: #fff; border-color: #fff; color: var(--on-light); }
+.btn-light:hover { background: var(--bg-alt); border-color: var(--bg-alt); color: var(--on-light); }
 
 .btn-ghost-light { background: transparent; border-color: rgba(255,255,255,.55); color: #fff; }
-.btn-ghost-light:hover { background: #fff; border-color: #fff; color: var(--ink); }
+.btn-ghost-light:hover { background: #fff; border-color: #fff; color: var(--on-light); }
 
 .btn-pill { border-radius: 999px; }
 
@@ -255,7 +307,7 @@ p { margin: 0 0 18px; }
 .band-cool { background: var(--bg-cool); }
 
 .lede {
-  font-size: clamp(20.2px, 1.5vw, 23.5px);
+  font-size: clamp(calc(20.2px * var(--ts)), calc(1.5vw * var(--ts)), calc(23.5px * var(--ts)));
   color: var(--text-soft);
   max-width: 62ch;
 }
@@ -280,7 +332,7 @@ p { margin: 0 0 18px; }
   top: 0;
   z-index: 999;
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
   padding: 12px 20px;
 }
 .skip-link:focus { left: 12px; top: 12px; }

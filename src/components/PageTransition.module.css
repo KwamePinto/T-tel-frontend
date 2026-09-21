@@ -14,7 +14,7 @@
 .skeletonHero {
   display: block;
   height: 420px;
-  background: linear-gradient(90deg, #e8ece9 25%, #f7f8f7 37%, #e8ece9 63%);
+  background: linear-gradient(90deg, var(--skeleton) 25%, var(--skeleton-hi) 37%, var(--skeleton) 63%);
   background-size: 400% 100%;
   animation: shimmer 1.3s ease-in-out infinite;
 }
@@ -23,7 +23,7 @@
 .skeletonLine {
   display: block;
   border-radius: 5px;
-  background: linear-gradient(90deg, #e8ece9 25%, #f7f8f7 37%, #e8ece9 63%);
+  background: linear-gradient(90deg, var(--skeleton) 25%, var(--skeleton-hi) 37%, var(--skeleton) 63%);
   background-size: 400% 100%;
   animation: shimmer 1.3s ease-in-out infinite;
 }

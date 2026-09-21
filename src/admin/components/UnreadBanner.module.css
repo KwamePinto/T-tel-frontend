@@ -34,8 +34,8 @@
 }
 
 .body { flex: 1; min-width: 0; }
-.body strong { display: block; font-size: 15px; font-weight: 600; }
-.body span { display: block; font-size: 13.5px; color: rgba(255, 255, 255, 0.72); margin-top: 2px; }
+.body strong { display: block; font-size: calc(15px * var(--ts)); font-weight: 600; }
+.body span { display: block; font-size: calc(13.5px * var(--ts)); color: rgba(255, 255, 255, 0.72); margin-top: 2px; }
 
 .action {
   display: inline-flex;
@@ -46,7 +46,7 @@
   border-radius: 8px;
   background: var(--a-brand);
   color: #fff;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--ts));
   font-weight: 600;
   transition: background 0.2s ease;
 }

@@ -71,7 +71,7 @@
 
 .heroCaption h1 {
   color: #fff;
-  font-size: 32px;
+  font-size: calc(32px * var(--ts));
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: normal;
@@ -99,7 +99,7 @@
      no photograph behind it. There used to be one here doing double duty as
      the hero's still frame, now that the hero is a video it no longer needs
      a poster and the wash it required is gone with it. */
-  background-color: #e9e9e7;
+  background-color: var(--surface-2);
 }
 
 /* The copy and the photograph share a panel a shade darker than the section
@@ -108,13 +108,13 @@
 .whoGrid {
   display: grid;
   gap: 32px;
-  background: #e0e0e0;
+  background: var(--surface-3);
 }
 
 .whoCopy { padding: clamp(28px, 4vw, 40px) clamp(24px, 4.4vw, 60px); }
 
 .whoCopy h2 {
-  font-size: 36px;
+  font-size: calc(36px * var(--ts));
   font-weight: 500;
   color: var(--ink);
   margin-bottom: 20px;
@@ -122,7 +122,7 @@
 
 .whoCopy p {
   color: var(--text-soft);
-  font-size: 19px;
+  font-size: calc(19px * var(--ts));
   max-width: 52ch;
   margin-bottom: 28px;
 }
@@ -136,7 +136,7 @@
   background: var(--red);
   color: #fff;
   font-weight: 600;
-  font-size: 16.8px;
+  font-size: calc(16.8px * var(--ts));
   transition: background 0.3s var(--ease), transform 0.3s var(--ease);
 }
 
@@ -157,12 +157,17 @@
 /* ================= STRATEGIC OBJECTIVES ================= */
 .objectives {
   position: relative;
-  background-color: #e9e9e7;
+  background-color: var(--surface-2);
   background-image: url("/images/about-teaser-bg.png");
   background-repeat: no-repeat;
   background-position: center top 60px;
   background-size: 100% auto;
 }
+
+/* The teaser artwork is drawn on white, so in the dark theme it would read as
+   a bright blotch on the band. The green block below carries the section
+   without it. */
+:global(:root[data-theme="dark"]) .objectives { background-image: none; }
 
 /* deep green fills the lower portion behind the cards */
 .objectives::after {
@@ -179,9 +184,9 @@
 .objInner { position: relative; z-index: 1; padding: 129px 30px 72px; }
 
 .objInner h2 {
-  font-size: 36px;
+  font-size: calc(36px * var(--ts));
   font-weight: 500;
-  color: #1f2421;
+  color: var(--ink);
   margin-bottom: 30px;
 }
 
@@ -194,13 +199,13 @@
 .objCard {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--bg);
   padding: 31.5px 31.5px 27px;
 }
 
 .objCard p {
-  color: #5e6661;
-  font-size: 18.1px;
+  color: var(--text-soft);
+  font-size: calc(18.1px * var(--ts));
   line-height: 1.8;
   margin: 0 0 28px;
 }
@@ -217,7 +222,7 @@
 
 .objNum {
   font-family: var(--font-display);
-  font-size: 65.5px;
+  font-size: calc(65.5px * var(--ts));
   font-weight: 800;
   line-height: 0.9;
   color: var(--teal);
@@ -258,7 +263,7 @@
 
 .artHead h2 {
   color: #fff;
-  font-size: 36px;
+  font-size: calc(36px * var(--ts));
   font-weight: 500;
   margin: 0;
 }
@@ -283,12 +288,12 @@
   padding: 7.2px 18px;
   background: #00af96;
   color: #fff;
-  font-size: 14.5px;
+  font-size: calc(14.5px * var(--ts));
 }
 
 .artCard h3 {
   color: #fff;
-  font-size: 21.2px;
+  font-size: calc(21.2px * var(--ts));
   font-weight: 600;
   line-height: 1.35;
   margin: 16px 0 12px;
@@ -296,7 +301,7 @@
 
 .artCard p {
   color: rgba(255, 255, 255, 0.72);
-  font-size: 16.8px;
+  font-size: calc(16.8px * var(--ts));
   margin-bottom: 20px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -314,7 +319,7 @@
   border-radius: 6px;
   background: #004e42;
   color: #fff;
-  font-size: 16.1px;
+  font-size: calc(16.1px * var(--ts));
   font-weight: 600;
   transition: background 0.3s var(--ease);
 }
@@ -324,7 +329,7 @@
 .artFoot { display: flex; justify-content: center; margin-top: 44px; }
 
 /* ================= FOCUS AREAS ================= */
-.focus { background: #fff; padding: 62px 0 0; }
+.focus { background: var(--bg); padding: 62px 0 0; }
 
 .focusHead {
   display: grid;
@@ -334,27 +339,27 @@
 }
 
 .focusHead h2 {
-  font-size: 36px;
+  font-size: calc(36px * var(--ts));
   font-weight: 500;
-  color: #1f2421;
+  color: var(--ink);
   margin: 0;
 }
 
 .focusHead p {
-  color: #5e6661;
-  font-size: 17.9px;
+  color: var(--text-soft);
+  font-size: calc(17.9px * var(--ts));
   margin: 0;
   max-width: 54ch;
 }
 
 /* ================= FUNDERS ================= */
-.funders { background: #fff; padding: 60px 0 72px; }
+.funders { background: var(--bg); padding: 60px 0 72px; }
 
 .fundersTitle {
   text-align: center;
-  font-size: 36px;
+  font-size: calc(36px * var(--ts));
   font-weight: 500;
-  color: #1f2421;
+  color: var(--ink);
   margin-bottom: 36px;
 }
 
@@ -407,8 +412,8 @@
   height: 44px;
   border-radius: 50%;
   border: 1px solid var(--line);
-  background: #fff;
-  color: #6b6b6b;
+  background: var(--bg);
+  color: var(--text-soft);
   display: inline-flex;
   align-items: center;
   justify-content: center;
