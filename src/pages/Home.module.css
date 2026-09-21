@@ -380,7 +380,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 18px 28px;
+  gap: 26px 44px;
   opacity: 1;
   transition: opacity 0.18s ease;
 }
