@@ -156,6 +156,46 @@ export function Toggle({ checked, onChange, title, description }) {
   );
 }
 
+/**
+ * A field whose value is a list rather than one choice — "which of these does
+ * it belong to?", where the answer can be several. Rendered as a row of
+ * checkbox pills rather than a multi-select, so every option is visible and
+ * the current membership reads at a glance.
+ *
+ * Deliberately not built on <Field>: that renders a <label>, and a label
+ * wrapping several checkboxes hands its own text to the first one inside it —
+ * so clicking the field's name would tick "Funder".
+ */
+export function CheckboxGroup({ label, hint, required, options = [], value = [], onChange }) {
+  const toggle = (option) =>
+    onChange(value.includes(option) ? value.filter((v) => v !== option) : [...value, option]);
+
+  return (
+    <div className={s.field}>
+      {label && (
+        <span className={s.label}>
+          {label}
+          {required && <span className={s.req}>*</span>}
+        </span>
+      )}
+      <div className={s.checkList}>
+        {options.map((o) => {
+          const optionValue = typeof o === "string" ? o : o.value;
+          const optionLabel = typeof o === "string" ? o : o.label;
+          const on = value.includes(optionValue);
+          return (
+            <label key={optionValue} className={cx(s.check, on && s.checkOn)}>
+              <input type="checkbox" checked={on} onChange={() => toggle(optionValue)} />
+              <span>{optionLabel}</span>
+            </label>
+          );
+        })}
+      </div>
+      {hint && <span className={s.hint}>{hint}</span>}
+    </div>
+  );
+}
+
 /* -------------------------------------------------------------------- table */
 export function Table({ columns, children }) {
   return (

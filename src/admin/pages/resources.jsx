@@ -100,21 +100,28 @@ export const Partners = () => (
       resource: api.partners,
       pageSize: 30,
       filters: [{
-        key: "group",
+        key: "groups",
         label: "All groups",
         source: "partnerGroups", sourceValue: "slug",
       }],
       columns: [
         { key: "logo", label: "", render: col.image("logo") },
         { key: "name", label: "Name", render: col.title("name") },
-        { key: "group", label: "Group" },
+        { key: "groups", label: "Groups", render: col.list("groups") },
         { key: "showOnHome", label: "On homepage", render: col.bool("showOnHome") },
         { key: "url", label: "Website", render: col.text("url") },
       ],
       fields: [
         { name: "name", label: "Name", required: true },
         {
-          name: "group", label: "Group", type: "ref", source: "partnerGroups", sourceValue: "slug",
+          name: "groups",
+          label: "Groups",
+          type: "checkboxes",
+          source: "partnerGroups",
+          sourceValue: "slug",
+          legacy: "group",
+          required: true,
+          hint: "Tick every section this partner belongs to — one partner can appear under several.",
         },
         { name: "logo", label: "Logo", type: "media", hint: "A transparent PNG or SVG works best." },
         { name: "description", label: "Description", type: "textarea", rows: 3 },
@@ -123,7 +130,7 @@ export const Partners = () => (
         { name: "showOnHome", label: "Show on the homepage", type: "toggle" },
         { name: "sortOrder", label: "Sort order", type: "number" },
       ],
-      defaults: { group: "funder", showOnHome: true },
+      defaults: { groups: ["funder"], showOnHome: true },
     }}
   />
 );
