@@ -380,7 +380,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 28px 44px;
+  gap: 26px 40px;
   opacity: 1;
   transition: opacity 0.18s ease;
 }
@@ -397,8 +397,8 @@
    200px cap did to Prevail Fund's very wide wordmark. */
 .fundersTrack img {
   display: block;
-  max-width: 260px;
-  max-height: 96px;
+  max-width: 190px;
+  max-height: 80px;
   width: auto;
   object-fit: contain;
   transition: transform 0.4s var(--ease-out);

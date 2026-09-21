@@ -70,19 +70,24 @@
    still reads evenly. */
 .cardMedia {
   margin: 0;
-  height: 110px;
+  height: 84px;
   overflow: hidden;
-  padding: 26px 26px 0;
+  padding: 24px 26px 0;
   display: grid;
   align-content: start;
   justify-items: stretch;
   background: transparent;
 }
 
+/* Bounded on both sides rather than given the card's full width. Spreading a
+   wide wordmark across the whole card made the funding partners tower over
+   their own names; capping the width holds every mark to a similar drawn
+   weight whatever its shape. */
 .cardMedia img {
   display: block;
-  width: 100%;
-  height: 72px;
+  width: auto;
+  max-width: 160px;
+  height: 54px;
   /* drawn to fit the strip, never cropped or stretched, anchored to the left
      edge the partner's name and copy below also start from */
   object-fit: contain;
