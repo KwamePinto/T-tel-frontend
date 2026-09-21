@@ -21,8 +21,12 @@ import styles from "./Home.module.css";
  * the figure to work out is the one that keeps width × height constant —
  * h = √(area ÷ ratio) — rather than a height they all share.
  */
-const LOGO_AREA = 10000; // the drawn area, in px², the funders row is built around
-const LOGO_MAX_H = 96;   // so the tallest crest doesn't set the band's height
+// Sized so the whole set stands in one row rather than being paged through:
+// six marks at this area, plus the gaps between them, come to about 920px of
+// the ~1000px the track has at desktop width. Raising it is what pushes the
+// row back into pages.
+const LOGO_AREA = 6000; // the drawn area, in px², the funders row is built around
+const LOGO_MAX_H = 80;  // so the tallest crest doesn't set the band's height
 
 function logoBox(ratio) {
   if (!ratio || !Number.isFinite(ratio)) return null;
@@ -74,7 +78,9 @@ export default function Home() {
   useEffect(() => {
     const updatePartnerPerView = () => {
       const width = window.innerWidth;
-      setPartnerPerView(width < 640 ? 1 : width < 1000 ? 2 : 3);
+      // the whole set at desktop width — at this size they fit, and a
+      // carousel of one page hides its own arrows
+      setPartnerPerView(width < 640 ? 2 : width < 1000 ? 3 : 6);
     };
     updatePartnerPerView();
     window.addEventListener("resize", updatePartnerPerView);
