@@ -353,14 +353,14 @@
 }
 
 /* ================= FUNDERS ================= */
-.funders { background: var(--bg); padding: 60px 0 72px; }
+.funders { background: var(--bg); padding: 44px 0 56px; }
 
 .fundersTitle {
   text-align: center;
-  font-size: calc(36px * var(--ts));
+  font-size: calc(24px * var(--ts));
   font-weight: 500;
   color: var(--ink);
-  margin-bottom: 36px;
+  margin-bottom: 22px;
 }
 
 .fundersRow {
@@ -380,7 +380,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 26px 40px;
+  gap: 18px 28px;
   opacity: 1;
   transition: opacity 0.18s ease;
 }
@@ -397,8 +397,8 @@
    200px cap did to Prevail Fund's very wide wordmark. */
 .fundersTrack img {
   display: block;
-  max-width: 190px;
-  max-height: 80px;
+  max-width: 130px;
+  max-height: 56px;
   width: auto;
   object-fit: contain;
   transition: transform 0.4s var(--ease-out);
