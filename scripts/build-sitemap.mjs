@@ -8,7 +8,10 @@
  */
 import fs from "node:fs";
 
-const SITE = (process.argv[2] || process.env.SITE_URL || "https://t-tel-frontend.onrender.com").replace(/\/$/, "");
+const SITE = (
+  process.argv[2] || process.env.VITE_SITE_URL || process.env.SITE_URL ||
+  "https://t-tel-frontend.onrender.com"
+).replace(/\/$/, "");
 const API = (process.env.VITE_API_URL || "http://localhost:5000").replace(/\/$/, "");
 
 const get = async (p) => {

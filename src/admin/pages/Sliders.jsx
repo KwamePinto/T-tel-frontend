@@ -133,7 +133,7 @@ function SlideEditor({ slider, onSaved, onDelete }) {
         name,
         autoplay,
         intervalMs: Number(intervalMs) || 5000,
-        slides: slides.map(({ key, image, ...rest }, i) => ({
+        slides: slides.map(({ key: _key, image, ...rest }, i) => ({
           ...rest,
           image: image?._id || image || null,
           sortOrder: i,
