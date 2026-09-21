@@ -9,8 +9,10 @@ import { useCms } from "../../hooks/useCms";
 import styles from "./OurPartners.module.css";
 import { t } from "../../i18n";
 
-/** Keep the content groups from the CMS, while omitting the reference page's
- * principal Mastercard block as requested for this page. */
+/** The content groups, sourced from the CMS's own partner groups. This page
+ * skips the reference site's separate hero-sized "principal partner" block —
+ * every partner, Mastercard Foundation included, is a plain card in its
+ * group instead. */
 const FALLBACK_GROUPS = [
   { key: "government", title: "Government Partners" },
   { key: "university", title: "Universities" },
@@ -109,9 +111,7 @@ export default function OurPartners() {
       )}
 
       {visibleGroups.map(({ key, title }) => {
-        const items = all.filter(
-          (p) => inGroup(p, key) && p.name !== "Mastercard Foundation",
-        );
+        const items = all.filter((p) => inGroup(p, key));
         if (!items.length) return null;
         return (
           <section key={key} className={styles.group}>
