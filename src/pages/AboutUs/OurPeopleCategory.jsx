@@ -7,6 +7,7 @@ import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import styles from "./OurPeopleCategory.module.css";
+import { t } from "../../i18n";
 
 const TINTS = ["green", "blue", "gold", "greenAlt"];
 
@@ -32,7 +33,7 @@ export default function OurPeopleCategory() {
       />
 
       <SectionIntro
-        eyebrow="Governance"
+        eyebrow={t("Governance")}
         title={(group?.name || "").toUpperCase()}
         lead={group?.description}
         stacked
@@ -41,9 +42,9 @@ export default function OurPeopleCategory() {
       <section className="section">
         <div className="container">
           {people.loading && <CardsLoading count={8} />}
-          {people.error && <ErrorState error={people.error} onRetry={people.reload} label="team" />}
+          {people.error && <ErrorState error={people.error} onRetry={people.reload} label={t("team")} />}
           {!people.loading && !people.error && !items.length && (
-            <EmptyState>No people listed in this group yet.</EmptyState>
+            <EmptyState>{t("No people listed in this group yet.")}</EmptyState>
           )}
 
           <div className={styles.grid}>

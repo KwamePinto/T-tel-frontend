@@ -11,6 +11,7 @@ import e from "../styles/editorial.module.css";
 import cards from "./FocusAreas/FocusAreaDetail.module.css";
 import bands from "./Programmes/ProgrammeDetail.module.css";
 import styles from "./CustomPage.module.css";
+import { t } from "../i18n";
 
 /**
  * Renders any page the admin creates, in the shape of the menu it was filed
@@ -83,7 +84,7 @@ function FocusLayout({ page }) {
 
           <Link to="/focus-areas" className={cards.backLink}>
             <Icon name="arrowRight" size={16} style={{ transform: "rotate(180deg)" }} />
-            All focus areas
+            {t("All focus areas")}
           </Link>
         </aside>
       </div>
@@ -174,7 +175,7 @@ export default function CustomPage() {
     if (error.status === 404) return <NotFound />;
     return (
       <div className="container" style={{ paddingTop: "calc(var(--header-h) + 60px)" }}>
-        <ErrorState error={error} onRetry={reload} label="page" />
+        <ErrorState error={error} onRetry={reload} label={t("page")} />
       </div>
     );
   }

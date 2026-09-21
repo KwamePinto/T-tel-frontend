@@ -6,6 +6,7 @@ import SliderProgress from "./SliderProgress";
 import { CardsLoading, ErrorState } from "./States";
 import Icon from "./Icon";
 import styles from "./FocusCarousel.module.css";
+import { t } from "../i18n";
 
 export default function FocusCarousel() {
   const trackRef = useRef(null);
@@ -80,7 +81,7 @@ export default function FocusCarousel() {
   if (error) {
     return (
       <div className={styles.loadingWrap}>
-        <ErrorState error={error} onRetry={reload} label="focus areas" />
+        <ErrorState error={error} onRetry={reload} label={t("focus areas")} />
       </div>
     );
   }
@@ -92,7 +93,7 @@ export default function FocusCarousel() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className={styles.track} ref={trackRef} role="region" aria-label="Focus areas carousel">
+      <div className={styles.track} ref={trackRef} role="region" aria-label={t("Focus areas carousel")}>
         {areas.map((area, i) => (
           <Link
             key={area._id || area.slug}
@@ -122,10 +123,10 @@ export default function FocusCarousel() {
 
         {pages > 1 && (
           <div className={styles.nav}>
-            <button type="button" onClick={() => go(page - 1)} aria-label="Previous focus areas">
+            <button type="button" onClick={() => go(page - 1)} aria-label={t("Previous focus areas")}>
               <Icon name="arrowRight" size={18} style={{ transform: "rotate(180deg)" }} />
             </button>
-            <button type="button" onClick={() => go(page + 1)} aria-label="Next focus areas">
+            <button type="button" onClick={() => go(page + 1)} aria-label={t("Next focus areas")}>
               <Icon name="arrowRight" size={18} />
             </button>
           </div>

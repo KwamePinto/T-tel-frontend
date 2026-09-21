@@ -5,6 +5,7 @@ import { Loading, ErrorState } from "../components/States";
 import { cms, mediaUrl } from "../lib/cms";
 import { useCms } from "../hooks/useCms";
 import styles from "./ArticleDetail.module.css";
+import { t } from "../i18n";
 
 const formatDate = (v) =>
   v ? new Date(v).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
@@ -26,10 +27,10 @@ export default function ArticleDetail() {
     return (
       <section className="section">
         <div className="container">
-          <ErrorState error={error} onRetry={reload} label="article" />
+          <ErrorState error={error} onRetry={reload} label={t("article")} />
           <Link to="/news-and-media" className="link-arrow">
             <Icon name="arrowRight" size={16} style={{ transform: "rotate(180deg)" }} />
-            Back to News &amp; Media
+            {t("Back to News &amp; Media")}
           </Link>
         </div>
       </section>
@@ -42,7 +43,7 @@ export default function ArticleDetail() {
     <>
       <PageHero
         title={post.title}
-        crumb="News & Media"
+        crumb={t("News & Media")}
         image={mediaUrl(post.featuredImage) || "/images/focus/books-children.jpg"}
       />
 
@@ -64,13 +65,13 @@ export default function ArticleDetail() {
 
             <Link to="/news-and-media" className={styles.back}>
               <Icon name="arrowRight" size={16} style={{ transform: "rotate(180deg)" }} />
-              All articles
+              {t("All articles")}
             </Link>
           </article>
 
           {related.length > 0 && (
             <aside className={styles.aside}>
-              <h4>More articles</h4>
+              <h4>{t("More articles")}</h4>
               <ul>
                 {related.map((r) => (
                   <li key={r._id}>

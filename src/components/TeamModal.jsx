@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import Icon from "./Icon";
 import { mediaUrl } from "../lib/cms";
 import styles from "./TeamModal.module.css";
+import { t } from "../i18n";
 
 /** Bios arrive either as editor HTML or as plain text with blank lines. */
 function Bio({ text }) {
@@ -62,7 +63,7 @@ export default function TeamModal({ person, onClose, imageFit = "cover" }) {
         tabIndex={-1}
         ref={panel}
       >
-        <button className={styles.close} onClick={onClose} aria-label="Close">
+        <button className={styles.close} onClick={onClose} aria-label={t("Close")}>
           <Icon name="close" size={20} />
         </button>
 
@@ -105,7 +106,7 @@ export default function TeamModal({ person, onClose, imageFit = "cover" }) {
               {person.linkedin && (
                 <a href={person.linkedin} target="_blank" rel="noreferrer" className={styles.link}>
                   <Icon name="linkedin" size={16} />
-                  LinkedIn
+                  {t("LinkedIn")}
                 </a>
               )}
             </div>

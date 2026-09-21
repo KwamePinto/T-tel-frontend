@@ -240,3 +240,8 @@
      scrolls beneath it, so the panel is the same height for everyone. */
   .modal { grid-template-rows: 260px minmax(0, 1fr); height: min(88vh, 680px); }
 }
+
+/* A partner's logo opens in the contain variant, against the page background —
+   dark ink on a dark ground. Its plate is the panel itself rather than the
+   image, since the image is already inset by the panel's own padding. */
+:root[data-theme="dark"] .media.contain { background: #fff; }

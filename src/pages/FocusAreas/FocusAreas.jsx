@@ -7,6 +7,7 @@ import { cms } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import { useSite } from "../../context/SiteContext";
 import styles from "./FocusAreas.module.css";
+import { t } from "../../i18n";
 
 export default function FocusAreas() {
   const { settings } = useSite();
@@ -18,11 +19,11 @@ export default function FocusAreas() {
 
   return (
     <>
-      <Seo title="Focus Areas" description="The areas T-TEL works in: curriculum and assessment, teacher professional development, leadership, inclusion, data and digital learning." />
+      <Seo title={t("Focus Areas")} description="The areas T-TEL works in: curriculum and assessment, teacher professional development, leadership, inclusion, data and digital learning." />
       <CmsHero
         slug="focus-areas"
         title={settings.home_focus_heading || "Focus Areas"}
-        crumb="Focus Areas"
+        crumb={t("Focus Areas")}
         subtitle={settings.home_focus_intro}
         image="/images/focus/leadership-conference.jpg"
       />
@@ -30,8 +31,8 @@ export default function FocusAreas() {
       <section className="section">
         <div className="container">
           <div className={`${styles.intro} reveal`}>
-            <span className="eyebrow">What we focus on</span>
-            <h2>Where our technical assistance goes to work</h2>
+            <span className="eyebrow">{t("What we focus on")}</span>
+            <h2>{t("Where our technical assistance goes to work")}</h2>
             <p className="lede">
               Each focus area brings together policy support, capacity building and evidence, and is
               delivered in partnership with the Ministry of Education and its agencies.
@@ -39,8 +40,8 @@ export default function FocusAreas() {
           </div>
 
           {loading && <CardsLoading count={6} />}
-          {error && <ErrorState error={error} onRetry={reload} label="focus areas" />}
-          {!loading && !error && !areas.length && <EmptyState>No focus areas published yet.</EmptyState>}
+          {error && <ErrorState error={error} onRetry={reload} label={t("focus areas")} />}
+          {!loading && !error && !areas.length && <EmptyState>{t("No focus areas published yet.")}</EmptyState>}
 
           <div className={styles.grid}>
             {areas.map((area, i) => (
@@ -56,7 +57,7 @@ export default function FocusAreas() {
                 <h3>{area.title}</h3>
                 <p>{area.excerpt}</p>
                 <span className="link-arrow">
-                  View profile
+                  {t("View profile")}
                   <Icon name="arrowRight" size={17} />
                 </span>
               </Link>

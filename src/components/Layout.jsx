@@ -6,11 +6,16 @@ import CtaBand from "./CtaBand";
 import PageTransition from "./PageTransition";
 import useReveal from "../hooks/useReveal";
 import useSitePrefs from "../hooks/useSitePrefs";
+import { t, useLang } from "../i18n";
 
 export default function Layout() {
   const { pathname } = useLocation();
   useReveal();
   useSitePrefs();
+  // Subscribing here is what makes the plain t() calls throughout the site
+  // correct: a language change re-renders this tree, so every one of them runs
+  // again with the new language.
+  useLang();
 
   // `html { scroll-behavior: smooth }` is set globally, for in-page anchor
   // links and things like a "back to top" button — but it also applies to
@@ -35,7 +40,7 @@ export default function Layout() {
   return (
     <>
       <a href="#main" className="skip-link">
-        Skip to content
+        {t("Skip to content")}
       </a>
       {/* Every page sits over a hero, so the header is transparent until it
           scrolls. Home matches the flat black bar across its hero video

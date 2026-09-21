@@ -10,6 +10,7 @@ import prose from "../ArticleDetail.module.css";
 import e from "../../styles/editorial.module.css";
 import cards from "../FocusAreas/FocusAreaDetail.module.css";
 import styles from "./ProgrammeDetail.module.css";
+import { t } from "../../i18n";
 
 /**
  * A programme is nearly all text — these pages carry no pictures of their own
@@ -43,10 +44,10 @@ export default function ProgrammeDetail() {
     return (
       <section className="section">
         <div className="container">
-          <ErrorState error={item.error} onRetry={item.reload} label="programme" />
+          <ErrorState error={item.error} onRetry={item.reload} label={t("programme")} />
           <Link to="/programmes" className="link-arrow">
             <Icon name="arrowRight" size={16} style={{ transform: "rotate(180deg)" }} />
-            All programmes
+            {t("All programmes")}
           </Link>
         </div>
       </section>
@@ -78,7 +79,7 @@ export default function ProgrammeDetail() {
         <div className={`container ${styles.grid}`}>
           <div className={styles.head}>
             <div className={styles.headInner}>
-              <span className={e.eyebrow}>Overview</span>
+              <span className={e.eyebrow}>{t("Overview")}</span>
               <h2 className={e.display}>{post.title}</h2>
               {post.excerpt && <p className={styles.standfirst}>{post.excerpt}</p>}
             </div>
@@ -102,8 +103,8 @@ export default function ProgrammeDetail() {
           <div className={`container ${styles.grid}`}>
             <div className={styles.head}>
               <div className={styles.headInner}>
-                <span className={e.eyebrow}>The Project</span>
-                <h2 className={e.display}>At a glance</h2>
+                <span className={e.eyebrow}>{t("The Project")}</span>
+                <h2 className={e.display}>{t("At a glance")}</h2>
               </div>
             </div>
 
@@ -118,7 +119,7 @@ export default function ProgrammeDetail() {
       {others.length > 0 && (
         <section className={`section ${cards.others}`}>
           <div className="container">
-            <h2 className={`${cards.othersTitle} reveal`}>Other programmes</h2>
+            <h2 className={`${cards.othersTitle} reveal`}>{t("Other programmes")}</h2>
             <div className={cards.othersGrid}>
               {others.map((o, i) => (
                 <Link
@@ -131,7 +132,7 @@ export default function ProgrammeDetail() {
                   {o.meta?.description && <span className={cards.otherTag}>{o.meta.description}</span>}
                   <h3>{o.title}</h3>
                   <span className="link-arrow">
-                    Learn more
+                    {t("Learn more")}
                     <Icon name="arrowRight" size={16} />
                   </span>
                 </Link>

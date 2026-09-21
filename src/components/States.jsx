@@ -1,4 +1,5 @@
 import styles from "./States.module.css";
+import { t } from "../i18n";
 
 export function Loading({ label = "Loading…", rows = 3 }) {
   return (
@@ -14,7 +15,7 @@ export function Loading({ label = "Loading…", rows = 3 }) {
 export function CardsLoading({ count = 3 }) {
   return (
     <div className={styles.cards} role="status" aria-live="polite">
-      <span className={styles.srOnly}>Loading…</span>
+      <span className={styles.srOnly}>{t("Loading…")}</span>
       {Array.from({ length: count }).map((_, i) => (
         <div key={i} className={styles.card}>
           <span className={styles.thumb} />
@@ -35,7 +36,7 @@ export function ErrorState({ error, onRetry, label = "content" }) {
       <p className={styles.detail}>{error?.message || "Please try again in a moment."}</p>
       {onRetry && (
         <button type="button" className="btn btn-outline" onClick={onRetry}>
-          Try again
+          {t("Try again")}
         </button>
       )}
     </div>

@@ -6,6 +6,7 @@ import { mediaUrl } from "../lib/cms";
 import AccessibilityPanel from "./AccessibilityPanel";
 import SiteSearch from "./SiteSearch";
 import styles from "./Header.module.css";
+import { t } from "../i18n";
 
 function DesktopNavItem({ item }) {
   const [open, setOpen] = useState(false);
@@ -46,7 +47,7 @@ function DesktopNavItem({ item }) {
           to={item.to}
           className={({ isActive }) => (isActive ? styles.active : undefined)}
         >
-          {item.label}
+          {t(item.label)}
         </NavLink>
       </li>
     );
@@ -59,7 +60,7 @@ function DesktopNavItem({ item }) {
         className={({ isActive }) => (isActive ? styles.active : undefined)}
         aria-expanded={open}
       >
-        {item.label}
+        {t(item.label)}
         <Icon name="chevronDown" size={15} className={styles.caret} />
       </NavLink>
 
@@ -67,13 +68,13 @@ function DesktopNavItem({ item }) {
         <ul>
           {item.children.map((child) => (
             <li
-              key={child.label}
+              key={t(child.label)}
               onMouseEnter={() => setSubOpen(child.label)}
               onMouseLeave={() => setSubOpen(null)}
               className={child.children ? styles.hasSub : undefined}
             >
               <Link to={child.to} onClick={close}>
-                <span>{child.label}</span>
+                <span>{t(child.label)}</span>
                 {child.children && <Icon name="chevronRight" size={16} />}
               </Link>
 
@@ -85,9 +86,9 @@ function DesktopNavItem({ item }) {
                 >
                   <ul>
                     {child.children.map((leaf) => (
-                      <li key={leaf.label}>
+                      <li key={t(leaf.label)}>
                         <Link to={leaf.to} onClick={close}>
-                          <span>{leaf.label}</span>
+                          <span>{t(leaf.label)}</span>
                         </Link>
                       </li>
                     ))}
@@ -109,7 +110,7 @@ function MobileNavItem({ item, onNavigate }) {
     return (
       <li>
         <Link to={item.to} onClick={onNavigate} className={styles.mLink}>
-          {item.label}
+          {t(item.label)}
         </Link>
       </li>
     );
@@ -122,27 +123,27 @@ function MobileNavItem({ item, onNavigate }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
-        {item.label}
+        {t(item.label)}
         <Icon name="chevronDown" size={18} style={{ transform: open ? "rotate(180deg)" : "none" }} />
       </button>
       {open && (
         <ul className={styles.mSub}>
           <li>
             <Link to={item.to} onClick={onNavigate} className={styles.mSubLink}>
-              Overview
+              {t("Overview")}
             </Link>
           </li>
           {item.children.map((child) => (
-            <li key={child.label}>
+            <li key={t(child.label)}>
               <Link to={child.to} onClick={onNavigate} className={styles.mSubLink}>
-                {child.label}
+                {t(child.label)}
               </Link>
               {child.children && (
                 <ul className={styles.mSub}>
                   {child.children.map((leaf) => (
-                    <li key={leaf.label}>
+                    <li key={t(leaf.label)}>
                       <Link to={leaf.to} onClick={onNavigate} className={styles.mLeafLink}>
-                        {leaf.label}
+                        {t(leaf.label)}
                       </Link>
                     </li>
                   ))}
@@ -207,15 +208,15 @@ export default function Header({ transparent = false, onHero = "gradient" }) {
   return (
     <header className={`${styles.header} ${solid ? styles.solid : overlay}`}>
       <div className={`container ${styles.inner}`}>
-        <Link to="/" className={styles.logo} aria-label="T-TEL home">
+        <Link to="/" className={styles.logo} aria-label={t("T-TEL home")}>
           <img src={mediaUrl(settings.logo_url) || "/images/logo-ink.png"} alt={settings.site_name || "T-TEL"} className={styles.logoInk} />
           <img src={mediaUrl(settings.logo_dark_url) || "/images/logo-white.png"} alt="" aria-hidden="true" className={styles.logoLight} />
         </Link>
 
-        <nav className={styles.nav} aria-label="Main">
+        <nav className={styles.nav} aria-label={t("Main")}>
           <ul className={styles.navList}>
             {navItems.map((item) => (
-              <DesktopNavItem key={item.label} item={item} />
+              <DesktopNavItem key={t(item.label)} item={item} />
             ))}
           </ul>
         </nav>
@@ -225,7 +226,7 @@ export default function Header({ transparent = false, onHero = "gradient" }) {
           <button
             className={styles.iconBtn}
             onClick={() => setSearchOpen((v) => !v)}
-            aria-label="Search"
+            aria-label={t("Search")}
             aria-expanded={searchOpen}
           >
             <Icon name="search" size={20} />
@@ -236,7 +237,7 @@ export default function Header({ transparent = false, onHero = "gradient" }) {
             <button
               className={`${styles.iconBtn} ${a11yOpen ? styles.gearOn : ""}`}
               onClick={() => setA11yOpen((v) => !v)}
-              aria-label="Accessibility and display settings"
+              aria-label={t("Accessibility and display settings")}
               aria-expanded={a11yOpen}
             >
               <Icon name="settings" size={20} />
@@ -248,7 +249,7 @@ export default function Header({ transparent = false, onHero = "gradient" }) {
           <button
             className={`${styles.iconBtn} ${styles.burger}`}
             onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label={t("Toggle menu")}
             aria-expanded={mobileOpen}
           >
             <Icon name={mobileOpen ? "close" : "menu"} size={26} />
@@ -260,10 +261,10 @@ export default function Header({ transparent = false, onHero = "gradient" }) {
 
 
       {mobileOpen && (
-        <nav className={styles.mobileNav} aria-label="Mobile">
+        <nav className={styles.mobileNav} aria-label={t("Mobile")}>
           <ul>
             {navItems.map((item) => (
-              <MobileNavItem key={item.label} item={item} onNavigate={() => setMobileOpen(false)} />
+              <MobileNavItem key={t(item.label)} item={item} onNavigate={() => setMobileOpen(false)} />
             ))}
           </ul>
         </nav>

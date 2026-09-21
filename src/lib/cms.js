@@ -1,3 +1,5 @@
+import { DEFAULT_LANG, getLang } from "../i18n/store";
+
 function resolveApiBase() {
   const configured = import.meta.env.VITE_API_URL || "";
   if (configured && configured !== "http://localhost:5000" && configured !== "http://127.0.0.1:5000") {
@@ -16,6 +18,10 @@ const BASE = resolveApiBase();
 
 async function get(path, params) {
   const url = new URL(`/api${path}`, BASE);
+  // The API answers in English unless asked otherwise, and falls back field by
+  // field, so a record with no French yet still comes back readable.
+  const lang = getLang();
+  if (lang !== DEFAULT_LANG) url.searchParams.set("lang", lang);
   if (params) {
     for (const [k, v] of Object.entries(params)) {
       if (v !== undefined && v !== null && v !== "") url.searchParams.set(k, v);

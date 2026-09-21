@@ -448,3 +448,15 @@
   .artGrid { grid-template-columns: repeat(3, 1fr); }
   .focusHead { grid-template-columns: auto 1fr; gap: 48px; }
 }
+
+/* Partner marks are supplied as dark ink on transparency, so on the dark theme
+   they all but vanish. Repainting them is not an option — a funder's mark is
+   their property and must render as issued — so each one gets the light plate
+   it was drawn for. The plate sits on the list item, leaving the measured
+   width and height on the image itself untouched, so the equal-area sizing is
+   unaffected. */
+:root[data-theme="dark"] .fundersTrack li {
+  background: #fff;
+  padding: 12px 16px;
+  border-radius: 6px;
+}

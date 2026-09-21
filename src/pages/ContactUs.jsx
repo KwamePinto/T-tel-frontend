@@ -7,6 +7,7 @@ import { cms } from "../lib/cms";
 import { useCms } from "../hooks/useCms";
 import { useSite } from "../context/SiteContext";
 import styles from "./ContactUs.module.css";
+import { t } from "../i18n";
 
 const SOCIALS = [
   ["social_facebook", "facebook", "Facebook"],
@@ -69,7 +70,7 @@ export default function ContactUs() {
           <textarea {...common} rows={7} />
         ) : field.type === "select" ? (
           <select {...common}>
-            <option value="">Please choose…</option>
+            <option value="">{t("Please choose…")}</option>
             {(field.options || []).map((o) => (
               <option key={o} value={o}>{o}</option>
             ))}
@@ -83,11 +84,11 @@ export default function ContactUs() {
 
   return (
     <>
-      <Seo title="Contact Us" description="Get in touch with T-TEL. Ministries, funders, researchers and school leaders are welcome at every level of the system." />
+      <Seo title={t("Contact Us")} description="Get in touch with T-TEL. Ministries, funders, researchers and school leaders are welcome at every level of the system." />
       <CmsHero
         slug="contact-us"
-        title="Contact Us"
-        crumb="Contact Us"
+        title={t("Contact Us")}
+        crumb={t("Contact Us")}
         subtitle="Have questions or enquiries? Reach us using the details below or complete the enquiry form."
         image="/images/focus/laptop-review.jpg"
       />
@@ -95,15 +96,15 @@ export default function ContactUs() {
       <section className="section">
         <div className={`container ${styles.layout}`}>
           <div className={`${styles.info} reveal`}>
-            <span className="eyebrow">Get in touch</span>
-            <h2>Talk to the team</h2>
+            <span className="eyebrow">{t("Get in touch")}</span>
+            <h2>{t("Talk to the team")}</h2>
 
             <ul className={styles.details}>
               {settings.contact_address && (
                 <li>
                   <Icon name="pin" size={19} />
                   <div>
-                    <strong>Office</strong>
+                    <strong>{t("Office")}</strong>
                     {String(settings.contact_address).split("\n").map((line) => (
                       <span key={line} style={{ display: "block" }}>{line}</span>
                     ))}
@@ -114,7 +115,7 @@ export default function ContactUs() {
                 <li>
                   <Icon name="mail" size={19} />
                   <div>
-                    <strong>Email</strong>
+                    <strong>{t("Email")}</strong>
                     <a href={`mailto:${settings.contact_email}`}>{settings.contact_email}</a>
                   </div>
                 </li>
@@ -123,7 +124,7 @@ export default function ContactUs() {
                 <li>
                   <Icon name="phone" size={19} />
                   <div>
-                    <strong>Phone</strong>
+                    <strong>{t("Phone")}</strong>
                     <a href={`tel:${String(settings.contact_phone).replace(/[^\d+]/g, "")}`}>
                       {settings.contact_phone}
                     </a>
@@ -134,7 +135,7 @@ export default function ContactUs() {
                 <li>
                   <Icon name="document" size={19} />
                   <div>
-                    <strong>Opening hours</strong>
+                    <strong>{t("Opening hours")}</strong>
                     {String(settings.contact_hours).split("\n").map((line) => (
                       <span key={line} style={{ display: "block" }}>{line}</span>
                     ))}
@@ -144,7 +145,7 @@ export default function ContactUs() {
             </ul>
 
             <div className={styles.socialRow}>
-              <span>Connect with us</span>
+              <span>{t("Connect with us")}</span>
               <div>
                 {SOCIALS.filter(([key]) => settings[key]).map(([key, icon, label]) => (
                   <a key={key} href={settings[key]} target="_blank" rel="noreferrer" aria-label={label}>
@@ -157,7 +158,7 @@ export default function ContactUs() {
 
           <div className={`${styles.formCard} reveal`} data-delay="1">
             {loading && <Loading rows={5} />}
-            {error && <ErrorState error={error} onRetry={reload} label="form" />}
+            {error && <ErrorState error={error} onRetry={reload} label={t("form")} />}
 
             {form && (
               <>
@@ -202,7 +203,7 @@ export default function ContactUs() {
 
       {settings.contact_map_embed && (
         <section className={styles.mapSection}>
-          <iframe title="T-TEL office location" src={settings.contact_map_embed} loading="lazy" />
+          <iframe title={t("T-TEL office location")} src={settings.contact_map_embed} loading="lazy" />
         </section>
       )}
     </>

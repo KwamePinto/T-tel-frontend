@@ -8,6 +8,7 @@ import { cms, mediaUrl } from "../lib/cms";
 import { useCms } from "../hooks/useCms";
 import { useSite } from "../context/SiteContext";
 import styles from "./NewsAndMedia.module.css";
+import { t } from "../i18n";
 
 const CATEGORY_COLOR = {
   Report: "var(--blue)",
@@ -43,7 +44,7 @@ export default function NewsAndMedia() {
 
   return (
     <>
-      <Seo title="News &amp; Media" description="Announcements, field stories and press coverage from T-TEL and its partners across Ghana's education system." />
+      <Seo title={t("News &amp; Media")} description="Announcements, field stories and press coverage from T-TEL and its partners across Ghana's education system." />
       <CmsHero
         slug="news-and-media"
         title={settings.blog_label || "News & Media"}
@@ -68,7 +69,7 @@ export default function NewsAndMedia() {
               onClick={() => { setTag(""); setPage(1); }}
               className={!tag ? styles.filterOn : styles.filter}
             >
-              All
+              {t("All")}
             </button>
             {tags.map((t) => (
               <button
@@ -83,8 +84,8 @@ export default function NewsAndMedia() {
           </div>
 
           {loading && <CardsLoading count={6} />}
-          {error && <ErrorState error={error} onRetry={reload} label="articles" />}
-          {!loading && !error && !items.length && <EmptyState>No articles published yet.</EmptyState>}
+          {error && <ErrorState error={error} onRetry={reload} label={t("articles")} />}
+          {!loading && !error && !items.length && <EmptyState>{t("No articles published yet.")}</EmptyState>}
 
           {!loading && !error && items.length > 0 && (
             <div className={styles.layout}>
@@ -109,7 +110,7 @@ export default function NewsAndMedia() {
                       <h2>{featured.title}</h2>
                       <p>{featured.excerpt}</p>
                       <Link to={`/news-and-media/${featured.slug}`} className="link-arrow">
-                        Full story
+                        {t("Full story")}
                         <Icon name="arrowRight" size={17} />
                       </Link>
                     </div>
@@ -142,12 +143,12 @@ export default function NewsAndMedia() {
                 </div>
 
                 {pages > 1 && (
-                  <nav className={styles.pagination} aria-label="Pagination">
+                  <nav className={styles.pagination} aria-label={t("Pagination")}>
                     <button
                       type="button"
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
                       disabled={page === 1}
-                      aria-label="Previous page"
+                      aria-label={t("Previous page")}
                     >
                       <Icon name="arrowRight" size={17} style={{ transform: "rotate(180deg)" }} />
                     </button>
@@ -158,7 +159,7 @@ export default function NewsAndMedia() {
                       type="button"
                       onClick={() => setPage((p) => Math.min(pages, p + 1))}
                       disabled={page === pages}
-                      aria-label="Next page"
+                      aria-label={t("Next page")}
                     >
                       <Icon name="arrowRight" size={17} />
                     </button>
@@ -167,7 +168,7 @@ export default function NewsAndMedia() {
               </div>
 
               <aside className={styles.sidebar}>
-                <h4 className={styles.sidebarTitle}>Latest Briefing</h4>
+                <h4 className={styles.sidebarTitle}>{t("Latest Briefing")}</h4>
                 <ol className={styles.briefing}>
                   {items.slice(0, 5).map((n, i) => (
                     <li key={n._id}>
@@ -187,10 +188,10 @@ export default function NewsAndMedia() {
                 </ol>
 
                 <div className={styles.press}>
-                  <h4>Press &amp; Media</h4>
-                  <p>Access our digital assets and media kits for institutional coverage.</p>
+                  <h4>{t("Press &amp; Media")}</h4>
+                  <p>{t("Access our digital assets and media kits for institutional coverage.")}</p>
                   <a href={`mailto:${settings.contact_email || "info@t-tel.org"}`} className={styles.pressLink}>
-                    Inquiries
+                    {t("Inquiries")}
                     <Icon name="arrowRight" size={16} />
                   </a>
                 </div>

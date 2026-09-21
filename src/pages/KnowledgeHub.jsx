@@ -6,6 +6,7 @@ import { CardsLoading, ErrorState, EmptyState } from "../components/States";
 import { cms } from "../lib/cms";
 import { useCms } from "../hooks/useCms";
 import styles from "./KnowledgeHub.module.css";
+import { t } from "../i18n";
 
 const TINTS = ["mint", "blue", "cream"];
 
@@ -18,11 +19,11 @@ export default function KnowledgeHub() {
 
   return (
     <>
-      <Seo title="Knowledge Hub" description="Course manuals, handbooks, evaluation reports and policy documents from a decade of education reform in Ghana — free to download." />
+      <Seo title={t("Knowledge Hub")} description="Course manuals, handbooks, evaluation reports and policy documents from a decade of education reform in Ghana — free to download." />
       <CmsHero
         slug="knowledge-hub"
-        title="Knowledge Hub"
-        crumb="Knowledge Hub"
+        title={t("Knowledge Hub")}
+        crumb={t("Knowledge Hub")}
         subtitle="Research, teaching resources, evaluation reports and publications from a decade of education reform in Ghana."
         image="/images/focus/library-review.jpg"
       />
@@ -30,8 +31,8 @@ export default function KnowledgeHub() {
       <section className="section">
         <div className="container">
           <div className={`${styles.intro} reveal`}>
-            <span className="eyebrow">Resources</span>
-            <h2>Browse the collections</h2>
+            <span className="eyebrow">{t("Resources")}</span>
+            <h2>{t("Browse the collections")}</h2>
             <p className="lede">
               Our library brings together {totalFiles > 0 ? `${totalFiles} ` : ""}course manuals,
               handbooks, datasets and reports produced with the Ministry of Education and its
@@ -40,9 +41,9 @@ export default function KnowledgeHub() {
           </div>
 
           {loading && <CardsLoading count={4} />}
-          {error && <ErrorState error={error} onRetry={reload} label="collections" />}
+          {error && <ErrorState error={error} onRetry={reload} label={t("collections")} />}
           {!loading && !error && collections.length === 0 && (
-            <EmptyState>No collections published yet.</EmptyState>
+            <EmptyState>{t("No collections published yet.")}</EmptyState>
           )}
 
           <div className={styles.grid}>
@@ -80,7 +81,7 @@ export default function KnowledgeHub() {
                 )}
 
                 <Link to={`/knowledge-hub/${c.slug}`} className="link-arrow">
-                  Browse collection
+                  {t("Browse collection")}
                   <Icon name="arrowRight" size={16} />
                 </Link>
               </article>

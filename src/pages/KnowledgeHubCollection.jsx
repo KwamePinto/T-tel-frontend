@@ -7,6 +7,7 @@ import { CardsLoading, ErrorState, EmptyState } from "../components/States";
 import { cms, mediaUrl } from "../lib/cms";
 import { useCms } from "../hooks/useCms";
 import styles from "./KnowledgeHubCollection.module.css";
+import { t } from "../i18n";
 
 /* Secondary Education is published as four groups. The live site gives each
    its own page; we filter the one collection in place, which keeps the sort,
@@ -115,8 +116,8 @@ export default function KnowledgeHubCollection() {
 
       <section className="section">
         <div className="container">
-          <nav className={styles.crumbs} aria-label="Breadcrumb">
-            <Link to="/knowledge-hub">Knowledge Hub</Link>
+          <nav className={styles.crumbs} aria-label={t("Breadcrumb")}>
+            <Link to="/knowledge-hub">{t("Knowledge Hub")}</Link>
             {parent && (
               <>
                 <Icon name="chevronRight" size={14} />
@@ -175,25 +176,25 @@ export default function KnowledgeHubCollection() {
                 type="search"
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
-                placeholder="Search keyword…"
-                aria-label="Search this collection"
+                placeholder={t("Search keyword…")}
+                aria-label={t("Search this collection")}
               />
             </div>
 
-            <select value={sort} onChange={(e) => setParam({ sort: e.target.value })} aria-label="Order by">
+            <select value={sort} onChange={(e) => setParam({ sort: e.target.value })} aria-label={t("Order by")}>
               {SORTS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
             </select>
 
-            <select value={order} onChange={(e) => setParam({ order: e.target.value })} aria-label="Order">
-              <option value="desc">Descending</option>
-              <option value="asc">Ascending</option>
+            <select value={order} onChange={(e) => setParam({ order: e.target.value })} aria-label={t("Order")}>
+              <option value="desc">{t("Descending")}</option>
+              <option value="asc">{t("Ascending")}</option>
             </select>
 
-            <button type="submit" className={styles.applyBtn}>Apply Filter</button>
+            <button type="submit" className={styles.applyBtn}>{t("Apply Filter")}</button>
           </form>
 
           {loading && <CardsLoading count={8} />}
-          {error && <ErrorState error={error} onRetry={reload} label="documents" />}
+          {error && <ErrorState error={error} onRetry={reload} label={t("documents")} />}
 
           {!loading && !error && items.length === 0 && (
             <EmptyState>
@@ -229,11 +230,11 @@ export default function KnowledgeHubCollection() {
                           height="640"
                         />
                       ) : (
-                        <span className={styles.coverFallback}>PDF</span>
+                        <span className={styles.coverFallback}>{t("PDF")}</span>
                       )}
                       <span className={styles.coverOverlay}>
                         <Icon name="eye" size={20} />
-                        Read
+                        {t("Read")}
                       </span>
                     </button>
 
@@ -256,19 +257,19 @@ export default function KnowledgeHubCollection() {
                       aria-label={`Download ${doc.title}`}
                     >
                       <Icon name="download" size={15} />
-                      Download
+                      {t("Download")}
                     </button>
                   </article>
                 ))}
               </div>
 
               {pages > 1 && (
-                <nav className={styles.pager} aria-label="Pagination">
+                <nav className={styles.pager} aria-label={t("Pagination")}>
                   <button
                     type="button"
                     disabled={page <= 1}
                     onClick={() => setParam({ page: page - 1 })}
-                    aria-label="Previous page"
+                    aria-label={t("Previous page")}
                   >
                     <Icon name="arrowRight" size={17} style={{ transform: "rotate(180deg)" }} />
                   </button>
@@ -277,7 +278,7 @@ export default function KnowledgeHubCollection() {
                     type="button"
                     disabled={page >= pages}
                     onClick={() => setParam({ page: page + 1 })}
-                    aria-label="Next page"
+                    aria-label={t("Next page")}
                   >
                     <Icon name="arrowRight" size={17} />
                   </button>

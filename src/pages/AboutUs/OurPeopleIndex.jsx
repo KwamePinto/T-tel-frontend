@@ -7,6 +7,7 @@ import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms } from "../../lib/cms";
 import { useCms } from "../../hooks/useCms";
 import styles from "./OurPeopleIndex.module.css";
+import { t } from "../../i18n";
 
 const TINTS = ["mint", "blue", "cream"];
 const ICONS = ["people", "target", "document", "people", "eye", "settings"];
@@ -17,12 +18,12 @@ export default function OurPeopleIndex() {
 
   return (
     <>
-      <Seo title="Our People" description="T-TEL's subscribers, board of directors, key advisors, senior management and technical team." />
-      <CmsHero slug="about-us/our-people" title="Our People" crumb="Our People" image="/images/photos/team-group.jpg" />
+      <Seo title={t("Our People")} description="T-TEL's subscribers, board of directors, key advisors, senior management and technical team." />
+      <CmsHero slug="about-us/our-people" title={t("Our People")} crumb={t("Our People")} image="/images/photos/team-group.jpg" />
 
       <SectionIntro
-        eyebrow="Governance & Delivery"
-        title="The People"
+        eyebrow={t("Governance & Delivery")}
+        title={t("The People")}
         accent="Behind the Work"
         lead="From our founding Subscribers to the technical specialists working in colleges and districts — here is the team making reform possible."
         stacked
@@ -31,8 +32,8 @@ export default function OurPeopleIndex() {
       <section className="section">
         <div className="container">
           {loading && <CardsLoading count={6} />}
-          {error && <ErrorState error={error} onRetry={reload} label="directory" />}
-          {!loading && !error && !groups.length && <EmptyState>No groups yet.</EmptyState>}
+          {error && <ErrorState error={error} onRetry={reload} label={t("directory")} />}
+          {!loading && !error && !groups.length && <EmptyState>{t("No groups yet.")}</EmptyState>}
 
           <div className={styles.grid}>
             {groups.map((g, i) => (

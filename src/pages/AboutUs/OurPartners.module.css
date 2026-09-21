@@ -142,3 +142,17 @@
 @media (min-width: 1060px) {
   .cardMedia { height: 122px; }
 }
+
+/* See the note on the funders strip: supplied marks are dark ink on
+   transparency and need the light ground they were drawn for. Box-sizing is
+   border-box site-wide, so the height and width both grow by the padding to
+   keep the drawn mark exactly the size it is on the light theme. */
+:root[data-theme="dark"] .cardMedia img {
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  height: 70px;
+  max-width: 180px;
+}
+
+:root[data-theme="dark"] .cardMedia { height: 100px; }

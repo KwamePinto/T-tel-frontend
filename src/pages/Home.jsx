@@ -9,6 +9,7 @@ import { useCms } from "../hooks/useCms";
 import { useSite } from "../context/SiteContext";
 import { CardsLoading, ErrorState } from "../components/States";
 import styles from "./Home.module.css";
+import { t } from "../i18n";
 
 /**
  * The funders' logos arrive in wildly different shapes — a 1796×632 wordmark
@@ -291,14 +292,14 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setArtPage((p) => (p - 1 + artPages) % artPages)}
-                aria-label="Previous articles"
+                aria-label={t("Previous articles")}
               >
                 <Icon name="arrowRight" size={17} style={{ transform: "rotate(180deg)" }} />
               </button>
               <button
                 type="button"
                 onClick={() => setArtPage((p) => (p + 1) % artPages)}
-                aria-label="Next articles"
+                aria-label={t("Next articles")}
               >
                 <Icon name="arrowRight" size={17} />
               </button>
@@ -307,7 +308,7 @@ export default function Home() {
           </div>
 
           {articles.loading && <CardsLoading count={3} />}
-          {articles.error && <ErrorState error={articles.error} onRetry={articles.reload} label="articles" />}
+          {articles.error && <ErrorState error={articles.error} onRetry={articles.reload} label={t("articles")} />}
 
           <div className={styles.artGrid}>
             {visibleArticles.map((n) => (
@@ -321,7 +322,7 @@ export default function Home() {
                 <h3>{n.title}</h3>
                 <p>{n.excerpt}</p>
                 <Link to={`/news-and-media/${n.slug}`} className={styles.artBtn}>
-                  Learn more
+                  {t("Learn more")}
                 </Link>
               </article>
             ))}
@@ -329,7 +330,7 @@ export default function Home() {
 
           <div className={styles.artFoot}>
             <Link to="/news-and-media" className={styles.viewAll}>
-              View all posts
+              {t("View all posts")}
               <Icon name="arrowRight" size={17} />
             </Link>
           </div>
@@ -359,7 +360,7 @@ export default function Home() {
                 type="button"
                 className={styles.fundersNav}
                 onClick={() => goToPartnerPage(partnerPage - 1)}
-                aria-label="Previous funders"
+                aria-label={t("Previous funders")}
               >
                 <Icon name="arrowRight" size={18} style={{ transform: "rotate(180deg)" }} />
               </button>
@@ -383,7 +384,7 @@ export default function Home() {
                 type="button"
                 className={styles.fundersNav}
                 onClick={() => goToPartnerPage(partnerPage + 1)}
-                aria-label="Next funders"
+                aria-label={t("Next funders")}
               >
                 <Icon name="arrowRight" size={18} />
               </button>
