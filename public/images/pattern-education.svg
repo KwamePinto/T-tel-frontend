@@ -16,13 +16,6 @@
       <path d="M46 15v11" stroke="#e4ece7" stroke-width="2.4" stroke-linecap="round"/>
     </g>
 
-    <!-- simplified Ghana outline -->
-    <g id="ghana">
-      <path d="M6 5h30l6 7 3 13-4 9-6 6-5 9-6-2-3-8-9-6-4-10z"
-            fill="none" stroke="#e4ece7" stroke-width="2.4" stroke-linejoin="round"/>
-      <path d="M17 4v5" stroke="#e4ece7" stroke-width="2.4" stroke-linecap="round"/>
-    </g>
-
     <!-- pencil -->
     <g id="pencil">
       <path d="M4 40 8 28 30 6l8 8-22 22z" fill="none" stroke="#e4ece7"
@@ -39,18 +32,18 @@
 
   <g>
     <use href="#cap"    x="34"  y="28"  transform="rotate(-9 59 45)"/>
-    <use href="#ghana"  x="232" y="16"  transform="rotate(7 258 38)"/>
+    <use href="#star"   x="232" y="16"  transform="rotate(7 258 38)"/>
     <use href="#book"   x="430" y="46"  transform="rotate(-4 455 64)"/>
     <use href="#star"   x="560" y="150" transform="rotate(12 578 168)"/>
     <use href="#pencil" x="120" y="150" transform="rotate(14 141 173)"/>
     <use href="#book"   x="300" y="186" transform="rotate(11 325 204)"/>
     <use href="#cap"    x="452" y="250" transform="rotate(6 477 267)"/>
-    <use href="#ghana"  x="40"  y="286" transform="rotate(-6 66 308)"/>
+    <use href="#pencil" x="40"  y="286" transform="rotate(-6 66 308)"/>
     <use href="#star"   x="226" y="330" transform="rotate(-14 244 348)"/>
     <use href="#pencil" x="560" y="376" transform="rotate(-11 581 399)"/>
     <use href="#book"   x="86"  y="452" transform="rotate(8 111 470)"/>
     <use href="#cap"    x="330" y="470" transform="rotate(-8 355 487)"/>
-    <use href="#ghana"  x="470" y="520" transform="rotate(10 496 542)"/>
+    <use href="#book"   x="470" y="520" transform="rotate(10 496 542)"/>
     <use href="#star"   x="176" y="566" transform="rotate(5 194 584)"/>
     <use href="#pencil" x="608" y="588" transform="rotate(16 629 611)"/>
     <use href="#pencil" x="-32" y="588" transform="rotate(16 -11 611)"/>
