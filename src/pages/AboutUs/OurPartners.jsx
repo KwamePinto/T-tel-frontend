@@ -116,7 +116,7 @@ export default function OurPartners() {
         return (
           <section key={key} className={styles.group}>
             <div className={styles.headingWrap}>
-              <h2 className="reveal">{title}</h2>
+              <h2 className="reveal">{t(title)}</h2>
             </div>
             <div className="container">
               <div className={styles.cards}>

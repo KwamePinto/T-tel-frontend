@@ -156,6 +156,10 @@ export default {
   "Policy documents will appear here once they are published.":
     "Les documents de politique apparaîtront ici une fois publiés.",
 
+  "Government Partners": "Partenaires gouvernementaux",
+  "Universities": "Universités",
+  "Funding & Project Partners": "Bailleurs et partenaires de projet",
+
   // ---- menu labels held in the CMS, translated here as a fallback ----
   "Subscribers": "Membres fondateurs",
   "Board of Directors": "Conseil d’administration",
