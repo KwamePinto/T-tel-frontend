@@ -90,16 +90,32 @@
    of these paragraphs. */
 .introSection { padding: 4px 0 0; }
 
-/* The line beneath the account, above the photos, on every category —
-   with or without an intro paragraph. Its own top margin is the space
-   between the text above and the line; .section's top padding below is
-   the space between the line and the photos. */
+/* The line beneath the account, above the photos, on every category — with
+   or without an intro paragraph. Both gaps around it match the one between
+   the heading's short lead and the account above (24px: the lead's 20px
+   margin-bottom + introSection's 4px top padding).
+   The intro paragraph's own last-child margin is zeroed below, so this
+   margin-top is the entire gap above the line when there is one. */
 .rule {
   display: block;
   border: 0;
   border-top: 2px solid var(--ink);
-  margin: clamp(48px, 6vw, 80px) 0 0;
+  margin: 24px 0 0;
   opacity: 0.85;
+}
+
+/* Without an intro paragraph, the divider sits right after SectionIntro's
+   lead — whose 20px margin-bottom is already real space by then, because
+   grid-item margins never collapse. 4px more of our own reaches the same
+   24px total the other case gets from its margin alone. */
+.ruleTight { margin-top: 4px; }
+
+/* Replaces the shared "section" class on the grid: same bottom padding
+   (space before whatever follows the page), but its own top padding is
+   24px instead of the much larger site-wide default, since the rule
+   itself contributes no space below it. */
+.gridSection {
+  padding: 24px 0 clamp(64px, 8vw, 120px);
 }
 
 .intro {
