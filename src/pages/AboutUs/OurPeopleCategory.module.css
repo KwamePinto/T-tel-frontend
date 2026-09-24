@@ -84,8 +84,23 @@
 /* The longer account some categories carry, set apart from the short
    description in the heading above: a wider column, generous type, and a
    drop cap on the opening paragraph so it reads as where the page begins
-   rather than as one more caption before the grid. */
-.introSection { padding: 4px 0 clamp(28px, 4vw, 48px); }
+   rather than as one more caption before the grid. The divider below it —
+   not a bottom padding here — is what puts the space between the account
+   and the line, so the gap is the same whether or not a category has one
+   of these paragraphs. */
+.introSection { padding: 4px 0 0; }
+
+/* The line beneath the account, above the photos, on every category —
+   with or without an intro paragraph. Its own top margin is the space
+   between the text above and the line; .section's top padding below is
+   the space between the line and the photos. */
+.rule {
+  display: block;
+  border: 0;
+  border-top: 2px solid var(--ink);
+  margin: clamp(48px, 6vw, 80px) 0 0;
+  opacity: 0.85;
+}
 
 .intro {
   max-width: 74ch;
