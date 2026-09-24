@@ -69,12 +69,16 @@ export default function OurPeopleCategory() {
 
       {/* One divider, wherever the account above it ends — with or without
           an intro paragraph — so the photos always follow the same line at
-          the same distance below it. */}
+          the same distance below it. SectionIntro's own lead sits in a CSS
+          grid, whose item margins never collapse, so its 20px margin-bottom
+          is already real, rendered space when there's no intro paragraph to
+          absorb it — ruleTight accounts for that so the gap above the line
+          comes out the same either way. */}
       <div className="container">
-        <hr className={styles.rule} />
+        <hr className={`${styles.rule} ${group?.intro ? "" : styles.ruleTight}`} />
       </div>
 
-      <section className="section">
+      <section className={styles.gridSection}>
         <div className="container">
           {people.loading && <CardsLoading count={8} />}
           {people.error && <ErrorState error={people.error} onRetry={people.reload} label={t("team")} />}
