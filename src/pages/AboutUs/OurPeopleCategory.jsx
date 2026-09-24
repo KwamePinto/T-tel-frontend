@@ -62,9 +62,17 @@ export default function OurPeopleCategory() {
         title={(group?.name || "").toUpperCase()}
         lead={group?.description}
         stacked
+        rule={false}
       />
 
       <GroupIntro text={group?.intro} />
+
+      {/* One divider, wherever the account above it ends — with or without
+          an intro paragraph — so the photos always follow the same line at
+          the same distance below it. */}
+      <div className="container">
+        <hr className={styles.rule} />
+      </div>
 
       <section className="section">
         <div className="container">
