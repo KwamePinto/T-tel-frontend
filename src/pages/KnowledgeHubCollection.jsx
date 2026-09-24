@@ -9,11 +9,17 @@ import { useCms } from "../hooks/useCms";
 import styles from "./KnowledgeHubCollection.module.css";
 import { t } from "../i18n";
 
-/* Secondary Education is published as four groups. The live site gives each
+/* Secondary Education is published as five groups. The live site gives each
    its own page; we filter the one collection in place, which keeps the sort,
-   search and paging controls working across all four. The tags are written by
-   the backend's tagSecondaryGroups script. */
+   search and paging controls working across all five. The tags are written by
+   the backend's syncKnowledgeHubWithLiveSite script, which aligns each group
+   to the matching page on t-tel.org.
+
+   The first of them is t-tel.org's own Secondary Education landing page —
+   the leadership standards and PLC handbooks a visitor meets before choosing
+   a sub-page. It shares no documents with the other four. */
 const SECONDARY_GROUPS = [
+  { tag: "leadership-and-plc-handbooks", lines: ["Leadership &", "PLC Handbooks"] },
   { tag: "departmental-plc-handbooks", lines: ["Departmental", "PLC Handbooks"] },
   { tag: "teacher-manuals-y1-book-1", lines: ["Teacher Manuals", "Year 1 Book 1"] },
   { tag: "teacher-manuals-y1-book-2", lines: ["Teacher Manuals", "Year 1 Book 2"] },
