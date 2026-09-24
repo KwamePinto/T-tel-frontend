@@ -31,6 +31,9 @@ function BooksMark() {
 }
 
 const SORTS = [
+  // the arrangement the collection is actually in — the same order t-tel.org
+  // lists these documents in, and what a visitor sees before choosing another
+  { value: "collection", label: "Collection Order" },
   { value: "date", label: "Publish Date" },
   { value: "title", label: "Title" },
   { value: "updated", label: "Update Date" },
@@ -51,7 +54,7 @@ export default function KnowledgeHubCollection() {
   const [params, setParams] = useSearchParams();
 
   const page = Number(params.get("page")) || 1;
-  const sort = params.get("sort") || "date";
+  const sort = params.get("sort") || "collection";
   const order = params.get("order") || "desc";
   const query = params.get("q") || "";
   const tag = params.get("tag") || "";
