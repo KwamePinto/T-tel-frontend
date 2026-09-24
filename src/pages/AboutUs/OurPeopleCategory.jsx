@@ -11,6 +11,31 @@ import { t } from "../../i18n";
 
 const TINTS = ["green", "blue", "gold", "greenAlt"];
 
+/**
+ * The account that precedes the photo grid on some categories (Subscribers,
+ * Board of Directors) — a longer paragraph than the one-line description in
+ * the heading above, drop-capped so it reads as the start of the page rather
+ * than as another caption. Arrives either as editor HTML or as plain text
+ * with blank lines between paragraphs, same convention as a person's bio.
+ */
+function GroupIntro({ text }) {
+  if (!text) return null;
+  const isHtml = /<[a-z][\s\S]*>/i.test(text);
+  return (
+    <section className={styles.introSection}>
+      <div className="container">
+        {isHtml ? (
+          <div className={`${styles.intro} reveal`} dangerouslySetInnerHTML={{ __html: text }} />
+        ) : (
+          <div className={`${styles.intro} reveal`}>
+            {text.split(/\n\s*\n/).filter(Boolean).map((para, i) => <p key={i}>{para}</p>)}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export default function OurPeopleCategory() {
   const { category } = useParams();
   const [selected, setSelected] = useState(null);
@@ -39,6 +64,8 @@ export default function OurPeopleCategory() {
         stacked
       />
 
+      <GroupIntro text={group?.intro} />
+
       <section className="section">
         <div className="container">
           {people.loading && <CardsLoading count={8} />}
@@ -62,10 +89,6 @@ export default function OurPeopleCategory() {
                   ) : (
                     <span className={styles.monogram}>T&ndash;TEL</span>
                   )}
-                  <span className={styles.ribbon}>
-                    {person.tag ||
-                      (/chair|director/i.test(person.position || "") ? "Leadership" : "Official")}
-                  </span>
                 </div>
                 <div className={styles.body}>
                   <h3>{person.name}</h3>

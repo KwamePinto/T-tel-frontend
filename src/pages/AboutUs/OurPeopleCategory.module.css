@@ -59,20 +59,6 @@
   color: rgba(255, 255, 255, 0.45);
 }
 
-.ribbon {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 6px 14px;
-  background: rgba(10, 16, 12, 0.72);
-  color: #fff;
-  font-size: calc(11.8px * var(--ts));
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
 .body { padding: 18px 18px 22px; }
 
 .body h3 {
@@ -93,3 +79,30 @@
    260px wide and read as thumbnails. Three gives each face room without the
    directory turning into a wall of cards. */
 @media (min-width: 760px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---- group intro paragraph ---- */
+/* The longer account some categories carry, set apart from the short
+   description in the heading above: a wider column, generous type, and a
+   drop cap on the opening paragraph so it reads as where the page begins
+   rather than as one more caption before the grid. */
+.introSection { padding: 4px 0 clamp(28px, 4vw, 48px); }
+
+.intro {
+  max-width: 74ch;
+  font-size: calc(17.5px * var(--ts));
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+
+.intro p { margin: 0 0 16px; }
+.intro p:last-child { margin-bottom: 0; }
+
+.intro p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.6em;
+  line-height: 0.82;
+  padding: 0.04em 0.08em 0 0;
+  color: var(--green-dark);
+}

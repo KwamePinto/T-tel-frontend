@@ -49,7 +49,6 @@ export const People = () => (
         { key: "photo", label: "", render: col.image("photo") },
         { key: "name", label: "Name", render: col.title("name", "position") },
         { key: "group", label: "Group", render: col.ref("group") },
-        { key: "tag", label: "Tag", render: col.text("tag") },
         { key: "status", label: "Status", render: col.status() },
       ],
       fields: [
@@ -60,7 +59,6 @@ export const People = () => (
         { name: "bio", label: "Biography", type: "richtext", placeholder: "A short profile…" },
         { name: "email", label: "Email", type: "email" },
         { name: "linkedin", label: "LinkedIn URL", type: "url" },
-        { name: "tag", label: "Ribbon label", hint: "Optional badge on the card, e.g. “Leadership”." },
         { name: "sortOrder", label: "Sort order", type: "number", hint: "Lower numbers appear first." },
         { name: "status", label: "Status", type: "select", options: ["draft", "published"] },
       ],
@@ -83,7 +81,14 @@ export const PersonGroups = () => (
       ],
       fields: [
         { name: "name", label: "Name", required: true, placeholder: "Board of Directors" },
-        { name: "description", label: "Description", type: "textarea", rows: 3 },
+        {
+          name: "description", label: "Short description", type: "textarea", rows: 2,
+          hint: "One line, shown next to the heading at the top of this category's page.",
+        },
+        {
+          name: "intro", label: "Intro paragraph", type: "richtext",
+          hint: "Optional. Shown as a lead-in paragraph above the photo grid — leave blank for no intro.",
+        },
         { name: "sortOrder", label: "Sort order", type: "number" },
       ],
     }}
