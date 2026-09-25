@@ -12,11 +12,12 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 22px rgba(20, 18, 16, 0.05);
+  transition: box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
-/* Same pattern as the Knowledge Hub's own .cover: a plain button wrapping
-   the picture, its own hover feedback (lift + shadow), and a single "Read"
-   label that slides up from beneath it rather than sitting there always. */
+.card:hover,
+.card:focus-within { box-shadow: 0 20px 44px rgba(20, 18, 16, 0.16); transform: translateY(-4px); }
+
 .thumb {
   position: relative;
   display: block;
@@ -27,10 +28,8 @@
   background: var(--bg-alt);
   overflow: hidden;
   cursor: pointer;
-  transition: box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
-.thumb:hover { box-shadow: 0 20px 44px rgba(20, 18, 16, 0.16); transform: translateY(-4px); }
 .thumb:disabled { cursor: not-allowed; }
 
 .thumb img {
@@ -38,11 +37,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.9s var(--ease-out);
 }
-
-.thumb:hover img,
-.thumb:focus-visible img { transform: scale(1.06); }
 
 .thumbFallback {
   display: grid;
