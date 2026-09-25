@@ -2,6 +2,7 @@ import { useState } from "react";
 import CmsHero from "../../components/CmsHero";
 import Seo from "../../components/Seo";
 import Icon from "../../components/Icon";
+import DocumentCover from "../../components/DocumentCover";
 import PdfPreview, { openPreview } from "../../components/PdfPreview";
 import { CardsLoading, ErrorState, EmptyState } from "../../components/States";
 import { cms, mediaUrl } from "../../lib/cms";
@@ -60,8 +61,8 @@ export default function OurPolicies() {
           <div className={styles.grid}>
             {items.map((policy, i) => (
               <article key={policy._id} className={`${styles.card} reveal`} data-delay={String(i % 3)}>
-                <div className={styles.thumb}>
-                  {policy.thumbnail?.url && <img src={mediaUrl(policy.thumbnail)} alt="" loading="lazy" />}
+                <div className={styles.thumbWrap}>
+                  <DocumentCover doc={policy} onOpen={() => preview(policy)} className={styles.cover} />
                   <span className={styles.pill}>
                     <b>{policy.file?.mime === "application/pdf" ? "PDF" : "FILE"}</b>
                     <i>{formatSize(policy.file?.size)}</i>
@@ -75,29 +76,23 @@ export default function OurPolicies() {
                       month: "short", year: "numeric",
                     })}
                   </span>
-                  <h3>{policy.title}</h3>
+                  <h3 className={styles.title}>
+                    {/* the cover already reads it on hover; the title is the
+                        same click for anyone whose cursor lands here instead */}
+                    <button type="button" title={policy.title} onClick={() => preview(policy)}>
+                      {policy.title}
+                    </button>
+                  </h3>
                   <p>{policy.description}</p>
-                  <hr />
-                  <div className={styles.actions}>
-                    <button
-                      type="button"
-                      className={styles.read}
-                      onClick={() => preview(policy)}
-                      disabled={!policy.file?.url}
-                    >
-                      <Icon name="eye" size={15} />
-                      {t("Read")}
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.download}
-                      onClick={() => handleDownload(policy)}
-                      disabled={!policy.file?.url}
-                    >
-                      <Icon name="download" size={15} />
-                      {t("Download")}
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    className={styles.download}
+                    onClick={() => handleDownload(policy)}
+                    disabled={!policy.file?.url}
+                  >
+                    <Icon name="download" size={15} />
+                    {t("Download")}
+                  </button>
                 </div>
               </article>
             ))}

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import PageHero from "../components/PageHero";
 import Icon from "../components/Icon";
+import DocumentCover from "../components/DocumentCover";
 import PdfPreview, { openPreview } from "../components/PdfPreview";
 import { CardsLoading, ErrorState, EmptyState } from "../components/States";
 import { cms, mediaUrl } from "../lib/cms";
@@ -223,29 +224,11 @@ export default function KnowledgeHubCollection() {
               <div className={styles.grid}>
                 {items.map((doc) => (
                   <article key={doc._id} className={styles.card}>
-                    <button
-                      type="button"
+                    <DocumentCover
+                      doc={doc}
+                      onOpen={() => preview(doc)}
                       className={styles.cover}
-                      onClick={() => preview(doc)}
-                      aria-label={`Read ${doc.title}`}
-                    >
-                      {doc.thumbnail?.url ? (
-                        <img
-                          src={mediaUrl(doc.thumbnail)}
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                          width="480"
-                          height="640"
-                        />
-                      ) : (
-                        <span className={styles.coverFallback}>{t("PDF")}</span>
-                      )}
-                      <span className={styles.coverOverlay}>
-                        <Icon name="eye" size={20} />
-                        {t("Read")}
-                      </span>
-                    </button>
+                    />
 
                     <h3 className={styles.title}>
                       {/* title attribute: the card clamps long names to four
