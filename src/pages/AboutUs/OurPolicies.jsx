@@ -71,7 +71,13 @@ export default function OurPolicies() {
                   disabled={!policy.file?.url}
                   aria-label={`${t("Read")} ${policy.title}`}
                 >
-                  {policy.thumbnail?.url && <img src={mediaUrl(policy.thumbnail)} alt="" loading="lazy" />}
+                  {policy.thumbnail?.url ? (
+                    <img src={mediaUrl(policy.thumbnail)} alt="" loading="lazy" />
+                  ) : (
+                    <span className={styles.thumbFallback}>
+                      {policy.file?.mime === "application/pdf" ? "PDF" : "FILE"}
+                    </span>
+                  )}
                   <span className={styles.pill}>
                     <b>{policy.file?.mime === "application/pdf" ? "PDF" : "FILE"}</b>
                     <i>{formatSize(policy.file?.size)}</i>
