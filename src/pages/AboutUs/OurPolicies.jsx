@@ -23,6 +23,8 @@ export default function OurPolicies() {
   const items = data?.items ?? [];
   const [reading, setReading] = useState(null);
 
+  // Downloading happens from inside the opened preview; there is no separate
+  // download control on the card.
   async function handleDownload(doc) {
     try {
       const { url } = await cms.trackDownload(doc._id);
@@ -32,7 +34,6 @@ export default function OurPolicies() {
     }
   }
 
-  // reading and saving stay separate, so the download figures keep their meaning
   const preview = (doc) => openPreview(doc, setReading);
 
   return (
@@ -60,13 +61,26 @@ export default function OurPolicies() {
           <div className={styles.grid}>
             {items.map((policy, i) => (
               <article key={policy._id} className={`${styles.card} reveal`} data-delay={String(i % 3)}>
-                <div className={styles.thumb}>
+                {/* Same pattern as the Knowledge Hub's own cover: a plain
+                    thumbnail at rest, with a single "Read" label that slides
+                    up from beneath it on hover or focus. */}
+                <button
+                  type="button"
+                  className={styles.thumb}
+                  onClick={() => preview(policy)}
+                  disabled={!policy.file?.url}
+                  aria-label={`${t("Read")} ${policy.title}`}
+                >
                   {policy.thumbnail?.url && <img src={mediaUrl(policy.thumbnail)} alt="" loading="lazy" />}
                   <span className={styles.pill}>
                     <b>{policy.file?.mime === "application/pdf" ? "PDF" : "FILE"}</b>
                     <i>{formatSize(policy.file?.size)}</i>
                   </span>
-                </div>
+                  <span className={styles.thumbOverlay}>
+                    <Icon name="eye" size={15} />
+                    {t("Read")}
+                  </span>
+                </button>
 
                 <div className={styles.body}>
                   <span className={styles.meta}>
@@ -77,27 +91,6 @@ export default function OurPolicies() {
                   </span>
                   <h3>{policy.title}</h3>
                   <p>{policy.description}</p>
-                  <hr />
-                  <div className={styles.actions}>
-                    <button
-                      type="button"
-                      className={styles.read}
-                      onClick={() => preview(policy)}
-                      disabled={!policy.file?.url}
-                    >
-                      <Icon name="eye" size={15} />
-                      {t("Read")}
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.download}
-                      onClick={() => handleDownload(policy)}
-                      disabled={!policy.file?.url}
-                    >
-                      <Icon name="download" size={15} />
-                      {t("Download")}
-                    </button>
-                  </div>
                 </div>
               </article>
             ))}
