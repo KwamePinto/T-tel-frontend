@@ -61,9 +61,6 @@ export default function OurPolicies() {
           <div className={styles.grid}>
             {items.map((policy, i) => (
               <article key={policy._id} className={`${styles.card} reveal`} data-delay={String(i % 3)}>
-                {/* Same pattern as the Knowledge Hub's own cover: a plain
-                    thumbnail at rest, with a single "Read" label that slides
-                    up from beneath it on hover or focus. */}
                 <button
                   type="button"
                   className={styles.thumb}
@@ -82,10 +79,6 @@ export default function OurPolicies() {
                     <b>{policy.file?.mime === "application/pdf" ? "PDF" : "FILE"}</b>
                     <i>{formatSize(policy.file?.size)}</i>
                   </span>
-                  <span className={styles.thumbOverlay}>
-                    <Icon name="eye" size={15} />
-                    {t("Read")}
-                  </span>
                 </button>
 
                 <div className={styles.body}>
@@ -98,6 +91,19 @@ export default function OurPolicies() {
                   <h3>{policy.title}</h3>
                   <p>{policy.description}</p>
                 </div>
+
+                {/* Hidden until the card is hovered or focused, then slides up
+                    from the card's own base — not the thumbnail's. */}
+                <button
+                  type="button"
+                  className={styles.readOverlay}
+                  onClick={() => preview(policy)}
+                  disabled={!policy.file?.url}
+                  aria-label={`${t("Read")} ${policy.title}`}
+                >
+                  <Icon name="eye" size={15} />
+                  {t("Read")}
+                </button>
               </article>
             ))}
           </div>
