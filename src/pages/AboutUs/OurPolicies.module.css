@@ -73,10 +73,13 @@
 }
 
 /* Hidden until the card is hovered or focused, then slides up from the
-   card's own base. */
+   card's own base. Its height is reserved as extra bottom padding on
+   .body below, so revealing it never covers the description text. */
 .readOverlay {
+  --h: 46px;
   position: absolute;
   inset: auto 0 0 0;
+  height: var(--h);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,7 +98,7 @@
 .card:hover .readOverlay,
 .card:focus-within .readOverlay { transform: none; }
 
-.body { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+.body { padding: 24px 26px calc(26px + 46px); display: flex; flex-direction: column; flex: 1; }
 
 .meta {
   font-size: calc(12.9px * var(--ts));
