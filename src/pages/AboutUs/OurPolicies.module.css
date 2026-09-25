@@ -11,21 +11,36 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 22px rgba(20, 18, 16, 0.05);
-  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 24px 48px rgba(20, 18, 16, 0.12);
+/* Same pattern as the Knowledge Hub's own .cover: a plain button wrapping
+   the picture, its own hover feedback (lift + shadow), and a single "Read"
+   label that slides up from beneath it rather than sitting there always. */
+.thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--bg-alt);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
-.thumb { position: relative; }
+.thumb:hover { box-shadow: 0 20px 44px rgba(20, 18, 16, 0.16); transform: translateY(-4px); }
+.thumb:disabled { cursor: not-allowed; }
 
 .thumb img {
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;
+  display: block;
+  transition: transform 0.9s var(--ease-out);
 }
+
+.thumb:hover img,
+.thumb:focus-visible img { transform: scale(1.06); }
 
 .pill {
   position: absolute;
@@ -49,6 +64,27 @@
   font-style: normal;
 }
 
+/* Hidden until the thumbnail is hovered or focused, then slides up from the
+   bottom edge — identical treatment to the Knowledge Hub's coverOverlay. */
+.thumbOverlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(11, 92, 79, 0.94);
+  color: #fff;
+  font-size: calc(14.5px * var(--ts));
+  font-weight: 600;
+  transform: translateY(100%);
+  transition: transform 0.3s var(--ease);
+}
+
+.thumb:hover .thumbOverlay,
+.thumb:focus-visible .thumbOverlay { transform: none; }
+
 .body { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
 
 .meta {
@@ -61,54 +97,9 @@
 }
 
 .card h3 { font-size: calc(23.5px * var(--ts)); margin-bottom: 10px; }
-.card p { font-size: calc(16.8px * var(--ts)); color: var(--text-soft); margin-bottom: 20px; flex: 1; }
-
-.body hr { border: 0; border-top: 1px solid var(--line-soft); margin: 0 0 16px; }
-
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: calc(13.4px * var(--ts));
-  color: var(--text-soft);
-}
-
-.actions button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: none;
-  background: transparent;
-  padding: 0;
-  font-family: var(--font-display);
-  font-size: calc(13.4px * var(--ts));
-  font-weight: 700;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-  cursor: pointer;
-}
-
-/* only a button with nothing to open refuses the click */
-.actions button:disabled { cursor: not-allowed; }
-
-.download { color: var(--green-dark) !important; }
-
-/* Reading is the primary action now, so it carries the accent and the
-   download sits beside it as the quieter of the two. */
-.read { color: var(--accent) !important; }
-.read::after {
-  content: "";
-  width: 1px;
-  height: 13px;
-  margin-left: 10px;
-  background: var(--line-soft);
-}
+.card p { font-size: calc(16.8px * var(--ts)); color: var(--text-soft); margin: 0; }
 
 .note { margin-top: 40px; font-size: calc(16.2px * var(--ts)); color: var(--text-soft); }
 
 @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1040px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-
-.thumb img { transition: transform 0.9s var(--ease-out); }
-.card:hover .thumb img { transform: scale(1.06); }
