@@ -113,53 +113,17 @@
 
 .card { display: flex; flex-direction: column; }
 
+/* Composed onto DocumentCover's own .cover class (see components/DocumentCover)
+   — that owns the image, the fallback and the hover-reveal label; this is
+   only the shape this page's cards happen to use. */
 .cover {
-  position: relative;
-  display: block;
-  width: 100%;
   aspect-ratio: 3 / 4;
-  padding: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--bg-alt);
-  overflow: hidden;
-  cursor: pointer;
   transition: box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
-.cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-.coverFallback {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  font-size: calc(22px * var(--ts));
-  font-weight: 700;
-  color: var(--text-soft);
-  letter-spacing: 0.06em;
-}
-
 .cover:hover { box-shadow: 0 20px 44px rgba(20, 18, 16, 0.16); transform: translateY(-4px); }
-
-.coverOverlay {
-  position: absolute;
-  inset: auto 0 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px;
-  background: rgba(11, 92, 79, 0.94);
-  color: #fff;
-  font-size: calc(14.5px * var(--ts));
-  font-weight: 600;
-  transform: translateY(100%);
-  transition: transform 0.3s var(--ease);
-}
-
-.cover:hover .coverOverlay,
-.cover:focus-visible .coverOverlay { transform: none; }
 
 .title { margin: 14px 0 6px; }
 
