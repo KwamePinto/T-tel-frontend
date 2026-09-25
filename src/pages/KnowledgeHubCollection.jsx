@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import PageHero from "../components/PageHero";
 import Icon from "../components/Icon";
-import DocumentCover from "../components/DocumentCover";
+import DocumentCard from "../components/DocumentCard";
 import PdfPreview, { openPreview } from "../components/PdfPreview";
 import { CardsLoading, ErrorState, EmptyState } from "../components/States";
 import { cms, mediaUrl } from "../lib/cms";
@@ -224,33 +224,14 @@ export default function KnowledgeHubCollection() {
               <div className={styles.grid}>
                 {items.map((doc) => (
                   <article key={doc._id} className={styles.card}>
-                    <DocumentCover
-                      doc={doc}
-                      onOpen={() => preview(doc)}
-                      className={styles.cover}
-                    />
-
-                    <h3 className={styles.title}>
+                    <DocumentCard doc={doc} onOpen={() => preview(doc)} mediaClassName={styles.cover}>
                       {/* title attribute: the card clamps long names to four
                           lines, so the full one stays reachable on hover */}
-                      <button type="button" title={doc.title} onClick={() => preview(doc)}>
-                        {doc.title}
-                      </button>
-                    </h3>
-
-                    <p className={styles.meta}>
-                      {[doc.year, fileSize(doc.file?.size)].filter(Boolean).join(" · ")}
-                    </p>
-
-                    <button
-                      type="button"
-                      className={styles.save}
-                      onClick={() => download(doc)}
-                      aria-label={`Download ${doc.title}`}
-                    >
-                      <Icon name="download" size={15} />
-                      {t("Download")}
-                    </button>
+                      <h3 className={styles.title} title={doc.title}>{doc.title}</h3>
+                      <p className={styles.meta}>
+                        {[doc.year, fileSize(doc.file?.size)].filter(Boolean).join(" · ")}
+                      </p>
+                    </DocumentCard>
                   </article>
                 ))}
               </div>
