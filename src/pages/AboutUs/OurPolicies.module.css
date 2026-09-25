@@ -4,6 +4,7 @@
 .grid { display: grid; gap: 26px; }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: var(--bg);
@@ -76,9 +77,9 @@
   font-style: normal;
 }
 
-/* Hidden until the thumbnail is hovered or focused, then slides up from the
-   bottom edge — identical treatment to the Knowledge Hub's coverOverlay. */
-.thumbOverlay {
+/* Hidden until the card is hovered or focused, then slides up from the
+   card's own base. */
+.readOverlay {
   position: absolute;
   inset: auto 0 0 0;
   display: flex;
@@ -86,16 +87,18 @@
   justify-content: center;
   gap: 8px;
   padding: 12px;
+  border: 0;
   background: rgba(11, 92, 79, 0.94);
   color: #fff;
   font-size: calc(14.5px * var(--ts));
   font-weight: 600;
+  cursor: pointer;
   transform: translateY(100%);
   transition: transform 0.3s var(--ease);
 }
 
-.thumb:hover .thumbOverlay,
-.thumb:focus-visible .thumbOverlay { transform: none; }
+.card:hover .readOverlay,
+.card:focus-within .readOverlay { transform: none; }
 
 .body { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
 
