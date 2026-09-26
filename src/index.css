@@ -300,6 +300,20 @@ p { margin: 0 0 18px; }
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
+/* Written by the rich text editor's Drop cap button (or seeded directly onto
+   a post/page's first letter) — a single global rule so it renders the same
+   wherever rich content is shown, without every page's own CSS module having
+   to repeat it. */
+.dropcap {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.78;
+  padding: 4px 4px 0 0;
+  color: var(--ink);
+  font-size: 3.4em;
+}
+
 /* ---------- shared surfaces ---------- */
 .band-dark { background: var(--green-deep); color: #fff; }
 .band-dark h1, .band-dark h2, .band-dark h3, .band-dark h4 { color: #fff; }
