@@ -87,6 +87,12 @@ export default function RichText({ value = "", onChange, placeholder = "Write so
     run("insertHTML", `<table><thead>${head}</thead><tbody>${body}</tbody></table><p><br></p>`);
   }
 
+  function dropCap() {
+    const text = window.getSelection()?.toString() || "";
+    if (!text) return window.alert("Highlight a letter first, then click Drop cap.");
+    run("insertHTML", `<span class="dropcap">${text}</span>`);
+  }
+
   function addVideo() {
     const url = window.prompt("YouTube or Vimeo URL");
     if (!url) return;
@@ -158,6 +164,7 @@ export default function RichText({ value = "", onChange, placeholder = "Write so
           />
         ))}
         <Tool cmd="hiliteColor" label="▤" title="Highlight" on={false} onClick={() => run("hiliteColor", "#fff3b0")} />
+        <Tool label="A" title="Drop cap — highlight a letter first" style={{ fontSize: 17, fontWeight: 800, fontFamily: "Georgia, serif" }} on={false} onClick={dropCap} />
 
         <span className={s.sep} />
         <Tool label="🔗" title="Insert link" on={false} onClick={addLink} />
