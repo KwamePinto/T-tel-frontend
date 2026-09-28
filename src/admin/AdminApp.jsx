@@ -16,8 +16,9 @@ import Users, { Profile } from "./pages/Users";
 import { Forms, FormEditor, Submissions } from "./pages/Forms";
 import { Theme, Authentication } from "./pages/Settings";
 import AdminFAQ from "./pages/AdminFAQ";
+import Partners from "./pages/Partners";
 import {
-  ContentTypes, People, PersonGroups, Partners, PartnerGroups, Documents, DocumentCategories,
+  ContentTypes, People, PersonGroups, Documents, DocumentCategories,
   Events, EventCategories,
 } from "./pages/resources";
 import "./admin.css";
@@ -64,7 +65,8 @@ export default function AdminApp() {
               <Route path="people" element={<People />} />
               <Route path="people/groups" element={<PersonGroups />} />
               <Route path="partners" element={<Partners />} />
-              <Route path="partner-groups" element={<PartnerGroups />} />
+              {/* merged into the Partners screen's own "Groups" tab */}
+              <Route path="partner-groups" element={<Navigate to="/admin/partners?tab=groups" replace />} />
               <Route path="documents" element={<Documents />} />
               <Route path="documents/collections" element={<DocumentCategories />} />
               <Route path="faq" element={<AdminFAQ />} />

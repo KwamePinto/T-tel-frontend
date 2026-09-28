@@ -72,7 +72,7 @@ const BLUEPRINTS = {
       {
         type: "partnerGroups",
         label: "Partner group presentation",
-        hint: "The groups and partner records are editable from Partner Groups and Partners.",
+        hint: "The groups and partner records are editable from Partners (its Groups tab and its Partners tab).",
         fields: [
           {
             key: "items",
@@ -90,8 +90,8 @@ const BLUEPRINTS = {
       },
     ],
     managedIn: [
-      { label: "Partner Groups", to: "/admin/partner-groups" },
       { label: "Partners", to: "/admin/partners" },
+      { label: "Groups", to: "/admin/partners?tab=groups" },
     ],
   },
 

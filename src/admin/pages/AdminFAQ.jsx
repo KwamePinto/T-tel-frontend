@@ -138,17 +138,17 @@ const FAQS = [
   {
     category: "People and partners",
     question: "How do I manage Partners and partner groups?",
-    where: ["Sidebar", "T-TEL", "Partners", "and", "Partner Groups"],
-    answer: "Unlike Our People, a partner can belong to several Partner Groups at once — its Groups field is a set of checkboxes, so tick every section it should appear under (for example both \"Funder\" and \"Technical partner\"). Principal partner shows the logo larger and ahead of the rest; Show on the homepage additionally surfaces it on the public homepage's partner strip, independent of which groups it belongs to.",
+    where: ["Sidebar", "T-TEL", "Partners"],
+    answer: "Partners and the groups they're organised into share one screen, switched with the Partners/Groups tabs at the top — no separate sidebar item to go hunting for. Unlike Our People, a partner can belong to several groups at once — its Groups field is a set of checkboxes, so tick every section it should appear under (for example both \"Funder\" and \"Technical partner\"). Principal partner shows the logo larger and ahead of the rest; Show on the homepage additionally surfaces it on the public homepage's partner strip, independent of which groups it belongs to.",
     steps: [
-      "Open Partner Groups first if a new grouping is needed (name, description, sort order).",
-      "Open Partners and click New Partner, or open an existing row to edit it.",
+      "Open Partners; if a new grouping is needed first, switch to its Groups tab and add one (name, description, sort order).",
+      "Switch back to the Partners tab and click New Partner, or open an existing row to edit it.",
       "Enter the name, tick every relevant group in the Groups checklist, and add the website URL.",
       "Upload or select the logo — a transparent PNG or SVG renders best against the page background.",
       "Toggle Principal partner if it should be shown larger, and Show on the homepage if it should appear there too.",
       "Set Sort order to control its position, save, and check both the public partner page and the homepage strip if relevant.",
     ],
-    links: [{ label: "Manage partners", to: "/admin/partners" }, { label: "Manage partner groups", to: "/admin/partner-groups" }],
+    links: [{ label: "Manage partners", to: "/admin/partners" }, { label: "Manage groups", to: "/admin/partners?tab=groups" }],
   },
   {
     category: "Knowledge Hub",

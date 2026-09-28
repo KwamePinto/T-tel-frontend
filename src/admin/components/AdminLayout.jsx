@@ -35,7 +35,6 @@ export const NAV = [
     items: [
       { to: "/admin/people", label: "Our People", icon: "people" },
       { to: "/admin/partners", label: "Partners", icon: "partners" },
-      { to: "/admin/partner-groups", label: "Partner Groups", icon: "partners" },
       { to: "/admin/documents", label: "Knowledge Hub", icon: "documents" },
       { to: "/admin/faq", label: "Admin FAQ", icon: "help" },
     ],
