@@ -33,7 +33,15 @@ function summarise(section) {
   return section.type === "split" ? `${section.image ? "image" : "no image"} · ${words}` : words;
 }
 
-export default function SectionsEditor({ value = [], onChange }) {
+export default function SectionsEditor({ value = [], onChange, contentTypeSlug }) {
+  // The "facts" block renders differently depending on where it's used:
+  // Focus Areas keep it inline as a pinned side panel; Programmes strip it
+  // out of the narrative and show it as its own full-width band lower down
+  // the page (see ProgrammeDetail.jsx). Same field, different result, so the
+  // hint has to say which one applies here rather than a single generic line.
+  const factsHint = contentTypeSlug === "programmes"
+    ? "Pulled out and shown as its own figures band below the narrative — not inline beside the text. Bold a line to turn it into a heading, as with “Project Amount”."
+    : "The narrow panel pinned beside the text. Bold a line to turn it into a heading, as with “Project Amount”.";
   const [openIndex, setOpenIndex] = useState(null);
   const sections = value || [];
 
@@ -143,10 +151,7 @@ export default function SectionsEditor({ value = [], onChange }) {
                   {section.type === "facts" && (
                     <div className={s.sub}>
                       <span className={s.subLabel}>Details panel</span>
-                      <p className={s.subHint}>
-                        The narrow panel beside the text. Bold a line to turn it into a heading,
-                        as with “Project Amount”.
-                      </p>
+                      <p className={s.subHint}>{factsHint}</p>
                       <RichText value={section.aside || ""} onChange={(aside) => update(i, { aside })} />
                     </div>
                   )}

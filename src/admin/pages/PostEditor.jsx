@@ -104,7 +104,13 @@ export default function PostEditor() {
   );
 
   const selectedType = (types?.items || []).find((t) => t._id === form.contentType);
-  const urlPrefix = POST_URL_PREFIX[selectedType?.slug] || "news-and-media";
+  const typeSlug = selectedType?.slug || "";
+  const urlPrefix = POST_URL_PREFIX[typeSlug] || "news-and-media";
+  // What each content type's own public page actually reads — Page blocks
+  // and Key information both silently do nothing outside these, which is
+  // confusing rather than harmless, so they're only shown where they work.
+  const supportsBlocks = typeSlug === "focus-areas" || typeSlug === "programmes";
+  const supportsKeyInfo = typeSlug === "focus-areas";
 
   async function save() {
     if (!form.title.trim()) return toast.error("A title is required.");
@@ -120,12 +126,14 @@ export default function PostEditor() {
         publishedAt: form.publishedAt ? new Date(form.publishedAt).toISOString() : null,
         contentType: form.contentType || null,
         featuredImage: form.featuredImage?._id || form.featuredImage || null,
-        // the editor holds populated media objects; the API stores ids
-        sections: (form.sections || []).map((sec) => ({
-          ...sec,
-          image: sec.image?._id || sec.image || null,
-        })),
-        keyInfo: form.keyInfo,
+        // the editor holds populated media objects; the API stores ids.
+        // Cleared instead of carried over when the current Content Type
+        // doesn't read them, so switching a post's type away from Focus
+        // Areas/Programmes doesn't leave stale, invisible config behind.
+        sections: supportsBlocks
+          ? (form.sections || []).map((sec) => ({ ...sec, image: sec.image?._id || sec.image || null }))
+          : [],
+        keyInfo: supportsKeyInfo ? form.keyInfo : EMPTY.keyInfo,
         navPlacement: form.navPlacement,
         translations: form.translations,
         tagNames: tagInput.split(",").map((t) => t.trim()).filter(Boolean),
@@ -192,7 +200,10 @@ export default function PostEditor() {
           </RailSection>
 
           <RailSection title="Content Type">
-            <Field required hint="Blog posts appear under News & Media; focus areas drive the homepage carousel.">
+            <Field
+              required
+              hint="Blog posts appear under News & Media, using only the Content field below. Focus Areas and Programmes can also use Page blocks to lay text out beside images. Focus Areas additionally get a Key information panel below; Programmes get a figures band instead, added as a Details panel block."
+            >
               <Select
                 placeholder="Choose a type…"
                 value={form.contentType}
@@ -267,47 +278,49 @@ export default function PostEditor() {
             />
           </RailSection>
 
-          <RailSection title="Key information" defaultOpen={false}>
-            <Field
-              label="Small line above the heading"
-              hint="The panel that stays beside the text as the reader scrolls a Focus Area. Leave the heading empty and no panel is shown."
-            >
-              <Input
-                value={form.keyInfo.label || ""}
-                onChange={(e) => setKeyInfo({ label: e.target.value })}
-                placeholder="Institutional Links"
-              />
-            </Field>
-            <Field label="Heading">
-              <Input
-                value={form.keyInfo.title || ""}
-                onChange={(e) => setKeyInfo({ title: e.target.value })}
-                placeholder="Delivery Partners"
-              />
-            </Field>
-            <Field label="Text">
-              <Textarea
-                rows={5}
-                value={form.keyInfo.html || ""}
-                onChange={(e) => setKeyInfo({ html: e.target.value })}
-                placeholder="Who delivers this work, and with whom…"
-              />
-            </Field>
-            <Field label="Link text">
-              <Input
-                value={form.keyInfo.linkLabel || ""}
-                onChange={(e) => setKeyInfo({ linkLabel: e.target.value })}
-                placeholder="All partners"
-              />
-            </Field>
-            <Field label="Link address">
-              <Input
-                value={form.keyInfo.linkUrl || ""}
-                onChange={(e) => setKeyInfo({ linkUrl: e.target.value })}
-                placeholder="/about-us/our-partners"
-              />
-            </Field>
-          </RailSection>
+          {supportsKeyInfo && (
+            <RailSection title="Key information" defaultOpen={false}>
+              <Field
+                label="Small line above the heading"
+                hint="The panel that stays pinned beside the text as the reader scrolls this Focus Area. Leave the heading empty and no panel is shown — this is the only place this panel appears; it has no effect on Blog posts or Programmes."
+              >
+                <Input
+                  value={form.keyInfo.label || ""}
+                  onChange={(e) => setKeyInfo({ label: e.target.value })}
+                  placeholder="Institutional Links"
+                />
+              </Field>
+              <Field label="Heading">
+                <Input
+                  value={form.keyInfo.title || ""}
+                  onChange={(e) => setKeyInfo({ title: e.target.value })}
+                  placeholder="Delivery Partners"
+                />
+              </Field>
+              <Field label="Text">
+                <Textarea
+                  rows={5}
+                  value={form.keyInfo.html || ""}
+                  onChange={(e) => setKeyInfo({ html: e.target.value })}
+                  placeholder="Who delivers this work, and with whom…"
+                />
+              </Field>
+              <Field label="Link text">
+                <Input
+                  value={form.keyInfo.linkLabel || ""}
+                  onChange={(e) => setKeyInfo({ linkLabel: e.target.value })}
+                  placeholder="All partners"
+                />
+              </Field>
+              <Field label="Link address">
+                <Input
+                  value={form.keyInfo.linkUrl || ""}
+                  onChange={(e) => setKeyInfo({ linkUrl: e.target.value })}
+                  placeholder="/about-us/our-partners"
+                />
+              </Field>
+            </RailSection>
+          )}
         </Rail>
       }
     >
@@ -319,13 +332,15 @@ export default function PostEditor() {
         prefix={`/${urlPrefix}/`}
       />
 
-      <Card>
-        <CardHead title="Page blocks" />
-        <SectionsEditor value={form.sections} onChange={(sections) => set({ sections })} />
-      </Card>
+      {supportsBlocks && (
+        <Card>
+          <CardHead title="Page blocks" />
+          <SectionsEditor value={form.sections} onChange={(sections) => set({ sections })} contentTypeSlug={typeSlug} />
+        </Card>
+      )}
 
       <Card>
-        <CardHead title={form.sections?.length ? "Content — unused while blocks exist" : "Content"} />
+        <CardHead title={supportsBlocks && form.sections?.length ? "Content — unused while blocks exist" : "Content"} />
         <RichText
           value={form.body}
           onChange={(body) => set({ body })}
