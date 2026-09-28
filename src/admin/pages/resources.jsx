@@ -134,8 +134,10 @@ export const Partners = () => (
         },
         { name: "description", label: "Description", type: "textarea", rows: 3 },
         { name: "url", label: "Website", type: "url", placeholder: "https://" },
-        { name: "isPrincipal", label: "Principal partner", type: "toggle", hint: "Shown larger, ahead of the others." },
-        { name: "showOnHome", label: "Show on the homepage", type: "toggle" },
+        {
+          name: "showOnHome", label: "Show on the homepage", type: "toggle",
+          hint: "Only affects the homepage's funders strip at the foot of the page — has no effect on a partner outside the Funder group.",
+        },
         { name: "sortOrder", label: "Sort order", type: "number" },
       ],
       defaults: { groups: ["funder"], showOnHome: true },

@@ -73,6 +73,16 @@
   margin: 3px 0 0;
 }
 
+.description {
+  margin: 0;
+  padding: 10px 22px;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--line-soft);
+  font-size: calc(13.5px * var(--ts));
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
 .actions {
   display: flex;
   align-items: center;

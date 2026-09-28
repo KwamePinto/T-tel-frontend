@@ -124,9 +124,12 @@ export default function Home() {
   const { settings, flag } = useSite();
 
   const articles = useCms(() => cms.posts({ type: "blog", limit: 12 }), []);
-  // Funders only — the row at the foot of the page is a funders strip, so the
-  // group is asked for here rather than filtered after everything has arrived.
-  const partners = useCms(() => cms.partners({ group: "funder" }), []);
+  // Funders only, and only the ones curated for the homepage — the row at the
+  // foot of the page is a funders strip, so both are asked for here rather
+  // than filtered after everything has arrived. `home` was previously left
+  // off this call entirely, so every funder showed here regardless of its
+  // own "Show on the homepage" toggle in the admin — that field did nothing.
+  const partners = useCms(() => cms.partners({ group: "funder", home: true }), []);
 
   const posts = articles.data?.items ?? [];
   const partnerList = partners.data?.items ?? [];

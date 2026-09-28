@@ -111,6 +111,8 @@ export default function PdfPreview({ doc, onClose, onDownload }) {
           </div>
         </header>
 
+        {doc.description && <p className={styles.description}>{doc.description}</p>}
+
         <div className={styles.frame}>
           {!ready && (
             <div className={styles.loading} aria-live="polite">
