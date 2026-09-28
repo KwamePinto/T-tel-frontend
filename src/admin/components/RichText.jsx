@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { MediaPickerModal } from "./MediaPicker";
+import { mediaUrl } from "../../lib/cms";
 import s from "./RichText.module.css";
 
 /* execCommand is deprecated but is still the only cross-browser way to get a
@@ -21,12 +23,13 @@ const ALIGN = [
 
 const COLOURS = ["#111827", "#e2574c", "#027f6c", "#023e38", "#4f46e5", "#b45309"];
 
-export default function RichText({ value = "", onChange, placeholder = "Write something…", onPickImage }) {
+export default function RichText({ value = "", onChange, placeholder = "Write something…" }) {
   const ref = useRef(null);
   const [focused, setFocused] = useState(false);
   const [source, setSource] = useState(false);
   const [active, setActive] = useState({});
   const [block, setBlock] = useState("p");
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   // Only push external values in when they differ, or the caret jumps on every keystroke.
   useEffect(() => {
@@ -73,9 +76,7 @@ export default function RichText({ value = "", onChange, placeholder = "Write so
   }
 
   function addImage() {
-    if (onPickImage) return onPickImage((url) => run("insertImage", url));
-    const url = window.prompt("Image URL");
-    if (url) run("insertImage", url);
+    setPickerOpen(true);
   }
 
   function addTable() {
@@ -212,6 +213,13 @@ export default function RichText({ value = "", onChange, placeholder = "Write so
         <span>{source ? "Editing raw HTML" : "Rich text"}</span>
         <span>{words} word{words === 1 ? "" : "s"}</span>
       </div>
+
+      {pickerOpen && (
+        <MediaPickerModal
+          onSelect={(media) => run("insertImage", mediaUrl(media))}
+          onClose={() => setPickerOpen(false)}
+        />
+      )}
     </div>
   );
 }
