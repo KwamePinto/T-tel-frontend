@@ -16,6 +16,14 @@ const LOCATIONS = [
 
 const uid = () => `tmp-${Math.random().toString(36).slice(2)}`;
 
+// A post's public address depends on its Content Type — these aren't Pages,
+// so their URLs don't follow a page's own slug directly.
+const POST_URL_PREFIX = { blog: "news-and-media", "focus-areas": "focus-areas", programmes: "programmes" };
+const postUrl = (post) => {
+  const prefix = POST_URL_PREFIX[post.contentType?.slug];
+  return prefix ? `/${prefix}/${post.slug}` : null;
+};
+
 export default function Menus() {
   const toast = useToast();
   const { data, loading, error, reload } = useAsync(() => api.menus.list({ limit: 50 }), []);
@@ -109,6 +117,7 @@ function MenuBuilder({ menu, onEditMenu, onDeleteMenu }) {
   const toast = useToast();
   const { data, loading, error, reload } = useAsync(() => api.menuItems.list(menu._id), [menu._id]);
   const { data: pages } = useAsync(() => api.pages.list({ limit: 200, status: "published" }), []);
+  const { data: posts } = useAsync(() => api.posts.list({ limit: 200, status: "published" }), []);
 
   const [items, setItems] = useState([]);
   const [dirty, setDirty] = useState(false);
@@ -257,6 +266,10 @@ function MenuBuilder({ menu, onEditMenu, onDeleteMenu }) {
 
           <datalist id={`pages-${menu._id}`}>
             {(pages?.items || []).map((p) => <option key={p._id} value={`/${p.slug}`}>{p.title}</option>)}
+            {(posts?.items || []).map((post) => {
+              const url = postUrl(post);
+              return url ? <option key={post._id} value={url}>{`${post.title} (${post.contentType?.name})`}</option> : null;
+            })}
           </datalist>
 
           <div className={s.builderFoot}>
