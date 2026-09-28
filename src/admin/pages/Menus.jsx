@@ -125,7 +125,11 @@ function MenuBuilder({ menu, onEditMenu, onDeleteMenu }) {
   const [dragId, setDragId] = useState(null);
 
   useEffect(() => {
-    // the API returns a flat, sorted list; parents come through as ids
+    // the API returns a flat, sorted list; parents come through as ids.
+    // linkType/linkRef are carried through untouched, never edited here — an
+    // item with them set was created automatically from a Post/Page's own
+    // "show in navigation" field, and dropping them on a save would silently
+    // convert it back into a dead, unlinked url row.
     setItems(
       (data?.items || []).map((n) => ({
         id: String(n._id),
@@ -133,6 +137,8 @@ function MenuBuilder({ menu, onEditMenu, onDeleteMenu }) {
         url: n.url || "",
         target: n.target || "_self",
         parent: n.parent ? String(n.parent) : null,
+        linkType: n.linkType || "url",
+        linkRef: n.linkRef || null,
       })),
     );
     setDirty(false);
@@ -183,6 +189,8 @@ function MenuBuilder({ menu, onEditMenu, onDeleteMenu }) {
           url: i.url,
           target: i.target,
           sortOrder: index,
+          linkType: i.linkType || "url",
+          linkRef: i.linkRef || null,
         })),
       );
       toast.success("Menu saved");

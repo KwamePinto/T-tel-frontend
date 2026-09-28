@@ -9,6 +9,11 @@ import SectionsEditor from "../components/SectionsEditor";
 import { Button, Card, CardHead, ErrorBox, Field, Input, Select, TableSkeleton, Textarea, useToast } from "../components/ui";
 import TranslationPanel from "../components/TranslationPanel";
 
+// Mirrors the same map on the backend (services/navPlacement.js) and in the
+// Menus screen's own URL-suggestion list — a post's public address depends
+// on its Content Type, it isn't just its own slug.
+const POST_URL_PREFIX = { blog: "news-and-media", "focus-areas": "focus-areas", programmes: "programmes" };
+
 const EMPTY = {
   title: "",
   slug: "",
@@ -21,6 +26,7 @@ const EMPTY = {
   featuredImage: null,
   sections: [],
   keyInfo: { label: "", title: "", html: "", linkLabel: "", linkUrl: "" },
+  navPlacement: { parentUrl: "", label: "" },
   translations: {},
 };
 
@@ -49,6 +55,16 @@ export default function PostEditor() {
   );
   const { data: types } = useAsync(() => api.contentTypes.list({ limit: 100 }), []);
 
+  const { data: menus } = useAsync(() => api.menus.list({ limit: 50 }), []);
+  const mainMenuId = (menus?.items || []).find((m) => m.slug === "main")?._id;
+  const { data: menuItemsData } = useAsync(
+    () => (mainMenuId ? api.menuItems.list(mainMenuId) : Promise.resolve(null)),
+    [mainMenuId],
+  );
+  const navParentOptions = (menuItemsData?.items || [])
+    .filter((i) => !i.parent)
+    .map((i) => ({ value: i.url, label: i.label }));
+
   useEffect(() => {
     if (!post) return;
     setForm({
@@ -58,6 +74,7 @@ export default function PostEditor() {
       featuredImage: post.featuredImage || null,
       sections: post.sections || [],
       keyInfo: { ...EMPTY.keyInfo, ...(post.keyInfo || {}) },
+      navPlacement: { ...EMPTY.navPlacement, ...(post.navPlacement || {}) },
       translations: post.translations || {},
       publishedAt: toLocalInput(post.publishedAt),
       tags: post.tags || [],
@@ -76,10 +93,18 @@ export default function PostEditor() {
     setDirty(true);
   };
 
+  const setNavPlacement = (patch) => {
+    setForm((f) => ({ ...f, navPlacement: { ...f.navPlacement, ...patch } }));
+    setDirty(true);
+  };
+
   const typeOptions = useMemo(
     () => (types?.items || []).map((t) => ({ value: t._id, label: t.name })),
     [types],
   );
+
+  const selectedType = (types?.items || []).find((t) => t._id === form.contentType);
+  const urlPrefix = POST_URL_PREFIX[selectedType?.slug] || "news-and-media";
 
   async function save() {
     if (!form.title.trim()) return toast.error("A title is required.");
@@ -101,6 +126,7 @@ export default function PostEditor() {
           image: sec.image?._id || sec.image || null,
         })),
         keyInfo: form.keyInfo,
+        navPlacement: form.navPlacement,
         translations: form.translations,
         tagNames: tagInput.split(",").map((t) => t.trim()).filter(Boolean),
       };
@@ -130,7 +156,7 @@ export default function PostEditor() {
       onSave={save}
       extraActions={
         !isNew && form.slug && form.status === "published" ? (
-          <a href={`/news-and-media/${form.slug}`} target="_blank" rel="noreferrer">
+          <a href={`/${urlPrefix}/${form.slug}`} target="_blank" rel="noreferrer">
             <Button type="button" icon="eye">View</Button>
           </a>
         ) : null
@@ -174,6 +200,29 @@ export default function PostEditor() {
                 options={typeOptions}
               />
             </Field>
+          </RailSection>
+
+          <RailSection title="Navigation">
+            <Field
+              label="Show under"
+              hint="Places this post in the header's dropdown, right away — no separate step in Menus. Leave as 'Not shown' to keep it out of the nav entirely."
+            >
+              <Select
+                placeholder="Not shown in navigation"
+                value={form.navPlacement?.parentUrl || ""}
+                onChange={(e) => setNavPlacement({ parentUrl: e.target.value })}
+                options={navParentOptions}
+              />
+            </Field>
+            {form.navPlacement?.parentUrl && (
+              <Field label="Menu label" hint="Leave blank to use the post's own title.">
+                <Input
+                  value={form.navPlacement?.label || ""}
+                  onChange={(e) => setNavPlacement({ label: e.target.value })}
+                  placeholder={form.title || "Menu label"}
+                />
+              </Field>
+            )}
           </RailSection>
 
           <RailSection title="Featured Image">
@@ -267,7 +316,7 @@ export default function PostEditor() {
         onChange={(title) => set({ title })}
         slug={form.slug}
         onSlugChange={(slug) => set({ slug })}
-        prefix="/news-and-media/"
+        prefix={`/${urlPrefix}/`}
       />
 
       <Card>
