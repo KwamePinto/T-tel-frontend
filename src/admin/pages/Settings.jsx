@@ -32,8 +32,11 @@ function FrenchField({ multiline, value, onChange }) {
   );
 }
 
-/** One settings field, rendered from the `type` stored alongside it. */
-function SettingField({ field, value, onChange, frValue, onFrChange, menus, forms }) {
+/** One settings field, rendered from the `type` stored alongside it. Exported
+ *  so a screen that only shows a handful of settings (e.g. the composite
+ *  Contact Us page) can render them exactly like the full Theme screen does,
+ *  instead of duplicating this switch. */
+export function SettingField({ field, value, onChange, frValue, onFrChange, menus, forms }) {
   const withFrench = (node, multiline) =>
     TRANSLATABLE.has(field.type) ? (
       <div className={s.fieldGroup}>

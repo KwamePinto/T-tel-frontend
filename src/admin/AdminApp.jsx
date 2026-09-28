@@ -16,6 +16,7 @@ import Users, { Profile } from "./pages/Users";
 import { Forms, FormEditor, Submissions } from "./pages/Forms";
 import { Theme, Authentication } from "./pages/Settings";
 import AdminFAQ from "./pages/AdminFAQ";
+import ContactPage from "./pages/ContactPage";
 import Partners from "./pages/Partners";
 import {
   ContentTypes, People, PersonGroups, Documents, DocumentCategories,
@@ -50,6 +51,7 @@ export default function AdminApp() {
 
               <Route path="pages" element={<Pages />} />
               <Route path="pages/:id" element={<PageEditor />} />
+              <Route path="contact-us" element={<ContactPage />} />
 
               <Route path="content-types" element={<ContentTypes />} />
               <Route path="media" element={<Media />} />

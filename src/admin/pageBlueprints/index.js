@@ -101,12 +101,11 @@ const BLUEPRINTS = {
   programmes: listing("Programmes", { of: "Programmes", to: "/admin/posts" }),
   "knowledge-hub": listing("Knowledge Hub", { of: "Documents", to: "/admin/documents" }),
   "news-and-media": listing("News & Media", { of: "Posts", to: "/admin/posts" }),
-  "contact-us": listing("Contact Us", {
-    of: "Contact details",
-    to: "/admin/theme",
-    summary:
-      "The hero at the top of the page. The address, phone numbers and map come from Theme settings, and messages sent through the form arrive under Forms.",
-  }),
+  "contact-us": {
+    label: "Contact Us",
+    summary: "Everything shown on this page — the hero, contact details, social links, and a link to the enquiry form's own fields — is edited from one place: Contact Us.",
+    managedIn: [{ label: "Contact Us", to: "/admin/contact-us" }],
+  },
   "join-us": {
     label: "Join Us",
     summary: "The hero at the top of the page. The rest of this page is fixed in the design.",

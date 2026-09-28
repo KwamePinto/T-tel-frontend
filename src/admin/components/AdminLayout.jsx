@@ -23,6 +23,7 @@ export const NAV = [
     items: [
       { to: "/admin/posts", label: "Posts", icon: "posts" },
       { to: "/admin/pages", label: "Pages", icon: "pages" },
+      { to: "/admin/contact-us", label: "Contact Us", icon: "mail" },
       { to: "/admin/content-types", label: "Content Types", icon: "types" },
       { to: "/admin/media", label: "Media", icon: "media" },
       { to: "/admin/menus", label: "Menus", icon: "menus" },
