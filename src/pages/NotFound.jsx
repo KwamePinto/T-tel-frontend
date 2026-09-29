@@ -11,7 +11,7 @@ export default function NotFound() {
         </span>
         <h1>{t("Page not found")}</h1>
         <p className="lede" style={{ margin: "0 auto 32px" }}>
-          {t("The page you were looking for doesn&rsquo;t exist or has moved.")}
+          {t("The page you were looking for doesn't exist or has moved.")}
         </p>
         <Link to="/" className="btn">
           {t("Back to home")}

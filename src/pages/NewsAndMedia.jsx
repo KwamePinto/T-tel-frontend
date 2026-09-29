@@ -44,7 +44,7 @@ export default function NewsAndMedia() {
 
   return (
     <>
-      <Seo title={t("News &amp; Media")} description="Announcements, field stories and press coverage from T-TEL and its partners across Ghana's education system." />
+      <Seo title={t("News and Media")} description="Announcements, field stories and press coverage from T-TEL and its partners across Ghana's education system." />
       <CmsHero
         slug="news-and-media"
         title={settings.blog_label || "News & Media"}
