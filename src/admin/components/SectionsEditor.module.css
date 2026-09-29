@@ -120,4 +120,29 @@
 
 .subHint { margin: 0; font-size: calc(12.5px * var(--ts)); line-height: 1.55; color: var(--a-muted); }
 
+/* Live preview of the public Details-panel rendering (ProgrammeDetail's own
+   ".details p"/".details strong" rules) — [contenteditable] targets the rich
+   text area's actual editable surface directly rather than one of its own
+   class names, since those belong to a different CSS module and can't be
+   referenced from here. Each paragraph becomes a bordered row exactly like
+   the published page, so bolding a line to start a new fact shows its final
+   shape immediately instead of only after saving. */
+.subFacts [contenteditable] p {
+  margin: 0 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--a-line);
+}
+
+.subFacts [contenteditable] p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+
+.subFacts [contenteditable] strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: calc(10.5px * var(--ts));
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--a-brand);
+}
+
 .add { display: flex; flex-wrap: wrap; gap: 8px; }

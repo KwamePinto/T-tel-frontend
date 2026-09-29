@@ -19,11 +19,11 @@
 /* the project's figures, authored as a run of paragraphs each opening with a
    bold label — the label becomes the caption above its value */
 .details p {
-  margin: 0 0 22px;
-  padding-bottom: 22px;
+  margin: 0 0 14px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
   font-size: calc(17px * var(--ts));
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--ink);
 }
 

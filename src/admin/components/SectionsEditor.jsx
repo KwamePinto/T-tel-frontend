@@ -40,7 +40,7 @@ export default function SectionsEditor({ value = [], onChange, contentTypeSlug }
   // the page (see ProgrammeDetail.jsx). Same field, different result, so the
   // hint has to say which one applies here rather than a single generic line.
   const factsHint = contentTypeSlug === "programmes"
-    ? "Pulled out and shown as its own figures band below the narrative — not inline beside the text. Bold a line to turn it into a heading, as with “Project Amount”."
+    ? "Pulled out and shown as its own figures band below the narrative — not inline beside the text. Give each fact its own paragraph, starting with a bolded label, as with “Project Amount”, and it gets its own bordered row — a note that isn't its own fact (like a source line) also needs its own paragraph to get a row."
     : "The narrow panel pinned beside the text. Bold a line to turn it into a heading, as with “Project Amount”.";
   const [openIndex, setOpenIndex] = useState(null);
   const sections = value || [];
@@ -149,7 +149,7 @@ export default function SectionsEditor({ value = [], onChange, contentTypeSlug }
                   )}
 
                   {section.type === "facts" && (
-                    <div className={s.sub}>
+                    <div className={`${s.sub} ${s.subFacts}`}>
                       <span className={s.subLabel}>Details panel</span>
                       <p className={s.subHint}>{factsHint}</p>
                       <RichText value={section.aside || ""} onChange={(aside) => update(i, { aside })} />
