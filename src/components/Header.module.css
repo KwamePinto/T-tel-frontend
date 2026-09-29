@@ -315,9 +315,29 @@
   cursor: pointer;
 }
 
-.mToggle svg { transition: transform 0.3s var(--ease); }
+/* A little overshoot rather than a plain ease — settles past fully open
+   before easing back, which is what reads as a "bounce" rather than a
+   mechanical snap. Used for both the chevron's turn and the panel's reveal
+   so the two read as one motion. */
+.mToggle svg { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-.mSub { padding-left: 16px; }
+/* The grid-rows trick: a 0fr row has no space to give its content, so the
+   list is fully clipped by the inner overflow:hidden despite being mounted
+   the whole time; animating to 1fr opens it to exactly the height its
+   content needs, with no fixed pixel height to calculate or keep in sync. */
+.mSubWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mSubWrapOpen { grid-template-rows: 1fr; }
+
+.mSub {
+  padding-left: 16px;
+  min-height: 0;
+  overflow: hidden;
+}
 
 .mSubLink {
   display: block;

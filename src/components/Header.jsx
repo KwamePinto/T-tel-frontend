@@ -126,7 +126,11 @@ function MobileNavItem({ item, onNavigate }) {
         {t(item.label)}
         <Icon name="chevronDown" size={18} style={{ transform: open ? "rotate(180deg)" : "none" }} />
       </button>
-      {open && (
+      {/* Always mounted — a conditional {open && …} pops the list in and out
+          instantly with nothing to transition. The grid-rows wrapper is what
+          gives the expand/collapse an actual height to animate between,
+          without needing to know the content's pixel height up front. */}
+      <div className={`${styles.mSubWrap} ${open ? styles.mSubWrapOpen : ""}`}>
         <ul className={styles.mSub}>
           <li>
             <Link to={item.to} onClick={onNavigate} className={styles.mSubLink}>
@@ -152,7 +156,7 @@ function MobileNavItem({ item, onNavigate }) {
             </li>
           ))}
         </ul>
-      )}
+      </div>
     </li>
   );
 }
