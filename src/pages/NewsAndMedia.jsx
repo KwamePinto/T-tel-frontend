@@ -188,7 +188,7 @@ export default function NewsAndMedia() {
                 </ol>
 
                 <div className={styles.press}>
-                  <h4>{t("Press &amp; Media")}</h4>
+                  <h4>{t("Press and Media")}</h4>
                   <p>{t("Access our digital assets and media kits for institutional coverage.")}</p>
                   <a href={`mailto:${settings.contact_email || "info@t-tel.org"}`} className={styles.pressLink}>
                     {t("Inquiries")}
