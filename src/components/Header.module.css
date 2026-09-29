@@ -177,11 +177,12 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  /* Pushes the actions to the top-right corner, away from the logo, on
+     every screen narrower than the desktop nav breakpoint below — .nav is
+     display:none here, but it still exists in the DOM, so a bare sibling
+     selector would apply regardless of that and needs to stay scoped to
+     where .nav is actually visible (see the override below). */
   margin-left: auto;
-}
-
-.nav + .actions {
-  margin-left: 0;
 }
 
 .iconBtn {
@@ -343,4 +344,8 @@
   .nav { display: flex; }
   .cta { display: inline-flex; }
   .burger { display: none; }
+  /* Once nav is a real, visible flex sibling (flex:1, centered), it already
+     fills the space between logo and actions — the auto margin above would
+     be redundant here, so actions sits flush against it instead. */
+  .nav + .actions { margin-left: 0; }
 }

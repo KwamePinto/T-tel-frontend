@@ -181,18 +181,20 @@ export default function Home() {
       <Seo description={settings.home_who_body} image={settings.hero_image_url} />
       {/* ---------------- HERO ---------------- */}
       <section className={styles.hero}>
-        <video
-          ref={videoRef}
-          className={styles.heroVideo}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-        >
-          <source src={mediaUrl(settings.hero_video_url) || "/video/hero.mp4"} type="video/mp4" />
-        </video>
+        <div className={styles.heroMedia}>
+          <video
+            ref={videoRef}
+            className={styles.heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+          >
+            <source src={mediaUrl(settings.hero_video_url) || "/video/hero.mp4"} type="video/mp4" />
+          </video>
+        </div>
 
         <button
           type="button"
