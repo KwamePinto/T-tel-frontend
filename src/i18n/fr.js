@@ -122,7 +122,7 @@ export default {
   "Safeguarding": "Protection",
   "Resources": "Ressources",
   "Latest Briefing": "Dernière note d’information",
-  "Press &amp; Media": "Presse et médias",
+  "Press and; Media": "Presse et médias",
   "Access our digital assets and media kits for institutional coverage.":
     "Accédez à nos ressources numériques et dossiers de presse pour vos publications.",
   "Available Positions": "Postes à pourvoir",
@@ -144,7 +144,7 @@ export default {
   "Loading document…": "Chargement du document…",
   "Error 404": "Erreur 404",
   "Page not found": "Page introuvable",
-  "The page you were looking for doesn&rsquo;t exist or has moved.":
+  "The page you were looking for doesnt exist or has moved.":
     "La page que vous cherchez n’existe pas ou a été déplacée.",
   "No articles published yet.": "Aucun article publié pour le moment.",
   "No collections published yet.": "Aucune collection publiée pour le moment.",
